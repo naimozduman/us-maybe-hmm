@@ -1,0 +1,35 @@
+{
+  "typecheck": false,
+  "lint": false,
+  "build": false,
+  "typecheck_tail": [
+    "npm error code ENOENT",
+    "npm error syscall open",
+    "npm error path /mnt/data/us-maybe/package.json",
+    "npm error errno -2",
+    "npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/mnt/data/us-maybe/package.json'",
+    "npm error enoent This is related to npm not being able to find a file.",
+    "npm error enoent",
+    "npm error A complete log of this run can be found in: /home/oai/.npm/_logs/2026-08-07T09_58_59_165Z-debug-0.log"
+  ],
+  "lint_tail": [
+    "npm error code ENOENT",
+    "npm error syscall open",
+    "npm error path /mnt/data/us-maybe/package.json",
+    "npm error errno -2",
+    "npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/mnt/data/us-maybe/package.json'",
+    "npm error enoent This is related to npm not being able to find a file.",
+    "npm error enoent",
+    "npm error A complete log of this run can be found in: /home/oai/.npm/_logs/2026-08-07T09_58_59_239Z-debug-0.log"
+  ],
+  "build_tail": [
+    "npm error code ENOENT",
+    "npm error syscall open",
+    "npm error path /mnt/data/us-maybe/package.json",
+    "npm error errno -2",
+    "npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/mnt/data/us-maybe/package.json'",
+    "npm error enoent This is related to npm not being able to find a file.",
+    "npm error enoent",
+    "npm error A complete log of this run can be found in: /home/oai/.npm/_logs/2026-08-07T09_58_59_314Z-debug-0.log"
+  ]
+}

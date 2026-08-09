@@ -1,0 +1,141 @@
+
+:root {
+  --font-sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+}
+@import "tailwindcss";
+
+:root {
+  --background: #f6f0e7;
+  --surface: #fffaf3;
+  --surface-strong: #ffffff;
+  --foreground: #24211f;
+  --muted: #746d67;
+  --border: #ddd2c7;
+  --accent: #a63f55;
+  --accent-hover: #8c3046;
+  --accent-soft: #f2dce2;
+  --sage: #607466;
+  --sage-soft: #dde8df;
+  --warning: #9a6825;
+  --warning-soft: #f4e5c8;
+  --danger: #9e3737;
+  --danger-soft: #f3d7d5;
+  --info: #4c6479;
+  --info-soft: #dde7ef;
+  --shadow: 0 18px 60px rgba(74, 52, 38, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 12% 4%, rgba(166, 63, 85, 0.08), transparent 32rem),
+    radial-gradient(circle at 90% 8%, rgba(96, 116, 102, 0.10), transparent 30rem),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--foreground);
+}
+
+:focus-visible {
+  outline: 3px solid rgba(166, 63, 85, 0.30);
+  outline-offset: 3px;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(116, 109, 103, 0.45) transparent;
+}
+
+.paper-grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.paper-grain::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+}
+
+.fade-up {
+  animation: fade-up 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.soft-enter {
+  animation: soft-enter 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.7s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes soft-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.45; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
