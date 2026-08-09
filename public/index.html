@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f2ea">
+  <title>Us, Maybe?</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: #f7f2ea;
+      color: #211e1a;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main {
+      width: min(100%, 520px);
+      padding: 32px;
+      border: 1px solid #ded5c9;
+      border-radius: 24px;
+      background: #fffdfc;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(44, 35, 30, .08);
+    }
+    h1 { margin: 0 0 12px; font: 600 42px/1.05 Georgia, serif; }
+    p { margin: 0; color: #6f675e; line-height: 1.6; }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      margin: 24px auto 0;
+      border: 3px solid #eadde0;
+      border-top-color: #b64e5e;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+    button {
+      display: none;
+      width: 100%;
+      margin-top: 22px;
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 14px;
+      background: #b64e5e;
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Us, Maybe?</h1>
+    <p id="status">Opening the private experience…</p>
+    <div class="spinner" id="spinner" aria-hidden="true"></div>
+    <button id="retry" type="button">Try again</button>
+  </main>
+  <script>
+    const APP_SOURCE = "https://qqkuudjxbsyfngvmwocz.supabase.co/functions/v1/us-maybe-app/";
+
+    async function openApp() {
+      const status = document.getElementById("status");
+      const spinner = document.getElementById("spinner");
+      const retry = document.getElementById("retry");
+      status.textContent = "Opening the private experience…";
+      spinner.style.display = "block";
+      retry.style.display = "none";
+
+      try {
+        const response = await fetch(APP_SOURCE, { cache: "no-store", credentials: "omit" });
+        if (!response.ok) throw new Error(`Application server returned ${response.status}.`);
+        const html = await response.text();
+        if (!html.includes("Us, Maybe?") || !html.includes("id=\"app\"")) {
+          throw new Error("The application response was incomplete.");
+        }
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (error) {
+        console.error(error);
+        status.textContent = "The application did not open. Please try again.";
+        spinner.style.display = "none";
+        retry.style.display = "block";
+      }
+    }
+
+    document.getElementById("retry").addEventListener("click", openApp);
+    openApp();
+  </script>
+</body>
+</html>
