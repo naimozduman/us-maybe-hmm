@@ -1437,6 +1437,7 @@ function route() {
   if (path.startsWith("/i/")) return { type: "candidate", token: decodeURIComponent(path.slice(3)) };
   if (path === "/admin/forgot") return { type: "admin-forgot" };
   if (path === "/admin/reset") return { type: "admin-reset" };
+  if (path === "/admin/secure-reset") return { type: "admin-secure-reset" };
   if (path === "/admin" || path === "/admin/login") return { type: "admin" };
   if (hash.startsWith("admin/candidate/")) return { type: "admin-candidate", id: decodeURIComponent(hash.slice("admin/candidate/".length)) };
   if (hash === "admin/profile") return { type: "admin-profile" };
@@ -1930,6 +1931,18 @@ function recoverySession() {
   return { access_token: accessToken, refresh_token: values.get("refresh_token"), expires_at: Math.floor(Date.now() / 1000) + Number(values.get("expires_in") || 3600) };
 }
 
+function ownerResetToken() {
+  return new URLSearchParams(location.hash.replace(/^#/, "")).get("token") || "";
+}
+
+async function completeOwnerReset(token, password) {
+  return fetchJson(`${SUPABASE_URL}/functions/v1/um-owner-reset`, {
+    method: "POST",
+    headers: { apikey: SUPABASE_KEY, "Content-Type": "application/json" },
+    body: JSON.stringify({ token, password })
+  });
+}
+
 async function refreshAuth(session) {
   const data = await fetchJson(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
     method: "POST",
@@ -2041,6 +2054,29 @@ function renderPasswordReset(error = "") {
       history.replaceState({}, "", "/admin/login");
       renderAdminLogin("Password updated. Sign in with your new password.");
     } catch (resetError) { renderPasswordReset(resetError.message); }
+  });
+}
+
+function renderSecureOwnerReset(error = "") {
+  document.documentElement.dir = "ltr";
+  document.documentElement.lang = "en";
+  const token = ownerResetToken();
+  const body = token
+    ? `<p>Choose a new password. This recovery link expires in 15 minutes and works once.</p><form data-secure-owner-reset-form><label>New password<input class="input" name="password" type="password" minlength="12" autocomplete="new-password" required></label><label>Confirm password<input class="input" name="confirm" type="password" minlength="12" autocomplete="new-password" required></label>${error ? `<div class="notice notice-bad">${escapeHtml(error)}</div>` : ""}<button class="button button-primary button-wide" type="submit">Update password</button></form>`
+    : `<p>This recovery link is missing or has expired.</p>`;
+  appRoot.innerHTML = `<main class="auth-shell"><section class="auth-card"><div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div><p class="small-caps">Secure owner recovery</p><h1>Choose a new password.</h1>${body}<button class="back-link" data-back-login>← Back to sign in</button></section></main>`;
+  appRoot.querySelector("[data-back-login]")?.addEventListener("click", () => setPath("/admin/login"));
+  appRoot.querySelector("[data-secure-owner-reset-form]")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.password.value !== form.confirm.value) return renderSecureOwnerReset("Passwords do not match.");
+    const button = form.querySelector("button");
+    button.disabled = true; button.textContent = "Updating…";
+    try {
+      await completeOwnerReset(token, form.password.value);
+      history.replaceState({}, "", "/admin/login");
+      renderAdminLogin("Password updated. Sign in with your new password.");
+    } catch (resetError) { renderSecureOwnerReset(resetError.message); }
   });
 }
 
@@ -2270,6 +2306,7 @@ async function boot() {
   if (current.type === "home") return renderHome();
   if (current.type === "admin-forgot") return renderPasswordResetRequest();
   if (current.type === "admin-reset") return renderPasswordReset();
+  if (current.type === "admin-secure-reset") return renderSecureOwnerReset();
   if (current.type === "candidate") { const app = new CandidateExperience(current.token); activeCleanup = () => app.cleanup(); return app.start(); }
   if (current.type === "admin-candidate") { const app = new CandidateDetail(current.id); activeCleanup = () => app.cleanup(); return app.start(); }
   if (current.type === "admin-profile") { const app = new AdminProfile(); activeCleanup = () => app.cleanup(); return app.start(); }
