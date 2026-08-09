@@ -186,7 +186,8 @@ textarea.tall { min-height: 200px; }
 .nav-item { width: 100%; min-height: 44px; border: 0; border-radius: 12px; padding: 0 12px; display: flex; align-items: center; gap: 11px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 760; text-align: left; cursor: pointer; }
 .nav-item:hover { background: var(--ivory); color: var(--ink); }
 .nav-item.active { background: var(--rose-soft); color: var(--rose-dark); }
-.nav-item span { width: 18px; text-align: center; font-size: 16px; }
+.nav-item .nav-icon { width: 18px; text-align: center; font-size: 16px; line-height: 1; }
+.nav-item .nav-label { min-width: 0; }
 .sidebar-bottom { margin-top: auto; }
 .admin-content { min-width: 0; padding: 32px; }
 .admin-page { width: min(1320px, 100%); margin: 0 auto; }
@@ -223,7 +224,8 @@ textarea.tall { min-height: 200px; }
 .candidate-progress-cell, .candidate-last { display: grid; gap: 3px; }
 .candidate-progress-cell strong, .candidate-last strong { font-size: 12px; }
 .candidate-progress-cell span, .candidate-last span { max-width: 185px; color: var(--quiet); font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.row-arrow { color: var(--quiet); font-size: 23px; }
+.row-arrow { display: flex; align-items: center; justify-content: flex-end; gap: 4px; color: var(--quiet); font-size: 23px; }
+.row-action { display: none; color: var(--rose-dark); font-family: var(--sans); font-size: 10px; font-weight: 820; white-space: nowrap; }
 .empty-panel { padding: 68px 24px; text-align: center; }
 .empty-panel h3 { margin: 16px 0 7px; font-family: var(--serif); font-size: 27px; font-weight: 500; }
 .empty-panel p { max-width: 470px; margin: 0 auto; color: var(--muted); font-size: 13px; line-height: 1.65; }
@@ -354,11 +356,11 @@ textarea.tall { min-height: 200px; }
   .profile-layout { gap: 30px; }
   .admin-shell { grid-template-columns: 82px minmax(0,1fr); }
   .admin-sidebar { padding: 20px 12px; }
-  .admin-sidebar .brand span:last-child, .nav-item:not(.active) { }
   .admin-sidebar .brand { justify-content: center; padding-left: 0; padding-right: 0; }
   .admin-sidebar .brand > span:last-child { display: none; }
   .nav-item { justify-content: center; padding: 0; font-size: 0; }
-  .nav-item span { font-size: 17px; }
+  .nav-item .nav-label { display: none; }
+  .nav-item .nav-icon { font-size: 17px; }
   .candidate-table-head, .candidate-row { grid-template-columns: minmax(220px,1fr) 100px 90px 150px 20px; }
   .summary-grid { grid-template-columns: 1fr; }
   .review-panel { position: static; }
@@ -389,10 +391,12 @@ textarea.tall { min-height: 200px; }
   .admin-sidebar { position: fixed; z-index: 80; left: 0; right: 0; bottom: 0; top: auto; width: 100%; height: 64px; padding: 7px 10px; display: grid; grid-template-columns: 1fr auto; border-right: 0; border-top: 1px solid var(--line); }
   .admin-sidebar .brand { display: none; }
   .admin-sidebar nav { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; }
-  .nav-item { min-width: 54px; min-height: 48px; }
+  .nav-item { min-width: 54px; min-height: 48px; flex-direction: column; justify-content: center; gap: 2px; }
+  .nav-item .nav-label { display: block; font-size: 9px; line-height: 1; letter-spacing: -.01em; }
+  .nav-item .nav-icon { font-size: 16px; }
   .nav-item.active { background: var(--rose-soft); }
   .sidebar-bottom { margin: 0; }
-  .sidebar-bottom .nav-item { width: 48px; }
+  .sidebar-bottom .nav-item { width: 62px; }
   .admin-content { padding: 20px 12px; }
   .admin-top { align-items: flex-start; }
   .admin-top h1 { font-size: 40px; }
@@ -404,7 +408,8 @@ textarea.tall { min-height: 200px; }
   .candidate-progress-cell { grid-column: 2; grid-row: 2; }
   .candidate-last { grid-column: 1; grid-row: 2; }
   .candidate-last span, .candidate-progress-cell span { display: none; }
-  .row-arrow { grid-column: 3; grid-row: 2; }
+  .row-arrow { grid-column: 3; grid-row: 2; font-size: 19px; }
+  .row-action { display: inline; }
   .drawer-card { padding: 34px 22px; }
   .detail-header { grid-template-columns: auto auto minmax(0,1fr); }
   .detail-actions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
@@ -2081,7 +2086,7 @@ function renderSecureOwnerReset(error = "") {
 }
 
 function adminShell(content, active = "candidates") {
-  return `<main class="admin-shell"><aside class="admin-sidebar"><div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div><nav><button class="nav-item ${active === "candidates" ? "active" : ""}" data-route="admin"><span>◌</span>Candidates</button><button class="nav-item ${active === "profile" ? "active" : ""}" data-route="admin/profile"><span>◇</span>My profile</button><button class="nav-item ${active === "account" ? "active" : ""}" data-route="admin/account"><span>⌁</span>Account</button></nav><div class="sidebar-bottom"><button class="nav-item" data-logout><span>↗</span>Sign out</button></div></aside><section class="admin-content">${content}</section></main>`;
+  return `<main class="admin-shell"><aside class="admin-sidebar"><div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div><nav><button class="nav-item ${active === "candidates" ? "active" : ""}" data-route="admin" aria-label="Candidates" title="Candidates"><span class="nav-icon" aria-hidden="true">◉</span><span class="nav-label">Candidates</span></button><button class="nav-item ${active === "profile" ? "active" : ""}" data-route="admin/profile" aria-label="My profile" title="My profile"><span class="nav-icon" aria-hidden="true">◇</span><span class="nav-label">My profile</span></button><button class="nav-item ${active === "account" ? "active" : ""}" data-route="admin/account" aria-label="Account" title="Account"><span class="nav-icon" aria-hidden="true">⚙</span><span class="nav-label">Account</span></button></nav><div class="sidebar-bottom"><button class="nav-item" data-logout aria-label="Sign out" title="Sign out"><span class="nav-icon" aria-hidden="true">↗</span><span class="nav-label">Sign out</span></button></div></aside><section class="admin-content">${content}</section></main>`;
 }
 
 function bindAdminShell() {
@@ -2149,9 +2154,11 @@ class AdminDashboard {
     const rows = this.invitations.length ? this.invitations.map((invite) => {
       const session = this.latestSession(invite.id);
       const isOnline = online(session);
-      return `<button class="candidate-row" data-candidate="${invite.id}"><div class="candidate-avatar">${escapeHtml(invite.first_name.slice(0, 1).toUpperCase())}</div><div class="candidate-main"><div class="candidate-name-line"><strong>${escapeHtml(invite.first_name)}</strong>${isOnline ? `<span class="online-dot"></span><span class="online-copy">Online</span>` : ""}</div><span>${escapeHtml(invite.source || "Private invitation")} · ${escapeHtml(languageDisplay[invite.language_hint] || "Any language")}</span></div><div class="candidate-status">${statusBadge(invite.status)}</div><div class="candidate-progress-cell"><strong>${Math.round(Number(session?.progress || 0))}%</strong><span>${this.answerCount(invite.id)} answers</span></div><div class="candidate-last"><strong>${relativeTime(session?.last_seen_at || invite.updated_at)}</strong><span>${escapeHtml(session?.current_question_id || session?.current_screen || "Not opened")}</span></div><div class="row-arrow">›</div></button>`;
+      const savedAnswers = this.answerCount(invite.id);
+      const actionLabel = savedAnswers ? "View answers" : "Open candidate";
+      return `<button class="candidate-row" data-candidate="${invite.id}" aria-label="${actionLabel} for ${escapeHtml(invite.first_name)}"><div class="candidate-avatar">${escapeHtml(invite.first_name.slice(0, 1).toUpperCase())}</div><div class="candidate-main"><div class="candidate-name-line"><strong>${escapeHtml(invite.first_name)}</strong>${isOnline ? `<span class="online-dot"></span><span class="online-copy">Online</span>` : ""}</div><span>${escapeHtml(invite.source || "Private invitation")} · ${escapeHtml(languageDisplay[invite.language_hint] || "Any language")}</span></div><div class="candidate-status">${statusBadge(invite.status)}</div><div class="candidate-progress-cell"><strong>${Math.round(Number(session?.progress || 0))}%</strong><span>${savedAnswers} answers</span></div><div class="candidate-last"><strong>${relativeTime(session?.last_seen_at || invite.updated_at)}</strong><span>${escapeHtml(session?.current_question_id || session?.current_screen || "Not opened")}</span></div><div class="row-arrow"><span class="row-action">${actionLabel}</span><span aria-hidden="true">›</span></div></button>`;
     }).join("") : `<div class="empty-panel"><div class="empty-icon">${heartMark(28)}</div><h3>No invitations yet</h3><p>Create one private link when you are ready to continue talking with someone.</p></div>`;
-    appRoot.innerHTML = adminShell(`<div class="admin-page"><header class="admin-top"><div><p class="small-caps">Private compatibility dashboard</p><h1>Candidates</h1><p>See answers as they are saved, even before submission.</p></div><button class="button button-primary" data-new-invite>New invitation</button></header><div class="metric-grid"><div class="metric-card"><span>Total invitations</span><strong>${total}</strong></div><div class="metric-card"><span>Active now</span><strong>${active}</strong></div><div class="metric-card"><span>Submitted</span><strong>${submitted}</strong></div><div class="metric-card"><span>Need review</span><strong>${review}</strong></div></div><section class="candidate-panel"><div class="panel-header"><h2>All candidates</h2><span>Checks for updates every 4 seconds</span></div><div class="candidate-table-head"><span>Candidate</span><span>Status</span><span>Progress</span><span>Last activity</span><span></span></div>${rows}</section></div><div class="drawer-layer" data-invite-drawer hidden><div class="drawer-card"><button class="modal-close" data-close-drawer>×</button><p class="small-caps">Unique private link</p><h2>Create an invitation</h2><p>The name stays inside your dashboard. The URL receives a random secret only.</p><form class="field-stack" data-invite-form><label>First name<input class="input" name="firstName" maxlength="80" required></label><label>Where you matched<input class="input" name="source" maxlength="120" placeholder="Hinge, Muzz, Instagram…"></label><label>Suggested language<select class="input" name="language"><option value="">Let her choose</option>${Object.entries(languageDisplay).map(([key, label]) => `<option value="${key}">${escapeHtml(label)}</option>`).join("")}</select></label><label>Link expiration<select class="input" name="days"><option value="7">7 days</option><option value="14" selected>14 days</option><option value="30">30 days</option><option value="60">60 days</option></select></label><button class="button button-primary button-wide" type="submit">Create private link</button></form><div data-created-link></div></div></div>`, "candidates");
+    appRoot.innerHTML = adminShell(`<div class="admin-page"><header class="admin-top"><div><p class="small-caps">Private compatibility dashboard</p><h1>Candidates</h1><p>See answers as they are saved, even before submission.</p></div><button class="button button-primary" data-new-invite>New invitation</button></header><div class="metric-grid"><div class="metric-card"><span>Total invitations</span><strong>${total}</strong></div><div class="metric-card"><span>Active now</span><strong>${active}</strong></div><div class="metric-card"><span>Submitted</span><strong>${submitted}</strong></div><div class="metric-card"><span>Need review</span><strong>${review}</strong></div></div><section class="candidate-panel"><div class="panel-header"><h2>All candidates</h2><span>Tap a candidate to view results</span></div><div class="candidate-table-head"><span>Candidate</span><span>Status</span><span>Progress</span><span>Last activity</span><span></span></div>${rows}</section></div><div class="drawer-layer" data-invite-drawer hidden><div class="drawer-card"><button class="modal-close" data-close-drawer>×</button><p class="small-caps">Unique private link</p><h2>Create an invitation</h2><p>The name stays inside your dashboard. The URL receives a random secret only.</p><form class="field-stack" data-invite-form><label>First name<input class="input" name="firstName" maxlength="80" required></label><label>Where you matched<input class="input" name="source" maxlength="120" placeholder="Hinge, Muzz, Instagram…"></label><label>Suggested language<select class="input" name="language"><option value="">Let her choose</option>${Object.entries(languageDisplay).map(([key, label]) => `<option value="${key}">${escapeHtml(label)}</option>`).join("")}</select></label><label>Link expiration<select class="input" name="days"><option value="7">7 days</option><option value="14" selected>14 days</option><option value="30">30 days</option><option value="60">60 days</option></select></label><button class="button button-primary button-wide" type="submit">Create private link</button></form><div data-created-link></div></div></div>`, "candidates");
     bindAdminShell();
     appRoot.querySelectorAll("[data-candidate]").forEach((button) => button.addEventListener("click", () => setRoute(`admin/candidate/${button.dataset.candidate}`)));
     const drawer = appRoot.querySelector("[data-invite-drawer]");
@@ -2188,7 +2195,7 @@ const eventNames = {
 };
 
 class CandidateDetail {
-  constructor(id) { this.id = id; this.interval = null; this.tab = "summary"; this.bundle = null; this.snapshot = ""; this.refreshing = false; this.pendingRender = false; }
+  constructor(id) { this.id = id; this.interval = null; this.tab = null; this.bundle = null; this.snapshot = ""; this.refreshing = false; this.pendingRender = false; }
   cleanup() { if (this.interval) clearInterval(this.interval); this.interval = null; }
   async start() {
     if (!(await validAuth())) { renderAdminLogin(); return; }
@@ -2216,6 +2223,7 @@ class CandidateDetail {
       const changed = snapshot !== this.snapshot;
       this.bundle = next;
       this.snapshot = snapshot;
+      if (!this.tab) this.tab = next.answers.length ? "answers" : "summary";
       const focused = document.activeElement;
       const editing = focused && appRoot.contains(focused) && ["INPUT", "TEXTAREA", "SELECT"].includes(focused.tagName);
       if (!silent || changed || this.pendingRender) {
