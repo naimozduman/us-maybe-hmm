@@ -1,9 +1,10 @@
 [build]
 builder = "NIXPACKS"
+buildCommand = "npm ci && npm run build"
 
 [deploy]
 startCommand = "npm run start"
-healthcheckPath = "/"
+healthcheckPath = "/api/health"
 healthcheckTimeout = 120
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
