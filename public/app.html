@@ -1,0 +1,2222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f2ea">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Us, Maybe?</title>
+<style>:root {
+  --ink: #211d1a;
+  --muted: #746b64;
+  --quiet: #9a8f86;
+  --paper: #fffdfa;
+  --ivory: #f7f2ea;
+  --ivory-2: #efe7dc;
+  --rose: #b64f5e;
+  --rose-dark: #943c4b;
+  --rose-soft: #f3dce0;
+  --sage: #72816e;
+  --green: #3e7357;
+  --green-soft: #dfece4;
+  --amber: #9c6b2f;
+  --amber-soft: #f4e8d5;
+  --red: #a84646;
+  --red-soft: #f4dddd;
+  --line: rgba(57, 47, 42, .14);
+  --shadow: 0 28px 80px rgba(52, 39, 32, .12);
+  --radius: 22px;
+  --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  --serif: Iowan Old Style, Palatino Linotype, Book Antiqua, Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+html { min-height: 100%; background: var(--ivory); color: var(--ink); }
+body { min-height: 100%; margin: 0; font-family: var(--sans); background:
+  radial-gradient(circle at 8% 5%, rgba(182,79,94,.10), transparent 28%),
+  radial-gradient(circle at 92% 95%, rgba(114,129,110,.10), transparent 30%),
+  var(--ivory); color: var(--ink); }
+button, input, textarea, select { font: inherit; }
+button { color: inherit; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid rgba(182,79,94,.25); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 800; letter-spacing: -.03em; }
+.brand-mark { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; color: var(--rose); background: var(--rose-soft); }
+.small-caps { margin: 0 0 14px; color: var(--rose-dark); font-size: 11px; line-height: 1.2; font-weight: 850; letter-spacing: .16em; text-transform: uppercase; }
+.micro-copy, .quiet-copy { color: var(--quiet); font-size: 13px; line-height: 1.6; }
+
+.button { min-height: 46px; padding: 0 20px; border: 1px solid transparent; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 800; cursor: pointer; transition: transform .16s ease, background .16s ease, border-color .16s ease, opacity .16s ease; }
+.button:hover:not(:disabled) { transform: translateY(-1px); }
+.button:active:not(:disabled) { transform: translateY(0); }
+.button:disabled { opacity: .55; cursor: wait; }
+.button-primary { background: var(--rose); color: #fff; box-shadow: 0 12px 28px rgba(182,79,94,.22); }
+.button-primary:hover:not(:disabled) { background: var(--rose-dark); }
+.button-quiet { background: rgba(255,255,255,.72); border-color: var(--line); color: var(--ink); }
+.button-quiet:hover:not(:disabled) { background: #fff; border-color: rgba(57,47,42,.25); }
+.button-danger { background: var(--red); color: #fff; }
+.button-danger-soft { background: var(--red-soft); color: var(--red); border-color: rgba(168,70,70,.18); }
+.button-wide { width: 100%; }
+.text-button, .back-link { border: 0; background: transparent; padding: 7px 0; color: var(--muted); font-size: 13px; font-weight: 750; cursor: pointer; }
+.text-button:hover, .back-link:hover { color: var(--rose-dark); }
+
+.input { width: 100%; min-height: 48px; border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: rgba(255,255,255,.92); color: var(--ink); transition: border-color .16s, box-shadow .16s; }
+.input:focus { border-color: rgba(182,79,94,.5); box-shadow: 0 0 0 4px rgba(182,79,94,.08); outline: none; }
+label { display: grid; gap: 8px; color: var(--muted); font-size: 13px; font-weight: 750; }
+textarea.input { min-height: 120px; resize: vertical; line-height: 1.55; }
+textarea.tall { min-height: 200px; }
+.field-stack { display: grid; gap: 18px; }
+.notice { padding: 13px 15px; border-radius: 13px; font-size: 13px; line-height: 1.5; }
+.notice-bad { background: var(--red-soft); color: var(--red); border: 1px solid rgba(168,70,70,.18); }
+
+/* Landing */
+.home-shell { min-height: 100vh; max-width: 1240px; margin: 0 auto; padding: 26px 38px 48px; }
+.home-nav { display: flex; align-items: center; justify-content: space-between; }
+.home-hero { min-height: calc(100vh - 150px); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr); align-items: center; gap: 70px; padding: 60px 2vw 44px; }
+.hero-copy h1 { max-width: 760px; margin: 0; font-family: var(--serif); font-size: clamp(48px, 6.6vw, 92px); font-weight: 500; line-height: .98; letter-spacing: -.055em; }
+.hero-body { max-width: 650px; margin: 30px 0 0; color: var(--muted); font-size: clamp(17px, 1.8vw, 21px); line-height: 1.65; }
+.hero-actions { margin-top: 30px; }
+.hero-copy .micro-copy { margin-top: 16px; }
+.letter-stack { position: relative; height: 560px; }
+.letter-card { position: absolute; inset: 50px 20px; border-radius: 28px; background: var(--paper); border: 1px solid rgba(57,47,42,.10); box-shadow: var(--shadow); }
+.letter-back { transform: rotate(-9deg) translate(-24px, 20px); background: #eaded0; }
+.letter-middle { transform: rotate(6deg) translate(20px, 10px); background: #f1e5dc; }
+.letter-front { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 50px; background: linear-gradient(165deg, #fffdfa 0%, #fbf1ed 100%); }
+.letter-front::before { content: ""; position: absolute; inset: 20px; border: 1px solid rgba(182,79,94,.18); border-radius: 20px; }
+.letter-heart { width: 62px; height: 62px; display: grid; place-items: center; border-radius: 50%; background: var(--rose-soft); color: var(--rose); }
+.letter-front p { max-width: 330px; margin: 30px 0 12px; font-family: var(--serif); font-size: 38px; line-height: 1.08; }
+.letter-front span { max-width: 280px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.home-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.home-strip span { padding: 17px; text-align: center; color: var(--muted); font-size: 12px; font-weight: 750; letter-spacing: .03em; border-right: 1px solid var(--line); }
+.home-strip span:last-child { border-right: 0; }
+
+/* Candidate */
+.candidate-shell { min-height: 100vh; display: grid; grid-template-rows: auto auto 1fr auto; }
+.candidate-header { width: min(1040px, calc(100% - 40px)); margin: 0 auto; padding: 22px 0 12px; display: flex; align-items: center; justify-content: space-between; }
+.language-chip { border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.72); padding: 9px 13px; color: var(--muted); font-size: 12px; font-weight: 750; cursor: pointer; }
+.candidate-progress { width: min(1040px, calc(100% - 40px)); height: 3px; margin: 2px auto 0; background: rgba(57,47,42,.08); border-radius: 999px; overflow: hidden; }
+.candidate-progress span { display: block; height: 100%; background: linear-gradient(90deg, var(--rose), #cc7180); transition: width .3s cubic-bezier(.22,1,.36,1); }
+.candidate-stage { width: min(1040px, calc(100% - 32px)); margin: 0 auto; display: grid; place-items: center; padding: 36px 0 56px; }
+.candidate-footer { width: min(1040px, calc(100% - 40px)); min-height: 58px; margin: 0 auto; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; color: var(--quiet); font-size: 12px; }
+.candidate-footer [data-state="saved"] { color: var(--green); }
+.candidate-footer [data-state="error"] { color: var(--red); }
+.intro-card, .question-card, .state-card { width: min(690px, 100%); padding: clamp(30px, 6vw, 62px); border: 1px solid var(--line); border-radius: 28px; background: rgba(255,253,250,.95); box-shadow: var(--shadow); }
+.intro-card h1, .question-card h1, .state-card h1 { margin: 0; font-family: var(--serif); font-size: clamp(38px, 6vw, 62px); line-height: 1.04; font-weight: 500; letter-spacing: -.04em; }
+.intro-card > p:not(.small-caps), .question-card > p, .state-card > p { color: var(--muted); font-size: 16px; line-height: 1.72; }
+.intro-card > p:not(.small-caps) { margin: 22px 0 0; }
+.choice-row { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 30px; }
+.language-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; margin: 28px 0 24px; }
+.language-tile, .language-option { min-height: 70px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.7); display: flex; align-items: center; justify-content: space-between; padding: 16px; cursor: pointer; transition: border-color .15s, background .15s, transform .15s; }
+.language-tile:hover, .language-option:hover { transform: translateY(-1px); border-color: rgba(182,79,94,.34); }
+.language-tile.selected, .language-option.selected { border-color: rgba(182,79,94,.6); background: var(--rose-soft); }
+.language-tile strong { font-size: 15px; }
+.language-tile span { color: var(--quiet); font-size: 10px; font-weight: 850; letter-spacing: .12em; }
+.privacy-seal { width: 54px; height: 54px; display: grid; place-items: center; margin-bottom: 22px; border-radius: 18px; color: var(--rose); background: var(--rose-soft); }
+.privacy-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 24px; }
+.privacy-points span { padding: 12px; border-radius: 13px; background: var(--ivory); text-align: center; color: var(--muted); font-size: 11px; font-weight: 750; }
+.profile-layout { width: 100%; display: grid; grid-template-columns: minmax(280px, .78fr) minmax(0, 1.22fr); gap: 56px; align-items: start; }
+.portrait-card { position: sticky; top: 28px; overflow: hidden; border-radius: 28px; background: #d8b9ad; box-shadow: var(--shadow); }
+.portrait-monogram { aspect-ratio: 4 / 5; display: grid; place-items: center; font-family: var(--serif); font-size: 160px; color: rgba(255,255,255,.86); background:
+  radial-gradient(circle at 70% 22%, rgba(255,255,255,.33), transparent 25%),
+  linear-gradient(145deg, #925968, #c8867d 52%, #d7ae91); }
+.portrait-caption { padding: 22px; display: grid; gap: 8px; background: var(--paper); }
+.portrait-caption strong { font-family: var(--serif); font-size: 28px; font-weight: 500; }
+.portrait-caption span { color: var(--muted); font-size: 13px; line-height: 1.55; }
+.profile-copy h1 { margin: 0; font-family: var(--serif); font-size: clamp(42px, 5vw, 64px); line-height: 1.02; font-weight: 500; letter-spacing: -.04em; }
+.trait-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0; margin: 28px 0; list-style: none; }
+.trait-list li { min-height: 66px; display: flex; align-items: center; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255,255,255,.62); color: var(--muted); font-size: 13px; line-height: 1.4; }
+.trait-list li span { color: var(--rose); flex: none; }
+.honest-card { padding: 22px; border: 1px solid rgba(182,79,94,.20); border-radius: 18px; background: linear-gradient(160deg, rgba(243,220,224,.75), rgba(255,253,250,.85)); }
+.honest-card h3 { margin: 0 0 10px; font-family: var(--serif); font-size: 23px; font-weight: 500; }
+.honest-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.profile-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
+.chapter-track { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-bottom: 24px; }
+.chapter-track span { height: 4px; border-radius: 999px; background: rgba(57,47,42,.10); }
+.chapter-track span.active { background: var(--rose); }
+.question-card h1 { font-size: clamp(34px, 5vw, 54px); }
+.question-helper { margin: 14px 0 0; color: var(--rose-dark) !important; font-size: 14px !important; font-weight: 750; }
+.answer-list { display: grid; gap: 10px; margin-top: 28px; }
+.answer-option { width: 100%; min-height: 58px; border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 13px; text-align: left; background: rgba(255,255,255,.72); cursor: pointer; transition: border-color .15s, background .15s, transform .15s; }
+[dir="rtl"] .answer-option { text-align: right; }
+.answer-option:hover { transform: translateY(-1px); border-color: rgba(182,79,94,.35); background: #fff; }
+.answer-option.selected { border-color: rgba(182,79,94,.62); background: var(--rose-soft); }
+.answer-indicator { width: 23px; height: 23px; display: grid; place-items: center; flex: none; border: 1px solid rgba(57,47,42,.18); border-radius: 50%; color: var(--rose-dark); font-size: 11px; font-weight: 900; }
+.answer-option.selected .answer-indicator { border-color: var(--rose); background: var(--rose); color: #fff; }
+.answer-textarea { width: 100%; min-height: 210px; margin-top: 28px; padding: 18px; border: 1px solid var(--line); border-radius: 17px; resize: vertical; background: rgba(255,255,255,.78); color: var(--ink); font-size: 16px; line-height: 1.65; }
+.character-hint { margin-top: 8px; color: var(--quiet); text-align: right; font-size: 11px; }
+[dir="rtl"] .character-hint { text-align: left; }
+.validation-message { margin-top: 14px; padding: 11px 13px; border-radius: 12px; background: var(--red-soft); color: var(--red); font-size: 12px; font-weight: 700; }
+.question-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
+.loading-stage { display: grid; place-items: center; gap: 16px; color: var(--muted); }
+.loader-ring { width: 34px; height: 34px; border: 3px solid rgba(182,79,94,.16); border-top-color: var(--rose); border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.state-card { text-align: center; }
+.state-symbol { width: 66px; height: 66px; display: grid; place-items: center; margin: 0 auto 24px; border-radius: 50%; color: var(--rose); background: var(--rose-soft); font-size: 28px; font-weight: 900; }
+.state-symbol.success { color: var(--green); background: var(--green-soft); }
+.state-card p { max-width: 520px; margin: 20px auto 0; }
+.state-card .button { margin-top: 24px; }
+.handwritten { display: block; margin-top: 28px; font-family: var(--serif); font-size: 24px; font-style: italic; color: var(--rose-dark); }
+
+.modal-layer, .drawer-layer { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; background: rgba(33,29,26,.44); backdrop-filter: blur(12px); }
+.modal-card { position: relative; width: min(470px, 100%); padding: 30px; border-radius: 22px; background: var(--paper); box-shadow: 0 30px 100px rgba(33,29,26,.28); }
+.modal-card h3 { margin: 0; font-family: var(--serif); font-size: 30px; font-weight: 500; }
+.modal-card p { color: var(--muted); line-height: 1.65; }
+.modal-close { position: absolute; top: 12px; right: 14px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: var(--ivory); color: var(--muted); font-size: 23px; cursor: pointer; }
+[dir="rtl"] .modal-close { right: auto; left: 14px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.modal-icon { width: 44px; height: 44px; display: grid; place-items: center; margin-bottom: 18px; border-radius: 14px; font-weight: 900; }
+.modal-icon.danger { color: var(--red); background: var(--red-soft); }
+.compact-modal { width: min(390px, 100%); }
+.language-list { display: grid; gap: 8px; margin-top: 20px; }
+.language-option { min-height: 52px; }
+
+/* Auth and admin */
+.auth-shell { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+.auth-card { width: min(500px, 100%); padding: 46px; border: 1px solid var(--line); border-radius: 26px; background: rgba(255,253,250,.96); box-shadow: var(--shadow); }
+.auth-card .small-caps { margin-top: 48px; }
+.auth-card h1 { margin: 0; font-family: var(--serif); font-size: 48px; line-height: 1.04; font-weight: 500; letter-spacing: -.04em; }
+.auth-card > p:not(.small-caps) { color: var(--muted); line-height: 1.65; }
+.auth-card form { display: grid; gap: 17px; margin-top: 28px; }
+.auth-card .back-link { margin-top: 16px; }
+.admin-shell { min-height: 100vh; display: grid; grid-template-columns: 246px minmax(0,1fr); background: #f4efe8; }
+.admin-sidebar { position: sticky; top: 0; height: 100vh; padding: 24px 18px; display: flex; flex-direction: column; border-right: 1px solid var(--line); background: rgba(255,253,250,.90); backdrop-filter: blur(18px); }
+.admin-sidebar .brand { padding: 0 9px 26px; }
+.admin-sidebar nav { display: grid; gap: 5px; }
+.nav-item { width: 100%; min-height: 44px; border: 0; border-radius: 12px; padding: 0 12px; display: flex; align-items: center; gap: 11px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 760; text-align: left; cursor: pointer; }
+.nav-item:hover { background: var(--ivory); color: var(--ink); }
+.nav-item.active { background: var(--rose-soft); color: var(--rose-dark); }
+.nav-item span { width: 18px; text-align: center; font-size: 16px; }
+.sidebar-bottom { margin-top: auto; }
+.admin-content { min-width: 0; padding: 32px; }
+.admin-page { width: min(1320px, 100%); margin: 0 auto; }
+.admin-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+.admin-top h1 { margin: 0; font-family: var(--serif); font-size: 48px; line-height: 1; font-weight: 500; letter-spacing: -.04em; }
+.admin-top p:not(.small-caps) { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+.admin-loading { min-height: 70vh; display: grid; place-items: center; }
+.metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 18px; }
+.metric-card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,253,250,.88); }
+.metric-card span { display: block; color: var(--muted); font-size: 11px; font-weight: 750; }
+.metric-card strong { display: block; margin-top: 14px; font-family: var(--serif); font-size: 35px; font-weight: 500; }
+.candidate-panel { overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,253,250,.92); }
+.panel-header { min-height: 58px; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.panel-header h2, .panel-header h3 { margin: 0; font-size: 14px; }
+.panel-header > span { color: var(--quiet); font-size: 11px; }
+.candidate-table-head { min-height: 40px; padding: 0 15px; display: grid; grid-template-columns: minmax(250px,1.5fr) 120px 100px 190px 25px; gap: 12px; align-items: center; color: var(--quiet); font-size: 10px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; border-bottom: 1px solid var(--line); }
+.candidate-row { width: 100%; min-height: 78px; padding: 12px 15px; border: 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: minmax(250px,1.5fr) 120px 100px 190px 25px; gap: 12px; align-items: center; background: transparent; text-align: left; cursor: pointer; transition: background .14s; }
+.candidate-row:last-child { border-bottom: 0; }
+.candidate-row:hover { background: #fff; }
+.candidate-avatar { width: 43px; height: 43px; display: grid; place-items: center; flex: none; border-radius: 14px; background: linear-gradient(145deg, var(--rose-soft), #e6c5bb); color: var(--rose-dark); font-family: var(--serif); font-size: 21px; }
+.candidate-avatar.large { width: 60px; height: 60px; border-radius: 18px; font-size: 29px; }
+.candidate-main { min-width: 0; display: grid; grid-template-columns: auto minmax(0,1fr); grid-template-rows: auto auto; column-gap: 12px; }
+.candidate-main .candidate-avatar { grid-row: 1 / 3; }
+.candidate-main > span { grid-column: 2; color: var(--muted); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.candidate-name-line { min-width: 0; display: flex; align-items: center; gap: 7px; }
+.candidate-name-line strong { font-size: 14px; }
+.online-dot { width: 7px; height: 7px; flex: none; border-radius: 50%; background: #43a36d; box-shadow: 0 0 0 4px rgba(67,163,109,.11); }
+.online-copy { color: var(--green); font-size: 10px; font-weight: 800; }
+.status-badge { display: inline-flex; min-height: 26px; align-items: center; padding: 0 9px; border-radius: 999px; font-size: 10px; font-weight: 820; }
+.status-good { background: var(--green-soft); color: var(--green); }
+.status-rose { background: var(--rose-soft); color: var(--rose-dark); }
+.status-bad { background: var(--red-soft); color: var(--red); }
+.status-neutral { background: var(--ivory-2); color: var(--muted); }
+.candidate-progress-cell, .candidate-last { display: grid; gap: 3px; }
+.candidate-progress-cell strong, .candidate-last strong { font-size: 12px; }
+.candidate-progress-cell span, .candidate-last span { max-width: 185px; color: var(--quiet); font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.row-arrow { color: var(--quiet); font-size: 23px; }
+.empty-panel { padding: 68px 24px; text-align: center; }
+.empty-panel h3 { margin: 16px 0 7px; font-family: var(--serif); font-size: 27px; font-weight: 500; }
+.empty-panel p { max-width: 470px; margin: 0 auto; color: var(--muted); font-size: 13px; line-height: 1.65; }
+.empty-icon { width: 54px; height: 54px; display: grid; place-items: center; margin: auto; border-radius: 18px; color: var(--rose); background: var(--rose-soft); }
+.drawer-layer { place-items: stretch end; padding: 0; }
+.drawer-card { width: min(500px, 100%); height: 100%; overflow-y: auto; position: relative; padding: 42px; background: var(--paper); box-shadow: -30px 0 80px rgba(33,29,26,.20); }
+.drawer-card h2 { margin: 0; font-family: var(--serif); font-size: 40px; font-weight: 500; letter-spacing: -.04em; }
+.drawer-card > p:not(.small-caps) { color: var(--muted); line-height: 1.6; }
+.drawer-card form { margin-top: 26px; }
+.created-link { margin-top: 32px; }
+.success-check { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; background: var(--green-soft); color: var(--green); font-size: 22px; font-weight: 900; }
+.created-link h3 { margin: 18px 0 8px; font-family: var(--serif); font-size: 31px; font-weight: 500; }
+.created-link p { color: var(--muted); line-height: 1.55; font-size: 13px; }
+.link-box { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; margin: 18px 0 10px; }
+.link-box input { min-width: 0; border: 1px solid var(--line); border-radius: 13px; padding: 0 12px; color: var(--muted); background: var(--ivory); }
+
+/* Detail */
+.detail-header { display: grid; grid-template-columns: auto auto minmax(0,1fr) auto; gap: 16px; align-items: center; margin-bottom: 18px; }
+.back-circle { width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.75); color: var(--muted); font-size: 26px; cursor: pointer; }
+.detail-identity h1 { margin: 0; font-family: var(--serif); font-size: 38px; font-weight: 500; }
+.detail-identity > p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+.detail-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 9px; color: var(--quiet); font-size: 10px; }
+.detail-actions { display: flex; gap: 8px; }
+.live-strip { display: grid; grid-template-columns: 2fr .7fr .7fr 1.2fr; border: 1px solid var(--line); border-radius: 17px; background: rgba(255,253,250,.9); overflow: hidden; }
+.live-strip > div { min-width: 0; padding: 15px 17px; border-right: 1px solid var(--line); }
+.live-strip > div:last-child { border-right: 0; }
+.live-label { display: block; margin-bottom: 7px; color: var(--quiet); font-size: 9px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+.live-strip strong { display: block; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.detail-tabs { display: flex; gap: 4px; margin: 18px 0; border-bottom: 1px solid var(--line); }
+.detail-tab { min-height: 42px; padding: 0 13px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--muted); font-size: 12px; font-weight: 780; cursor: pointer; }
+.detail-tab.active { border-bottom-color: var(--rose); color: var(--rose-dark); }
+.detail-tab span { display: inline-grid; place-items: center; min-width: 18px; height: 18px; margin-left: 3px; border-radius: 999px; background: var(--ivory-2); font-size: 9px; }
+.summary-grid { display: grid; grid-template-columns: minmax(0,1fr) 310px; gap: 16px; align-items: start; }
+.summary-main, .review-panel, .answer-review-card, .timeline-card, .revision-card, .account-card, .settings-form, .settings-preview { border: 1px solid var(--line); border-radius: 18px; background: rgba(255,253,250,.92); }
+.summary-main { padding: 20px; }
+.score-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.score-head h2 { margin: 0; font-family: var(--serif); font-size: 33px; font-weight: 500; }
+.score-head p:not(.small-caps) { color: var(--muted); font-size: 12px; }
+.score-ring { --score: 0; width: 90px; height: 90px; display: grid; place-items: center; flex: none; border-radius: 50%; background: conic-gradient(var(--rose) calc(var(--score) * 1%), var(--ivory-2) 0); position: relative; }
+.score-ring::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: var(--paper); }
+.score-ring span { position: relative; z-index: 1; font-family: var(--serif); font-size: 29px; }
+.dimension-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-top: 18px; }
+.dimension-card { padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(247,242,234,.55); }
+.dimension-top, .dimension-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.dimension-top span { font-size: 11px; font-weight: 740; }
+.dimension-top strong { font-family: var(--serif); font-size: 23px; font-weight: 500; }
+.dimension-bar { height: 5px; margin: 10px 0; border-radius: 999px; background: rgba(57,47,42,.08); overflow: hidden; }
+.dimension-bar span { display: block; height: 100%; border-radius: inherit; background: var(--rose); }
+.dimension-bottom { color: var(--quiet); font-size: 9px; }
+.alignment { padding: 4px 7px; border-radius: 999px; font-size: 8px; font-weight: 850; }
+.alignment-aligned { background: var(--green-soft); color: var(--green); }
+.alignment-mostly_aligned { background: #e6ebdf; color: #607052; }
+.alignment-needs_discussion { background: var(--amber-soft); color: var(--amber); }
+.alignment-major_mismatch, .alignment-character_concern { background: var(--red-soft); color: var(--red); }
+.alignment-not_enough_information { background: var(--ivory-2); color: var(--muted); }
+.flag-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-top: 16px; }
+.flag-panel { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.flag-panel .panel-header { min-height: 44px; }
+.flag-panel .panel-header h3 { font-size: 11px; }
+.flag-panel .panel-header span { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; background: var(--ivory-2); }
+.flag-panel ul { margin: 0; padding: 13px 15px 15px 31px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.flag-panel .quiet-copy { padding: 12px 15px; margin: 0; font-size: 10px; }
+.flag-bad { border-color: rgba(168,70,70,.22); }
+.flag-danger { border-color: rgba(168,70,70,.35); }
+.flag-warn { border-color: rgba(156,107,47,.25); }
+.review-panel { position: sticky; top: 22px; padding: 18px; }
+.review-panel h3 { margin: 0; font-family: var(--serif); font-size: 26px; font-weight: 500; }
+.review-options { display: grid; gap: 7px; margin-top: 15px; }
+.review-option { min-height: 39px; border: 1px solid var(--line); border-radius: 11px; padding: 0 12px; background: transparent; text-align: left; color: var(--muted); font-size: 11px; font-weight: 760; text-transform: capitalize; cursor: pointer; }
+.review-option.selected { border-color: rgba(182,79,94,.5); background: var(--rose-soft); color: var(--rose-dark); }
+.notes-label { margin-top: 16px; }
+.notes-area { margin-top: 6px; }
+.review-panel hr { margin: 20px 0; border: 0; border-top: 1px solid var(--line); }
+.review-panel h4 { margin: 0 0 10px; font-size: 12px; }
+.answer-review-list, .revision-list { display: grid; gap: 10px; }
+.answer-review-card { padding: 18px; display: grid; grid-template-columns: 34px minmax(0,1fr); gap: 14px; }
+.answer-number { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; background: var(--rose-soft); color: var(--rose-dark); font-family: var(--serif); }
+.answer-question { margin: 0; font-size: 12px; font-weight: 800; line-height: 1.5; }
+.answer-value { display: inline-block; margin-top: 10px; padding: 9px 11px; border-radius: 10px; background: var(--ivory); color: var(--ink); font-size: 12px; line-height: 1.5; }
+.answer-value.long-answer { display: block; white-space: pre-wrap; }
+.answer-meta { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 10px; color: var(--quiet); font-size: 9px; }
+.timeline { position: relative; padding-left: 18px; }
+.timeline::before { content: ""; position: absolute; left: 4px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
+.timeline-item { position: relative; padding: 0 0 10px 16px; }
+.timeline-dot { position: absolute; left: -18px; top: 18px; width: 9px; height: 9px; border-radius: 50%; background: var(--rose); box-shadow: 0 0 0 4px var(--rose-soft); }
+.timeline-card { padding: 14px; }
+.timeline-top { display: flex; justify-content: space-between; gap: 10px; }
+.timeline-top strong { font-size: 11px; }
+.timeline-top span { color: var(--quiet); font-size: 9px; }
+.timeline-card > p { margin: 7px 0 0; color: var(--muted); font-size: 10px; }
+.timeline-card details { margin-top: 9px; }
+.timeline-card summary { color: var(--quiet); font-size: 9px; cursor: pointer; }
+.timeline-card pre { overflow-x: auto; padding: 10px; border-radius: 9px; background: #282421; color: #eee8e3; font-size: 9px; }
+.revision-card { padding: 17px; }
+.revision-head { display: flex; justify-content: space-between; gap: 16px; }
+.revision-head strong { font-size: 11px; }
+.revision-head span { color: var(--quiet); font-size: 9px; }
+.revision-comparison { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; margin-top: 14px; }
+.revision-comparison > div:not(.revision-arrow) { min-width: 0; padding: 12px; border-radius: 11px; background: var(--ivory); }
+.revision-comparison span { color: var(--quiet); font-size: 9px; font-weight: 820; text-transform: uppercase; }
+.revision-comparison p { margin: 7px 0 0; font-size: 11px; line-height: 1.5; white-space: pre-wrap; }
+.revision-arrow { color: var(--rose); font-weight: 800; }
+
+/* Settings */
+.settings-grid { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(280px,.85fr); gap: 16px; align-items: start; }
+.settings-form, .settings-preview, .account-card { padding: 22px; }
+.settings-form { display: grid; gap: 18px; }
+.settings-preview { position: sticky; top: 22px; }
+.portrait-card.mini { position: static; margin-top: 18px; border-radius: 18px; box-shadow: none; }
+.portrait-card.mini .portrait-monogram { aspect-ratio: 16/9; font-size: 76px; }
+.portrait-card.mini .portrait-caption { padding: 16px; }
+.settings-preview .honest-card { margin-top: 12px; }
+.account-card { max-width: 620px; }
+.account-card h2 { margin: 0; font-family: var(--serif); font-size: 31px; font-weight: 500; }
+.account-card > p { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.account-card form { margin-top: 22px; }
+
+/* Toasts */
+#toast-root { position: fixed; z-index: 300; right: 18px; bottom: 18px; display: grid; gap: 8px; pointer-events: none; }
+.toast { min-width: 240px; max-width: 380px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 13px; background: #fff; box-shadow: 0 18px 50px rgba(33,29,26,.18); color: var(--ink); font-size: 12px; font-weight: 700; transform: translateY(10px); opacity: 0; transition: transform .22s ease, opacity .22s ease; }
+.toast-show { transform: translateY(0); opacity: 1; }
+.toast-good { border-color: rgba(62,115,87,.25); background: #f4fbf6; color: var(--green); }
+.toast-bad { border-color: rgba(168,70,70,.24); background: #fff7f7; color: var(--red); }
+
+@media (max-width: 1040px) {
+  .home-hero { grid-template-columns: 1fr; gap: 20px; padding-top: 70px; }
+  .letter-stack { height: 430px; max-width: 570px; width: 100%; margin: 0 auto; }
+  .profile-layout { gap: 30px; }
+  .admin-shell { grid-template-columns: 82px minmax(0,1fr); }
+  .admin-sidebar { padding: 20px 12px; }
+  .admin-sidebar .brand span:last-child, .nav-item:not(.active) { }
+  .admin-sidebar .brand { justify-content: center; padding-left: 0; padding-right: 0; }
+  .admin-sidebar .brand > span:last-child { display: none; }
+  .nav-item { justify-content: center; padding: 0; font-size: 0; }
+  .nav-item span { font-size: 17px; }
+  .candidate-table-head, .candidate-row { grid-template-columns: minmax(220px,1fr) 100px 90px 150px 20px; }
+  .summary-grid { grid-template-columns: 1fr; }
+  .review-panel { position: static; }
+}
+
+@media (max-width: 760px) {
+  .home-shell { padding: 18px 20px 32px; }
+  .home-nav .button { min-height: 40px; padding: 0 13px; }
+  .home-hero { min-height: auto; padding: 80px 0 30px; }
+  .hero-copy h1 { font-size: clamp(48px, 14vw, 72px); }
+  .letter-stack { height: 350px; }
+  .letter-card { inset: 35px 14px; }
+  .letter-front p { font-size: 31px; }
+  .home-strip { grid-template-columns: repeat(2,1fr); }
+  .home-strip span:nth-child(2) { border-right: 0; }
+  .home-strip span:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .candidate-header, .candidate-progress, .candidate-footer { width: calc(100% - 28px); }
+  .candidate-stage { width: calc(100% - 20px); padding: 24px 0 38px; }
+  .intro-card, .question-card, .state-card { padding: 28px 22px; border-radius: 22px; }
+  .intro-card h1, .question-card h1, .state-card h1 { font-size: 38px; }
+  .language-grid, .privacy-points { grid-template-columns: 1fr; }
+  .choice-row, .question-actions, .profile-actions { display: grid; grid-template-columns: 1fr; }
+  .profile-layout { grid-template-columns: 1fr; }
+  .portrait-card { position: static; max-width: 420px; width: 100%; margin: 0 auto; }
+  .portrait-monogram { aspect-ratio: 16 / 10; font-size: 105px; }
+  .trait-list { grid-template-columns: 1fr; }
+  .admin-shell { display: block; padding-bottom: 70px; }
+  .admin-sidebar { position: fixed; z-index: 80; left: 0; right: 0; bottom: 0; top: auto; width: 100%; height: 64px; padding: 7px 10px; display: grid; grid-template-columns: 1fr auto; border-right: 0; border-top: 1px solid var(--line); }
+  .admin-sidebar .brand { display: none; }
+  .admin-sidebar nav { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; }
+  .nav-item { min-width: 54px; min-height: 48px; }
+  .nav-item.active { background: var(--rose-soft); }
+  .sidebar-bottom { margin: 0; }
+  .sidebar-bottom .nav-item { width: 48px; }
+  .admin-content { padding: 20px 12px; }
+  .admin-top { align-items: flex-start; }
+  .admin-top h1 { font-size: 40px; }
+  .metric-grid { grid-template-columns: repeat(2,1fr); }
+  .candidate-table-head { display: none; }
+  .candidate-row { grid-template-columns: auto minmax(0,1fr) auto; grid-template-rows: auto auto; gap: 9px 11px; padding: 14px; }
+  .candidate-main { grid-column: 1 / 3; }
+  .candidate-status { grid-column: 3; grid-row: 1; }
+  .candidate-progress-cell { grid-column: 2; grid-row: 2; }
+  .candidate-last { grid-column: 1; grid-row: 2; }
+  .candidate-last span, .candidate-progress-cell span { display: none; }
+  .row-arrow { grid-column: 3; grid-row: 2; }
+  .drawer-card { padding: 34px 22px; }
+  .detail-header { grid-template-columns: auto auto minmax(0,1fr); }
+  .detail-actions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+  .detail-identity h1 { font-size: 31px; }
+  .live-strip { grid-template-columns: repeat(2,1fr); }
+  .live-strip > div:nth-child(2) { border-right: 0; }
+  .live-strip > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .detail-tabs { overflow-x: auto; }
+  .dimension-grid, .flag-grid { grid-template-columns: 1fr; }
+  .score-head { align-items: flex-start; }
+  .score-head h2 { font-size: 27px; }
+  .score-ring { width: 76px; height: 76px; }
+  .settings-grid { grid-template-columns: 1fr; }
+  .settings-preview { position: static; }
+  .revision-comparison { grid-template-columns: 1fr; }
+  .revision-arrow { transform: rotate(90deg); text-align: center; }
+  .auth-card { padding: 34px 22px; }
+  .auth-card h1 { font-size: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast-root" aria-live="polite"></div>
+<script src="/api/config"></script>
+<script type="module">export const QUESTIONNAIRE_VERSION = "2026-08-07-v1";
+export const LOCALES = ["en", "ru", "id", "ar", "tr"];
+export const localeNames = {
+    en: "English",
+    ru: "Русский",
+    id: "Bahasa Indonesia",
+    ar: "العربية",
+    tr: "Türkçe"
+};
+const L = (en, ru, id, ar, tr) => ({ en, ru, id, ar, tr });
+const O = (id, en, ru, idn, ar, tr) => ({ id, label: L(en, ru, idn, ar, tr) });
+const oneOf = (answers, questionId, values) => values.includes(String(answers[questionId] ?? ""));
+export const sectionLabels = {
+    gate: L("A quick check", "Небольшая проверка", "Cek singkat", "تحقق سريع", "Kısa bir kontrol"),
+    intent: L("Part 1. What are we looking for?", "Часть 1. Что мы ищем?", "Bagian 1. Apa yang kita cari?", "الجزء 1. ما الذي نبحث عنه؟", "Bölüm 1. Ne arıyoruz?"),
+    affection: L("Part 2. How do you stay close?", "Часть 2. Как ты сохраняешь близость?", "Bagian 2. Bagaimana kamu menjaga kedekatan?", "الجزء 2. كيف تحافظين على القرب؟", "Bölüm 2. Yakınlığı nasıl korursun?"),
+    conflict: L("Part 3. When the vibe is off", "Часть 3. Когда что-то не так", "Bagian 3. Saat suasana terasa tidak baik", "الجزء 3. عندما لا تكون الأمور بخير", "Bölüm 3. Bir şeyler ters gittiğinde"),
+    faith: L("Part 4. Faith and boundaries", "Часть 4. Вера и границы", "Bagian 4. Iman dan batasan", "الجزء 4. الإيمان والحدود", "Bölüm 4. İnanç ve sınırlar"),
+    future: L("Part 5. Real life together", "Часть 5. Реальная совместная жизнь", "Bagian 5. Kehidupan nyata bersama", "الجزء 5. الحياة الحقيقية معًا", "Bölüm 5. Birlikte gerçek hayat"),
+    honesty: L("Part 6. Your honest answer", "Часть 6. Твой честный ответ", "Bagian 6. Jawaban jujurmu", "الجزء 6. إجابتك الصادقة", "Bölüm 6. Dürüst cevabın")
+};
+export const uiText = {
+    tagline: L("A small, honest check before we keep talking.", "Небольшая честная проверка, прежде чем мы продолжим общаться.", "Cek kecil dan jujur sebelum kita lanjut berbicara.", "توقف صغير وصادق قبل أن نواصل الحديث.", "Konuşmaya devam etmeden önce küçük ve dürüst bir kontrol."),
+    honestBeatsImpressive: L("Honest beats impressive.", "Честность важнее впечатления.", "Jujur lebih baik daripada terlihat sempurna.", "الصدق أهم من محاولة الإبهار.", "Dürüstlük, etkileyici görünmekten daha değerlidir."),
+    private: L("Private invitation", "Личное приглашение", "Undangan pribadi", "دعوة خاصة", "Özel davet"),
+    continue: L("Continue", "Продолжить", "Lanjut", "متابعة", "Devam et"),
+    back: L("Back", "Назад", "Kembali", "رجوع", "Geri"),
+    saveContinue: L("Save and continue", "Сохранить и продолжить", "Simpan dan lanjut", "حفظ ومتابعة", "Kaydet ve devam et"),
+    submit: L("Send my answers", "Отправить мои ответы", "Kirim jawabanku", "إرسال إجاباتي", "Cevaplarımı gönder"),
+    saving: L("Saving…", "Сохраняем…", "Menyimpan…", "جارٍ الحفظ…", "Kaydediliyor…"),
+    saved: L("Saved privately", "Сохранено приватно", "Tersimpan secara pribadi", "تم الحفظ بشكل خاص", "Özel olarak kaydedildi"),
+    required: L("Please answer before continuing.", "Пожалуйста, ответь перед продолжением.", "Mohon jawab sebelum lanjut.", "يرجى الإجابة قبل المتابعة.", "Devam etmeden önce cevap ver."),
+    tooShort: L("A little more detail would help.", "Немного больше подробностей будет полезно.", "Sedikit lebih rinci akan membantu.", "قليل من التفاصيل الإضافية سيكون مفيدًا.", "Biraz daha ayrıntı yardımcı olur."),
+    chooseLanguage: L("Choose your language", "Выбери язык", "Pilih bahasamu", "اختاري لغتك", "Dilini seç"),
+    deleteData: L("Delete my answers", "Удалить мои ответы", "Hapus jawabanku", "حذف إجاباتي", "Cevaplarımı sil"),
+    deleteConfirm: L("This permanently removes your answers and activity from Naim's dashboard.", "Это навсегда удалит твои ответы и активность из панели Наима.", "Ini akan menghapus jawaban dan aktivitasmu secara permanen dari dasbor Naim.", "سيؤدي هذا إلى حذف إجاباتك ونشاطك نهائيًا من لوحة نعيم.", "Bu işlem cevaplarını ve etkinliğini Naim'in panelinden kalıcı olarak siler."),
+    deleteButton: L("Delete permanently", "Удалить навсегда", "Hapus selamanya", "حذف نهائي", "Kalıcı olarak sil"),
+    cancel: L("Cancel", "Отмена", "Batal", "إلغاء", "Vazgeç")
+};
+export const questions = [
+    {
+        id: "age_18",
+        section: "gate",
+        type: "single",
+        required: true,
+        prompt: L("Are you at least 18 years old?", "Тебе уже исполнилось 18 лет?", "Apakah kamu sudah berusia setidaknya 18 tahun?", "هل عمرك 18 عامًا على الأقل؟", "En az 18 yaşında mısın?"),
+        options: [O("yes", "Yes", "Да", "Ya", "نعم", "Evet"), O("no", "No", "Нет", "Tidak", "لا", "Hayır")]
+    },
+    {
+        id: "continue_interest",
+        section: "gate",
+        type: "single",
+        required: true,
+        prompt: L("Do you want to continue getting to know Naim?", "Ты хочешь продолжить узнавать Наима?", "Apakah kamu ingin lanjut mengenal Naim?", "هل ترغبين في مواصلة التعرف إلى نعيم؟", "Naim'i tanımaya devam etmek istiyor musun?"),
+        options: [
+            O("serious", "Yes, I am interested", "Да, мне интересно", "Ya, aku tertarik", "نعم، أنا مهتمة", "Evet, ilgileniyorum"),
+            O("slow", "I am interested, but I want to move slowly", "Мне интересно, но я хочу двигаться медленно", "Aku tertarik, tetapi ingin berjalan pelan", "أنا مهتمة، لكنني أريد التقدم ببطء", "İlgileniyorum, ama yavaş ilerlemek istiyorum"),
+            O("friendship", "I only want friendship", "Я хочу только дружбу", "Aku hanya ingin berteman", "أريد الصداقة فقط", "Sadece arkadaşlık istiyorum"),
+            O("casual", "I only want something casual", "Мне нужно только что-то несерьёзное", "Aku hanya ingin hubungan santai", "أريد شيئًا غير جاد فقط", "Sadece rahat ve ciddi olmayan bir şey istiyorum"),
+            O("no", "No", "Нет", "Tidak", "لا", "Hayır")
+        ]
+    },
+    {
+        id: "serious_open",
+        section: "gate",
+        type: "single",
+        required: true,
+        dimension: "intent",
+        prompt: L("Based on what you know so far, are you open to exploring whether Naim could fit as a future husband and father, rather than only a fun person to chat with?", "Исходя из того, что ты уже знаешь, готова ли ты понять, может ли Наим подойти тебе как будущий муж и отец детей, а не только как приятный собеседник?", "Dari apa yang kamu tahu sejauh ini, apakah kamu terbuka untuk melihat apakah Naim cocok sebagai calon suami dan ayah, bukan hanya teman ngobrol yang menyenangkan?", "بناءً على ما تعرفينه حتى الآن، هل أنت منفتحة على استكشاف ما إذا كان نعيم مناسبًا كزوج وأب مستقبلًا، وليس مجرد شخص ممتع للحديث؟", "Şu ana kadar bildiklerine göre Naim'in yalnızca keyifli bir sohbet arkadaşı değil, gelecekte eş ve baba olabilecek biri olup olmadığını görmeye açık mısın?"),
+        helper: L("No one is naming children today.", "Сегодня никто не выбирает имена детям.", "Hari ini belum ada yang memilih nama anak.", "لن نختار أسماء الأطفال اليوم.", "Bugün kimse çocuklara isim koymuyor."),
+        options: [
+            O("yes", "Yes, I am open to exploring this seriously", "Да, я готова рассмотреть это серьёзно", "Ya, aku terbuka untuk menjalaninya dengan serius", "نعم، أنا منفتحة على استكشاف ذلك بجدية", "Evet, bunu ciddi biçimde değerlendirmeye açığım"),
+            O("slow", "I am open, but I need time before thinking that far", "Я открыта, но мне нужно время, прежде чем думать так далеко", "Aku terbuka, tetapi perlu waktu sebelum berpikir sejauh itu", "أنا منفتحة، لكنني أحتاج إلى وقت قبل التفكير إلى هذا الحد", "Açığım, ama bu kadar ileriyi düşünmeden önce zamana ihtiyacım var"),
+            O("casual", "I only see this as casual dating", "Я вижу это только как несерьёзные встречи", "Aku hanya melihat ini sebagai hubungan santai", "أرى الأمر مواعدة غير جادة فقط", "Bunu yalnızca rahat bir flört olarak görüyorum"),
+            O("no", "I do not see him in this way", "Я не вижу его в таком качестве", "Aku tidak melihatnya dengan cara seperti itu", "لا أراه بهذه الطريقة", "Onu bu şekilde görmüyorum")
+        ]
+    },
+    {
+        id: "intent_stage",
+        section: "intent",
+        type: "single",
+        required: true,
+        dimension: "intent",
+        prompt: L("What are you looking for during this stage of your life?", "Что ты ищешь на этом этапе жизни?", "Apa yang kamu cari pada tahap hidupmu sekarang?", "ما الذي تبحثين عنه في هذه المرحلة من حياتك؟", "Hayatının bu döneminde ne arıyorsun?"),
+        options: [
+            O("marriage", "A serious relationship leading toward marriage", "Серьёзные отношения, ведущие к браку", "Hubungan serius yang menuju pernikahan", "علاقة جادة تتجه إلى الزواج", "Evliliğe giden ciddi bir ilişki"),
+            O("slow_serious", "Getting to know someone slowly with serious potential", "Медленно узнавать человека с серьёзной перспективой", "Mengenal seseorang secara perlahan dengan potensi serius", "التعرف إلى شخص بهدوء مع احتمال جاد", "Ciddi bir ihtimalle birini yavaşça tanımak"),
+            O("casual", "Casual dating", "Несерьёзные встречи", "Hubungan santai", "مواعدة غير جادة", "Rahat flört"),
+            O("friendship", "Friendship", "Дружба", "Pertemanan", "صداقة", "Arkadaşlık"),
+            O("unsure", "I am still unsure", "Я пока не уверена", "Aku masih belum yakin", "ما زلت غير متأكدة", "Henüz emin değilim")
+        ]
+    },
+    {
+        id: "partner_timing",
+        section: "intent",
+        type: "single",
+        required: true,
+        dimension: "intent",
+        prompt: L("How much time do you prefer before calling someone your partner?", "Сколько времени тебе обычно нужно, прежде чем назвать человека своим партнёром?", "Berapa lama yang kamu inginkan sebelum menyebut seseorang sebagai pasangan?", "كم من الوقت تفضلين قبل اعتبار شخص ما شريكًا لك؟", "Birine partnerim demeden önce ne kadar süre tercih edersin?"),
+        options: [
+            O("days", "A few days", "Несколько дней", "Beberapa hari", "بضعة أيام", "Birkaç gün"),
+            O("weeks", "A few weeks", "Несколько недель", "Beberapa minggu", "بضعة أسابيع", "Birkaç hafta"),
+            O("months_1_3", "One to three months", "От одного до трёх месяцев", "Satu sampai tiga bulan", "من شهر إلى ثلاثة أشهر", "Bir ila üç ay"),
+            O("months_several", "Several months", "Несколько месяцев", "Beberapa bulan", "عدة أشهر", "Birkaç ay"),
+            O("depends", "It depends on behavior and circumstances", "Зависит от поведения и обстоятельств", "Tergantung perilaku dan keadaan", "يعتمد على السلوك والظروف", "Davranışlara ve koşullara bağlı")
+        ]
+    },
+    {
+        id: "pace_reaction",
+        section: "intent",
+        type: "single",
+        required: true,
+        dimension: "intent",
+        prompt: L("After two strong weeks, Naim says he sees potential but wants more time to observe consistency before making promises. How would you feel?", "После двух хороших недель Наим говорит, что видит перспективу, но хочет ещё времени, чтобы увидеть стабильность, прежде чем давать обещания. Что ты почувствуешь?", "Setelah dua minggu yang terasa dekat, Naim bilang dia melihat potensi tetapi ingin melihat konsistensi lebih lama sebelum membuat janji. Bagaimana perasaanmu?", "بعد أسبوعين جيدين، يقول نعيم إنه يرى احتمالًا جميلًا لكنه يريد مزيدًا من الوقت ليرى الاستمرارية قبل إعطاء وعود. كيف ستشعرين؟", "İki güzel haftadan sonra Naim potansiyel gördüğünü, ama söz vermeden önce tutarlılığı biraz daha gözlemlemek istediğini söylüyor. Nasıl hissedersin?"),
+        options: [
+            O("relieved", "Relieved because he is taking it seriously", "С облегчением, потому что он относится к этому серьёзно", "Lega karena dia menanggapinya dengan serius", "سأشعر بالارتياح لأنه يتعامل بجدية", "Ciddiye aldığı için rahatlarım"),
+            O("fine", "Fine, consistency takes time", "Нормально, стабильность требует времени", "Tidak masalah, konsistensi butuh waktu", "لا بأس، فالاستمرارية تحتاج إلى وقت", "Sorun değil, tutarlılık zaman ister"),
+            O("disappointed_respect", "A little disappointed, but I would respect it", "Немного расстроюсь, но отнесусь с уважением", "Sedikit kecewa, tetapi aku akan menghormatinya", "سأشعر بخيبة بسيطة، لكنني سأحترم ذلك", "Biraz hayal kırıklığı yaşarım, ama saygı duyarım"),
+            O("rejected", "Rejected and embarrassed", "Отвергнутой и смущённой", "Merasa ditolak dan malu", "سأشعر بالرفض والإحراج", "Reddedilmiş ve utanmış hissederim"),
+            O("pressure", "I would pressure him for certainty", "Я бы стала требовать определённости", "Aku akan mendesaknya untuk memberi kepastian", "سأضغط عليه للحصول على يقين", "Kesinlik vermesi için baskı yaparım"),
+            O("leave", "I would lose interest immediately", "Я сразу потеряю интерес", "Aku akan langsung kehilangan minat", "سأفقد الاهتمام فورًا", "İlgimi hemen kaybederim")
+        ]
+    },
+    {
+        id: "commitment_definition",
+        section: "intent",
+        type: "text",
+        required: true,
+        minLength: 30,
+        dimension: "intent",
+        prompt: L("What does commitment mean before exclusivity, and what changes after exclusivity?", "Что для тебя означает серьёзность до эксклюзивности и что меняется после неё?", "Apa arti komitmen sebelum eksklusif, dan apa yang berubah setelah menjadi eksklusif?", "ماذا يعني الالتزام قبل الحصرية، وما الذي يتغير بعدها؟", "Özel bir ilişki başlamadan önce bağlılık senin için ne demek, sonrasında ne değişir?")
+    },
+    {
+        id: "contact_rhythm",
+        section: "affection",
+        type: "single",
+        required: true,
+        dimension: "affection",
+        prompt: L("What level of daily communication feels healthy to you?", "Какой объём ежедневного общения кажется тебе здоровым?", "Seberapa banyak komunikasi harian yang terasa sehat bagimu?", "ما مقدار التواصل اليومي الذي يبدو صحيًا لك؟", "Günlük ne kadar iletişim sana sağlıklı gelir?"),
+        options: [
+            O("checkins", "A few thoughtful check-ins", "Несколько внимательных сообщений", "Beberapa kabar singkat yang penuh perhatian", "بضع رسائل قصيرة باهتمام", "Birkaç düşünceli kısa mesaj"),
+            O("long_daily", "One longer conversation each day", "Один более долгий разговор в день", "Satu percakapan lebih panjang setiap hari", "محادثة أطول مرة كل يوم", "Her gün bir uzun konuşma"),
+            O("throughout", "Messages throughout the day", "Сообщения в течение дня", "Pesan sepanjang hari", "رسائل على مدار اليوم", "Gün boyunca mesajlaşmak"),
+            O("few_weekly", "A few conversations each week", "Несколько разговоров в неделю", "Beberapa percakapan setiap minggu", "بضع محادثات في الأسبوع", "Haftada birkaç konuşma"),
+            O("no_pattern", "No fixed pattern", "Без установленного ритма", "Tanpa pola tetap", "من دون نمط ثابت", "Sabit bir düzen olmadan"),
+            O("constant", "I need near-constant contact", "Мне нужен почти постоянный контакт", "Aku butuh kontak hampir terus-menerus", "أحتاج إلى تواصل شبه مستمر", "Neredeyse sürekli iletişime ihtiyacım var")
+        ]
+    },
+    {
+        id: "greetings",
+        section: "affection",
+        type: "single",
+        required: true,
+        dimension: "affection",
+        prompt: L("Good morning and good night messages feel…", "Сообщения «доброе утро» и «спокойной ночи» для тебя…", "Pesan selamat pagi dan selamat malam terasa…", "رسائل صباح الخير وتصبحين على خير تبدو…", "Günaydın ve iyi geceler mesajları sana…"),
+        options: [
+            O("important", "Important and comforting", "Важными и успокаивающими", "Penting dan menenangkan", "مهمة ومطمئنة", "Önemli ve huzur verici gelir"),
+            O("sweet", "Sweet, but not necessary every day", "Милыми, но не обязательными каждый день", "Manis, tetapi tidak wajib setiap hari", "لطيفة، لكنها ليست ضرورية كل يوم", "Tatlı gelir, ama her gün şart değildir"),
+            O("spontaneous", "Nice when spontaneous", "Приятными, когда они спонтанны", "Menyenangkan saat spontan", "جميلة حين تأتي بعفوية", "Kendiliğinden olduğunda güzeldir"),
+            O("obligation", "Like an obligation", "Как обязанность", "Seperti kewajiban", "كأنها واجب", "Bir görev gibi gelir"),
+            O("annoying", "Annoying", "Раздражающими", "Mengganggu", "مزعجة", "Rahatsız edici gelir")
+        ]
+    },
+    {
+        id: "call_frequency",
+        section: "affection",
+        type: "single",
+        required: true,
+        dimension: "affection",
+        prompt: L("How often would you enjoy a planned voice or video call during a long-distance stage?", "Как часто тебе было бы приятно созваниваться по аудио или видео на этапе отношений на расстоянии?", "Seberapa sering kamu menikmati panggilan suara atau video terjadwal saat menjalani jarak jauh?", "كم مرة ستستمتعين بمكالمة صوتية أو مرئية مرتبة خلال مرحلة علاقة عن بُعد؟", "Uzak mesafe döneminde planlı sesli veya görüntülü görüşmeyi ne sıklıkta istersin?"),
+        options: [
+            O("daily", "Daily", "Каждый день", "Setiap hari", "يوميًا", "Her gün"),
+            O("four_five", "Four or five times each week", "Четыре-пять раз в неделю", "Empat atau lima kali seminggu", "أربع أو خمس مرات أسبوعيًا", "Haftada dört veya beş kez"),
+            O("two_three", "Two or three times each week", "Два-три раза в неделю", "Dua atau tiga kali seminggu", "مرتين أو ثلاث مرات أسبوعيًا", "Haftada iki veya üç kez"),
+            O("weekly", "Once each week", "Раз в неделю", "Sekali seminggu", "مرة أسبوعيًا", "Haftada bir kez"),
+            O("rarely", "Rarely", "Редко", "Jarang", "نادرًا", "Nadiren"),
+            O("dislike", "I dislike video calls", "Я не люблю видеозвонки", "Aku tidak suka panggilan video", "لا أحب مكالمات الفيديو", "Görüntülü görüşmeyi sevmem")
+        ]
+    },
+    {
+        id: "loved_not_controlled",
+        section: "affection",
+        type: "text",
+        required: true,
+        minLength: 25,
+        dimension: "affection",
+        prompt: L("What makes you feel loved without making you feel controlled?", "Что помогает тебе чувствовать любовь, не создавая ощущения контроля?", "Apa yang membuatmu merasa dicintai tanpa merasa dikendalikan?", "ما الذي يجعلك تشعرين بالحب من دون أن تشعري بالسيطرة عليك؟", "Kontrol ediliyormuş gibi hissetmeden sevilmiş hissetmeni ne sağlar?")
+    },
+    {
+        id: "independence",
+        section: "affection",
+        type: "single",
+        required: true,
+        dimension: "affection",
+        prompt: L("What amount of independence should two committed partners have?", "Сколько самостоятельности должно быть у двух серьёзных партнёров?", "Seberapa besar kemandirian yang seharusnya dimiliki dua pasangan yang berkomitmen?", "ما مقدار الاستقلال الذي ينبغي أن يتمتع به شريكان ملتزمان؟", "Ciddi bir ilişkide iki partnerin ne kadar bağımsız alanı olmalı?"),
+        options: [
+            O("plenty", "Plenty of independent time, with clear communication", "Достаточно личного времени при ясном общении", "Banyak waktu mandiri dengan komunikasi yang jelas", "وقت مستقل كافٍ مع تواصل واضح", "Açık iletişimle birlikte bolca kişisel zaman"),
+            O("separate_updates", "Separate activities, but frequent updates", "Отдельные занятия, но частые сообщения", "Kegiatan terpisah, tetapi sering memberi kabar", "أنشطة منفصلة مع تحديثات متكررة", "Ayrı aktiviteler, ama sık haberleşme"),
+            O("most_shared", "Most free time should be shared", "Большую часть свободного времени стоит проводить вместе", "Sebagian besar waktu luang sebaiknya bersama", "ينبغي مشاركة معظم وقت الفراغ", "Boş zamanın çoğu birlikte geçirilmeli"),
+            O("always_know", "Partners should know where each other is at all times", "Партнёры всегда должны знать, где находится другой", "Pasangan harus selalu tahu keberadaan satu sama lain", "ينبغي أن يعرف كل طرف مكان الآخر طوال الوقت", "Partnerler her an birbirinin nerede olduğunu bilmeli"),
+            O("rarely_apart", "Partners should rarely spend time apart", "Партнёры редко должны проводить время отдельно", "Pasangan sebaiknya jarang menghabiskan waktu terpisah", "ينبغي ألا يقضيا وقتًا منفصلًا إلا نادرًا", "Partnerler nadiren ayrı zaman geçirmeli")
+        ]
+    },
+    {
+        id: "friends_evening",
+        section: "affection",
+        type: "single",
+        required: true,
+        dimension: "affection",
+        prompt: L("Naim spends one evening with trusted friends. He tells you where he is and says he will message afterward. What best describes your response?", "Наим проводит вечер с близкими друзьями. Он говорит, где находится, и обещает написать позже. Какая реакция ближе тебе?", "Naim menghabiskan satu malam bersama teman terpercaya. Dia memberi tahu tempatnya dan bilang akan menghubungimu setelahnya. Apa reaksimu?", "يقضي نعيم مساءً مع أصدقاء موثوقين. يخبرك بمكانه ويقول إنه سيراسلك بعد ذلك. ما أقرب رد لك؟", "Naim güvendiği arkadaşlarıyla bir akşam geçiriyor. Nerede olduğunu söylüyor ve sonra yazacağını belirtiyor. Tepkini en iyi hangisi anlatır?"),
+        options: [
+            O("have_fun", "I hope you have fun. Talk later.", "Надеюсь, хорошо проведёшь время. Поговорим позже.", "Semoga bersenang-senang. Kita bicara nanti.", "أتمنى لك وقتًا جميلًا. نتحدث لاحقًا.", "İyi eğlen. Sonra konuşuruz."),
+            O("say_insecure", "I feel a little insecure, so I say it once and continue my evening.", "Мне немного тревожно, я скажу об этом один раз и продолжу свой вечер.", "Aku sedikit tidak aman, jadi aku mengatakannya sekali lalu melanjutkan malamku.", "أشعر ببعض القلق، فأقوله مرة ثم أكمل أمسيتي.", "Biraz güvensiz hissederim, bunu bir kez söyler ve akşamıma devam ederim."),
+            O("updates", "I ask for regular updates during the evening.", "Я попрошу регулярно писать в течение вечера.", "Aku meminta kabar secara berkala selama malam itu.", "أطلب تحديثات منتظمة خلال المساء.", "Akşam boyunca düzenli haber isterim."),
+            O("cold", "I become cold so he understands I am upset.", "Я стану холодной, чтобы он понял, что я расстроена.", "Aku bersikap dingin agar dia tahu aku kesal.", "أصبح باردة كي يفهم أنني منزعجة.", "Üzüldüğümü anlasın diye soğuk davranırım."),
+            O("jealous_post", "I post something to make him jealous.", "Я выложу что-нибудь, чтобы вызвать ревность.", "Aku memposting sesuatu untuk membuatnya cemburu.", "أنشر شيئًا لأجعله يغار.", "Onu kıskandırmak için bir şey paylaşırım."),
+            O("forbid", "I tell him he should not go.", "Я скажу, что ему не следует идти.", "Aku bilang dia seharusnya tidak pergi.", "أقول له إنه لا ينبغي أن يذهب.", "Gitmemesi gerektiğini söylerim.")
+        ]
+    },
+    {
+        id: "space_conflict",
+        section: "conflict",
+        type: "single",
+        required: true,
+        dimension: "conflict",
+        prompt: L("You feel hurt and need space. What happens next?", "Тебе больно и нужно личное пространство. Что будет дальше?", "Kamu terluka dan membutuhkan ruang. Apa yang kamu lakukan?", "تشعرين بالأذى وتحتاجين إلى مساحة. ماذا يحدث بعد ذلك؟", "İncindin ve alana ihtiyacın var. Sonra ne olur?"),
+        options: [
+            O("time_return", "I say I am upset, ask for space, and give a time when we will talk.", "Я скажу, что расстроена, попрошу пространство и назову время, когда мы поговорим.", "Aku bilang aku kesal, meminta ruang, dan memberi waktu kapan kita akan bicara.", "أقول إنني منزعجة، وأطلب مساحة، وأحدد وقتًا للحديث.", "Üzgün olduğumu söyler, alan ister ve ne zaman konuşacağımızı belirtirim."),
+            O("silent", "I stop answering until I feel better.", "Я перестану отвечать, пока не почувствую себя лучше.", "Aku berhenti membalas sampai merasa lebih baik.", "أتوقف عن الرد حتى أشعر بتحسن.", "Kendimi iyi hissedene kadar cevap vermem."),
+            O("keep_arguing", "I keep arguing until everything is solved.", "Я продолжу спорить, пока всё не решится.", "Aku terus berdebat sampai semuanya selesai.", "أواصل الجدال حتى يُحل كل شيء.", "Her şey çözülene kadar tartışmaya devam ederim."),
+            O("breakup_threat", "I threaten to end the relationship.", "Я пригрожу расставанием.", "Aku mengancam untuk mengakhiri hubungan.", "أهدد بإنهاء العلاقة.", "İlişkiyi bitirmekle tehdit ederim."),
+            O("chase", "I expect him to chase me.", "Я ожидаю, что он будет добиваться меня.", "Aku berharap dia mengejarku.", "أتوقع منه أن يلاحقني.", "Peşimden gelmesini beklerim."),
+            O("explain_then_space", "I explain what hurt me before taking space.", "Я объясню, что меня ранило, а затем возьму паузу.", "Aku menjelaskan apa yang menyakitiku sebelum mengambil ruang.", "أشرح ما آذاني قبل أن آخذ مساحة.", "Alan almadan önce beni neyin incittiğini açıklarım.")
+        ]
+    },
+    {
+        id: "repeated_reassurance",
+        section: "conflict",
+        type: "single",
+        required: true,
+        dimension: "conflict",
+        prompt: L("Your partner asks for reassurance several times about the same fear. What would you do?", "Партнёр несколько раз просит успокоить его из-за одного и того же страха. Что ты сделаешь?", "Pasanganmu beberapa kali meminta kepastian tentang ketakutan yang sama. Apa yang kamu lakukan?", "يطلب شريكك الطمأنة عدة مرات بشأن الخوف نفسه. ماذا تفعلين؟", "Partnerin aynı korku için birkaç kez güvence istiyor. Ne yaparsın?"),
+        options: [
+            O("reassure_limit", "Reassure him calmly, then explain my limit.", "Спокойно успокою его, затем объясню свой предел.", "Menenangkannya, lalu menjelaskan batasanku.", "أطمئنه بهدوء ثم أوضح حدودي.", "Sakin biçimde güvence verip sonra sınırımı açıklarım."),
+            O("repair_action", "Ask what action would help repair trust.", "Спрошу, какое действие помогло бы восстановить доверие.", "Menanyakan tindakan apa yang membantu memperbaiki kepercayaan.", "أسأل ما الفعل الذي سيساعد على إصلاح الثقة.", "Güveni onarmaya hangi davranışın yardımcı olacağını sorarım."),
+            O("passwords", "Give him every password and constant proof.", "Дам все пароли и буду постоянно доказывать.", "Memberikan semua kata sandi dan bukti terus-menerus.", "أعطيه كل كلمات المرور وإثباتًا مستمرًا.", "Tüm şifreleri ve sürekli kanıt veririm."),
+            O("insult", "Become angry and insult him.", "Разозлюсь и оскорблю его.", "Marah dan menghinanya.", "أغضب وأهينه.", "Öfkelenir ve ona hakaret ederim."),
+            O("stop_reply", "Stop replying.", "Перестану отвечать.", "Berhenti membalas.", "أتوقف عن الرد.", "Cevap vermeyi bırakırım."),
+            O("break_return", "Suggest a short break, then return to the topic calmly.", "Предложу короткую паузу, затем спокойно вернусь к теме.", "Menyarankan jeda singkat, lalu kembali membahas dengan tenang.", "أقترح استراحة قصيرة ثم أعود للموضوع بهدوء.", "Kısa bir ara önerir, sonra konuya sakin biçimde dönerim."),
+            O("his_problem", "Tell him his fear is his problem.", "Скажу, что его страх — только его проблема.", "Bilang ketakutannya adalah masalahnya sendiri.", "أقول إن خوفه مشكلته وحده.", "Korkusunun onun sorunu olduğunu söylerim.")
+        ]
+    },
+    {
+        id: "unacceptable_conflict",
+        section: "conflict",
+        type: "multi",
+        required: true,
+        dimension: "conflict",
+        prompt: L("Which behaviors are unacceptable during an argument? Select all that apply.", "Какое поведение недопустимо во время ссоры? Выбери всё подходящее.", "Perilaku apa yang tidak dapat diterima saat bertengkar? Pilih semua yang sesuai.", "ما السلوكيات غير المقبولة أثناء الخلاف؟ اختاري كل ما ينطبق.", "Tartışma sırasında hangi davranışlar kabul edilemez? Uygun olanların hepsini seç."),
+        options: [
+            O("insults", "Insults", "Оскорбления", "Menghina", "الإهانات", "Hakaret"),
+            O("yelling", "Yelling", "Крик", "Membentak", "الصراخ", "Bağırmak"),
+            O("breakup", "Threatening a breakup", "Угрозы расставанием", "Mengancam putus", "التهديد بالانفصال", "Ayrılıkla tehdit"),
+            O("blocking", "Blocking without explanation", "Блокировка без объяснения", "Memblokir tanpa penjelasan", "الحظر من دون تفسير", "Açıklamadan engellemek"),
+            O("silent", "Silent punishment", "Молчание как наказание", "Diam sebagai hukuman", "العقاب بالصمت", "Sessizlikle cezalandırmak"),
+            O("public", "Public embarrassment", "Публичное унижение", "Mempermalukan di depan orang lain", "الإحراج أمام الناس", "Toplum içinde utandırmak"),
+            O("weakness", "Bringing up private weaknesses", "Использование личных слабостей", "Mengungkit kelemahan pribadi", "استخدام نقاط الضعف الخاصة", "Özel zayıflıkları yüzüne vurmak"),
+            O("physical", "Physical intimidation", "Физическое запугивание", "Intimidasi fisik", "الترهيب الجسدي", "Fiziksel korkutma"),
+            O("cooling", "Leaving for a planned cooling-off period", "Уход на заранее оговорённую паузу", "Pergi untuk jeda yang sudah disepakati", "الابتعاد لفترة تهدئة متفق عليها", "Planlı sakinleşme molası için ayrılmak"),
+            O("respectful_no", "Saying no respectfully", "Уважительно сказать «нет»", "Mengatakan tidak dengan sopan", "قول لا باحترام", "Saygılı biçimde hayır demek")
+        ]
+    },
+    {
+        id: "apology_trust",
+        section: "conflict",
+        type: "multi",
+        required: true,
+        dimension: "conflict",
+        prompt: L("What helps you trust an apology? Select what matters.", "Что помогает тебе поверить в извинение? Выбери важное.", "Apa yang membuatmu percaya pada permintaan maaf? Pilih yang penting.", "ما الذي يساعدك على تصديق الاعتذار؟ اختاري ما يهم.", "Bir özre güvenmene ne yardımcı olur? Önemli olanları seç."),
+        options: [
+            O("words", "Words", "Слова", "Kata-kata", "الكلمات", "Sözler"),
+            O("changed_behavior", "Changed behavior over time", "Изменившееся поведение со временем", "Perubahan perilaku dari waktu ke waktu", "تغير السلوك مع الوقت", "Zaman içinde değişen davranış"),
+            O("access", "Immediate access to phones and accounts", "Немедленный доступ к телефонам и аккаунтам", "Akses langsung ke ponsel dan akun", "الوصول الفوري إلى الهاتف والحسابات", "Telefon ve hesaplara anında erişim"),
+            O("explanation", "A detailed explanation", "Подробное объяснение", "Penjelasan yang rinci", "تفسير مفصل", "Ayrıntılı açıklama"),
+            O("time", "Time and consistency", "Время и стабильность", "Waktu dan konsistensi", "الوقت والاستمرارية", "Zaman ve tutarlılık"),
+            O("gift", "A gift or romantic gesture", "Подарок или романтический жест", "Hadiah atau gestur romantis", "هدية أو لفتة رومانسية", "Hediye veya romantik jest"),
+            O("forgiveness", "Forgiveness from both sides", "Прощение с обеих сторон", "Saling memaafkan", "المغفرة من الطرفين", "İki tarafın da affetmesi")
+        ]
+    },
+    {
+        id: "privacy_secrecy",
+        section: "conflict",
+        type: "text",
+        required: true,
+        minLength: 30,
+        dimension: "conflict",
+        prompt: L("What is the difference between privacy and secrecy in a relationship?", "В чём разница между личным пространством и секретами в отношениях?", "Apa perbedaan antara privasi dan rahasia dalam hubungan?", "ما الفرق بين الخصوصية والإخفاء في العلاقة؟", "Bir ilişkide mahremiyet ile gizlemek arasındaki fark nedir?")
+    },
+    {
+        id: "recent_wrong",
+        section: "conflict",
+        type: "text",
+        required: true,
+        minLength: 45,
+        dimension: "honesty",
+        prompt: L("Tell Naim about a recent time when you were wrong. What happened after you understood your mistake?", "Расскажи Наиму о недавнем случае, когда ты была неправа. Что произошло после того, как ты поняла свою ошибку?", "Ceritakan kepada Naim tentang saat baru-baru ini kamu salah. Apa yang terjadi setelah kamu menyadarinya?", "أخبري نعيم عن موقف حديث كنت فيه مخطئة. ماذا حدث بعد أن أدركت خطأك؟", "Naim'e yakın zamanda haksız olduğun bir olayı anlat. Hatanı anladıktan sonra ne oldu?")
+    },
+    {
+        id: "faith_role",
+        section: "faith",
+        type: "single",
+        required: true,
+        dimension: "faith",
+        prompt: L("What role does Islam have in your daily life and future marriage?", "Какую роль Ислам играет в твоей повседневной жизни и будущем браке?", "Apa peran Islam dalam kehidupan sehari-harimu dan pernikahanmu nanti?", "ما دور الإسلام في حياتك اليومية وزواجك المستقبلي؟", "İslam günlük hayatında ve gelecekteki evliliğinde nasıl bir yere sahip?"),
+        options: [
+            O("guides", "It guides my daily choices", "Он направляет мои ежедневные решения", "Islam membimbing pilihan harianku", "يوجه اختياراتي اليومية", "Günlük tercihlerime yön verir"),
+            O("growing", "It matters deeply, and I am still growing", "Он очень важен для меня, и я продолжаю расти", "Sangat penting bagiku, dan aku masih terus bertumbuh", "له أهمية عميقة وأنا ما زلت أتطور", "Benim için çok önemli ve hâlâ gelişiyorum"),
+            O("cultural", "It matters more culturally than practically", "Он важнее культурно, чем в повседневной практике", "Lebih penting secara budaya daripada praktik", "أهم ثقافيًا من كونه ممارسة يومية", "Pratikten çok kültürel olarak önemli"),
+            O("exploring", "I am still exploring my faith", "Я ещё изучаю свою веру", "Aku masih mendalami imanku", "ما زلت أستكشف إيماني", "İnancımı hâlâ keşfediyorum"),
+            O("not_central", "It is not central to my life", "Он не занимает центрального места в моей жизни", "Bukan pusat hidupku", "ليس محوريًا في حياتي", "Hayatımın merkezinde değil")
+        ]
+    },
+    {
+        id: "opposite_friends",
+        section: "faith",
+        type: "single",
+        required: true,
+        dimension: "faith",
+        prompt: L("What type of boundaries feel right with friends of the opposite sex during a committed relationship?", "Какие границы с друзьями противоположного пола кажутся тебе правильными в серьёзных отношениях?", "Batasan seperti apa yang terasa tepat dengan teman lawan jenis dalam hubungan serius?", "ما الحدود المناسبة مع أصدقاء الجنس الآخر خلال علاقة ملتزمة؟", "Ciddi bir ilişkide karşı cins arkadaşlıklarında hangi sınırlar sana doğru gelir?"),
+        options: [
+            O("close_private", "Close private friendships are fine", "Близкая личная дружба допустима", "Pertemanan dekat secara pribadi tidak masalah", "الصداقات الخاصة القريبة مقبولة", "Yakın özel arkadaşlıklar sorun değildir"),
+            O("group_only", "Group friendships are fine, private emotional chats are not", "Общение в компании нормально, личные эмоциональные разговоры — нет", "Pertemanan dalam grup boleh, obrolan emosional pribadi tidak", "صداقات المجموعة مقبولة، والمحادثات العاطفية الخاصة ليست كذلك", "Grup arkadaşlığı uygundur, özel duygusal sohbetler uygun değildir"),
+            O("necessary", "Necessary school or work contact only", "Только необходимое общение по учёбе или работе", "Hanya kontak yang perlu untuk sekolah atau kerja", "التواصل الضروري للدراسة أو العمل فقط", "Yalnızca gerekli okul veya iş iletişimi"),
+            O("no_private", "No private contact beyond necessity", "Никакого личного общения без необходимости", "Tidak ada kontak pribadi di luar kebutuhan", "لا تواصل خاص إلا للضرورة", "Zorunluluk dışında özel iletişim yok"),
+            O("separate_rules", "Each partner decides separately", "Каждый партнёр решает отдельно", "Setiap pasangan menentukan sendiri", "يقرر كل طرف لنفسه", "Her partner kendisi karar verir"),
+            O("not_thought", "I have not thought about this", "Я об этом не думала", "Aku belum memikirkan ini", "لم أفكر في ذلك", "Bunu düşünmedim")
+        ]
+    },
+    {
+        id: "old_friend_message",
+        section: "faith",
+        type: "single",
+        required: true,
+        dimension: "faith",
+        prompt: L("An old male friend sends a casual message after you enter an exclusive relationship. What happens?", "Старый друг-мужчина пишет обычное сообщение после того, как ты вступила в эксклюзивные отношения. Что происходит дальше?", "Teman laki-laki lama mengirim pesan santai setelah kamu menjalani hubungan eksklusif. Apa yang kamu lakukan?", "يرسل صديق قديم رسالة عادية بعد دخولك علاقة حصرية. ماذا يحدث؟", "Özel bir ilişkiye başladıktan sonra eski bir erkek arkadaşın sıradan bir mesaj gönderiyor. Ne olur?"),
+        options: [
+            O("normal_long", "I speak normally for as long as the conversation continues", "Я буду нормально общаться, пока продолжается разговор", "Aku berbicara normal selama percakapan berlanjut", "أتحدث بشكل طبيعي ما دامت المحادثة مستمرة", "Sohbet sürdüğü müddetçe normal konuşurum"),
+            O("brief_relationship", "I answer briefly and mention my relationship", "Коротко отвечу и упомяну свои отношения", "Aku menjawab singkat dan menyebut hubunganku", "أجيب باختصار وأذكر علاقتي", "Kısa cevap verip ilişkimden söz ederim"),
+            O("agreed_boundary", "I follow the boundary my partner and I already agreed on", "Я следую границе, о которой мы договорились с партнёром", "Aku mengikuti batasan yang sudah disepakati bersama pasangan", "أتبع الحد الذي اتفقنا عليه أنا وشريكي", "Partnerimle önceden anlaştığımız sınıra uyarım"),
+            O("hide", "I hide the conversation to avoid conflict", "Скрою разговор, чтобы избежать конфликта", "Aku menyembunyikan percakapan agar tidak terjadi konflik", "أخفي المحادثة لتجنب الخلاف", "Tartışmadan kaçınmak için konuşmayı saklarım"),
+            O("ask_first", "I ask my partner before replying", "Спрошу партнёра перед ответом", "Aku bertanya kepada pasangan sebelum membalas", "أسأل شريكي قبل الرد", "Cevap vermeden önce partnerime sorarım"),
+            O("block_all", "I block every man automatically", "Я автоматически блокирую любого мужчину", "Aku otomatis memblokir setiap laki-laki", "أحظر كل رجل تلقائيًا", "Her erkeği otomatik olarak engellerim")
+        ]
+    },
+    {
+        id: "same_standards",
+        section: "faith",
+        type: "single",
+        required: true,
+        dimension: "faith",
+        prompt: L("Should both partners follow the same standards?", "Должны ли оба партнёра соблюдать одинаковые стандарты?", "Haruskah kedua pasangan mengikuti standar yang sama?", "هل ينبغي أن يتبع الطرفان المعايير نفسها؟", "İki partner aynı ilkelere uymalı mı?"),
+        options: [
+            O("same", "Yes, the same principle should apply to both", "Да, один и тот же принцип должен действовать для обоих", "Ya, prinsip yang sama berlaku untuk keduanya", "نعم، ينبغي أن ينطبق المبدأ نفسه على الطرفين", "Evet, aynı ilke ikisi için de geçerli olmalı"),
+            O("mostly", "Mostly, with practical differences", "В основном да, с практическими различиями", "Sebagian besar, dengan perbedaan praktis", "في الغالب، مع اختلافات عملية", "Çoğunlukla, pratik farklılıklarla"),
+            O("different", "No, men and women should receive completely different freedom", "Нет, у мужчин и женщин должна быть совершенно разная свобода", "Tidak, laki-laki dan perempuan harus punya kebebasan yang sepenuhnya berbeda", "لا، ينبغي أن تكون حرية الرجل والمرأة مختلفة تمامًا", "Hayır, erkek ve kadının özgürlüğü tamamen farklı olmalı"),
+            O("depends", "It depends on the situation", "Зависит от ситуации", "Tergantung situasinya", "يعتمد على الموقف", "Duruma bağlı")
+        ]
+    },
+    {
+        id: "social_media",
+        section: "faith",
+        type: "text",
+        required: true,
+        minLength: 30,
+        dimension: "faith",
+        prompt: L("What type of social media behavior feels respectful during a serious relationship?", "Какое поведение в социальных сетях кажется тебе уважительным в серьёзных отношениях?", "Perilaku media sosial seperti apa yang terasa menghargai hubungan serius?", "ما السلوك المحترم على وسائل التواصل خلال علاقة جادة؟", "Ciddi bir ilişkide sosyal medyada nasıl davranmak saygılıdır?")
+    },
+    {
+        id: "marriage_life",
+        section: "future",
+        type: "single",
+        required: true,
+        dimension: "future",
+        prompt: L("What life do you currently want after marriage?", "Какой жизни ты сейчас хочешь после брака?", "Kehidupan seperti apa yang kamu inginkan setelah menikah?", "ما نمط الحياة الذي تريدينه حاليًا بعد الزواج؟", "Evlilikten sonra şu an nasıl bir hayat istiyorsun?"),
+        options: [
+            O("career", "Full-time career", "Полная занятость и карьера", "Karier penuh waktu", "مسيرة مهنية بدوام كامل", "Tam zamanlı kariyer"),
+            O("part_time", "Part-time work", "Работа с частичной занятостью", "Kerja paruh waktu", "عمل بدوام جزئي", "Yarı zamanlı çalışma"),
+            O("study", "Study or university", "Учёба или университет", "Belajar atau universitas", "الدراسة أو الجامعة", "Eğitim veya üniversite"),
+            O("business", "Build a business", "Развивать бизнес", "Membangun bisnis", "بناء مشروع", "İş kurmak"),
+            O("home", "Focus mainly on home and children", "В основном заниматься домом и детьми", "Fokus terutama pada rumah dan anak", "التركيز أساسًا على البيت والأطفال", "Ağırlıklı olarak ev ve çocuklara odaklanmak"),
+            O("mix", "A mix depending on finances and children", "Сочетание в зависимости от финансов и детей", "Gabungan, tergantung keuangan dan anak", "مزيج حسب الوضع المالي والأطفال", "Maddi durum ve çocuklara göre bir karışım"),
+            O("unsure", "I am unsure", "Я не уверена", "Aku belum yakin", "لست متأكدة", "Emin değilim")
+        ]
+    },
+    {
+        id: "long_term_location",
+        section: "future",
+        type: "single",
+        required: true,
+        dimension: "future",
+        prompt: L("Where do you want to live long term?", "Где ты хочешь жить в долгосрочной перспективе?", "Di mana kamu ingin tinggal dalam jangka panjang?", "أين تريدين العيش على المدى البعيد؟", "Uzun vadede nerede yaşamak istiyorsun?"),
+        options: [
+            O("usa", "United States", "США", "Amerika Serikat", "الولايات المتحدة", "Amerika Birleşik Devletleri"),
+            O("turkiye", "Türkiye", "Турция", "Türkiye", "تركيا", "Türkiye"),
+            O("current", "My current country", "В моей нынешней стране", "Negaraku sekarang", "بلدي الحالي", "Şu an yaşadığım ülke"),
+            O("other", "Another country", "В другой стране", "Negara lain", "بلد آخر", "Başka bir ülke"),
+            O("flexible", "I am flexible", "Я готова рассматривать варианты", "Aku fleksibel", "أنا مرنة", "Esneğim"),
+            O("no_relocate", "I do not want to relocate", "Я не хочу переезжать", "Aku tidak ingin pindah negara", "لا أريد الانتقال", "Taşınmak istemiyorum")
+        ]
+    },
+    {
+        id: "relocation_safety",
+        section: "future",
+        type: "text",
+        required: true,
+        minLength: 25,
+        dimension: "future",
+        prompt: L("What would make relocation feel safe and fair?", "Что сделало бы переезд безопасным и справедливым для тебя?", "Apa yang membuat relokasi terasa aman dan adil bagimu?", "ما الذي يجعل الانتقال آمنًا وعادلًا بالنسبة لك؟", "Taşınmanın güvenli ve adil hissettirmesi için ne gerekir?"),
+        showWhen: (answers) => !oneOf(answers, "long_term_location", ["no_relocate"])
+    },
+    {
+        id: "children",
+        section: "future",
+        type: "single",
+        required: true,
+        dimension: "future",
+        prompt: L("Do you want children?", "Ты хочешь детей?", "Apakah kamu ingin punya anak?", "هل تريدين أطفالًا؟", "Çocuk istiyor musun?"),
+        options: [O("yes", "Yes", "Да", "Ya", "نعم", "Evet"), O("no", "No", "Нет", "Tidak", "لا", "Hayır"), O("unsure", "Unsure", "Не уверена", "Belum yakin", "غير متأكدة", "Emin değilim")]
+    },
+    {
+        id: "children_timing",
+        section: "future",
+        type: "text",
+        required: true,
+        minLength: 12,
+        dimension: "future",
+        prompt: L("When would you prefer to start having children, and what would need to be stable first?", "Когда ты хотела бы начать заводить детей и что должно быть стабильным прежде всего?", "Kapan kamu ingin mulai punya anak, dan apa yang harus stabil lebih dulu?", "متى تفضلين البدء بإنجاب الأطفال، وما الذي يجب أن يستقر أولًا؟", "Ne zaman çocuk sahibi olmaya başlamak istersin ve önce nelerin oturmuş olması gerekir?"),
+        showWhen: (answers) => answers.children === "yes"
+    },
+    {
+        id: "finances",
+        section: "future",
+        type: "single",
+        required: true,
+        dimension: "future",
+        prompt: L("Which financial structure feels healthiest?", "Какая финансовая модель кажется тебе наиболее здоровой?", "Struktur keuangan mana yang terasa paling sehat?", "أي تنظيم مالي يبدو الأكثر صحة؟", "Hangi maddi düzen sana en sağlıklı gelir?"),
+        options: [
+            O("provider", "Husband as primary provider", "Муж — основной обеспечивающий", "Suami sebagai pencari nafkah utama", "الزوج هو المعيل الأساسي", "Kocanın ana sağlayıcı olması"),
+            O("equal", "Both contribute equally", "Оба вносят равный вклад", "Keduanya berkontribusi sama", "يساهم الطرفان بالتساوي", "İkisinin eşit katkı sağlaması"),
+            O("income", "Contribution depends on income and circumstances", "Вклад зависит от дохода и обстоятельств", "Kontribusi tergantung pendapatan dan keadaan", "المساهمة حسب الدخل والظروف", "Katkının gelir ve koşullara göre olması"),
+            O("shared_personal", "Shared finances with personal spending accounts", "Общие финансы с личными счетами на расходы", "Keuangan bersama dengan rekening pribadi", "أموال مشتركة مع حسابات إنفاق شخصية", "Ortak finans ve kişisel harcama hesapları"),
+            O("separate", "Mostly separate finances", "В основном раздельные финансы", "Keuangan sebagian besar terpisah", "أموال منفصلة في الغالب", "Mali durumun çoğunlukla ayrı olması"),
+            O("not_thought", "I have not thought about this", "Я об этом не думала", "Aku belum memikirkan ini", "لم أفكر في ذلك", "Bunu düşünmedim")
+        ]
+    },
+    {
+        id: "parents_influence",
+        section: "future",
+        type: "single",
+        required: true,
+        dimension: "future",
+        prompt: L("How much influence should parents have after marriage?", "Насколько родители должны влиять на решения после брака?", "Seberapa besar pengaruh orang tua setelah menikah?", "ما مقدار تأثير الوالدين بعد الزواج؟", "Evlilikten sonra anne babanın ne kadar etkisi olmalı?"),
+        options: [
+            O("advice_couple", "They give advice, while the couple decides", "Они дают советы, а решение принимает пара", "Mereka memberi saran, pasangan yang memutuskan", "يقدمون النصيحة، والزوجان يقرران", "Onlar tavsiye verir, kararı çift verir"),
+            O("approve_major", "They should approve major decisions", "Они должны одобрять важные решения", "Mereka harus menyetujui keputusan besar", "ينبغي أن يوافقوا على القرارات الكبرى", "Büyük kararları onaylamalılar"),
+            O("parents_first", "Their wishes should usually come first", "Их желания обычно должны быть на первом месте", "Keinginan mereka biasanya harus didahulukan", "ينبغي أن تأتي رغباتهم أولًا غالبًا", "Genellikle onların istekleri önce gelmeli"),
+            O("spouse_first", "The spouse's wishes should always come first", "Желания супруга всегда должны быть на первом месте", "Keinginan pasangan harus selalu didahulukan", "ينبغي أن تأتي رغبة الزوج دائمًا أولًا", "Eşin isteği her zaman önce gelmeli"),
+            O("depends", "It depends on the issue", "Зависит от вопроса", "Tergantung masalahnya", "يعتمد على الموضوع", "Konuya bağlı")
+        ]
+    },
+    {
+        id: "family_opposition",
+        section: "future",
+        type: "single",
+        required: true,
+        dimension: "future",
+        prompt: L("Your family dislikes a marriage choice, but no abuse, dishonesty, or religious problem exists. What would you do?", "Семье не нравится твой выбор для брака, но нет насилия, обмана или религиозной проблемы. Что ты сделаешь?", "Keluargamu tidak menyukai pilihan pernikahanmu, tetapi tidak ada kekerasan, kebohongan, atau masalah agama. Apa yang kamu lakukan?", "لا تحب عائلتك اختيارك للزواج، لكن لا يوجد عنف أو كذب أو مشكلة دينية. ماذا تفعلين؟", "Ailen evlilik tercihini sevmiyor, ancak istismar, yalan veya dini bir sorun yok. Ne yaparsın?"),
+        options: [
+            O("listen", "Listen carefully and investigate their concerns", "Внимательно выслушаю и проверю их опасения", "Mendengarkan dan menyelidiki kekhawatiran mereka", "أستمع جيدًا وأتحقق من مخاوفهم", "Dikkatle dinler ve endişelerini araştırırım"),
+            O("family_final", "Let the family make the final decision", "Позволю семье принять окончательное решение", "Membiarkan keluarga mengambil keputusan akhir", "أترك القرار النهائي للعائلة", "Son kararı aileye bırakırım"),
+            O("secret", "Continue secretly", "Продолжу тайно", "Melanjutkan diam-diam", "أواصل سرًا", "Gizlice devam ederim"),
+            O("cutoff", "Cut off the family immediately", "Сразу разорву отношения с семьёй", "Langsung memutus hubungan dengan keluarga", "أقطع علاقتي بالعائلة فورًا", "Aileyle hemen bağımı koparırım"),
+            O("mediator", "Ask for a trusted mediator", "Попрошу помощи у доверенного посредника", "Meminta mediator tepercaya", "أطلب وسيطًا موثوقًا", "Güvenilir bir arabulucu isterim"),
+            O("couple_decide", "Decide with my future spouse after considering the advice", "Приму решение с будущим супругом после рассмотрения совета", "Memutuskan bersama calon pasangan setelah mempertimbangkan saran", "أقرر مع زوجي المستقبلي بعد النظر في النصيحة", "Tavsiyeyi değerlendirdikten sonra gelecekteki eşimle karar veririm")
+        ]
+    },
+    {
+        id: "easy_part",
+        section: "honesty",
+        type: "text",
+        required: true,
+        minLength: 20,
+        dimension: "honesty",
+        prompt: L("Which part of Naim's personality sounds easiest for you?", "Какая часть характера Наима кажется тебе самой лёгкой для совместной жизни?", "Bagian mana dari kepribadian Naim yang terasa paling mudah bagimu?", "أي جانب من شخصية نعيم يبدو الأسهل بالنسبة لك؟", "Naim'in kişiliğinin hangi yönü sana en kolay gelir?")
+    },
+    {
+        id: "difficult_part",
+        section: "honesty",
+        type: "text",
+        required: true,
+        minLength: 20,
+        dimension: "honesty",
+        prompt: L("Which part worries you or feels difficult? Every person has difficult parts, so choose at least one concern.", "Какая часть тебя беспокоит или кажется сложной? У каждого человека есть трудные стороны, поэтому назови хотя бы одну.", "Bagian mana yang membuatmu khawatir atau terasa sulit? Semua orang punya sisi sulit, jadi sebutkan setidaknya satu kekhawatiran.", "أي جانب يقلقك أو يبدو صعبًا؟ لكل شخص جوانب صعبة، فاذكري قلقًا واحدًا على الأقل.", "Hangi yönü seni endişelendiriyor veya zor geliyor? Her insanın zor tarafları vardır, en az bir kaygı belirt.")
+    },
+    {
+        id: "needs_from_naim",
+        section: "honesty",
+        type: "text",
+        required: true,
+        minLength: 25,
+        dimension: "honesty",
+        prompt: L("What would you need from Naim to feel safe, respected, and loved?", "Что тебе нужно от Наима, чтобы чувствовать безопасность, уважение и любовь?", "Apa yang kamu butuhkan dari Naim agar merasa aman, dihargai, dan dicintai?", "ماذا تحتاجين من نعيم كي تشعري بالأمان والاحترام والحب؟", "Güvende, saygı görmüş ve sevilmiş hissetmek için Naim'den neye ihtiyacın olur?")
+    },
+    {
+        id: "naim_needs",
+        section: "honesty",
+        type: "text",
+        required: true,
+        minLength: 25,
+        dimension: "honesty",
+        prompt: L("What do you think Naim would need from you to feel safe, respected, and loved?", "Как ты думаешь, что Наиму нужно от тебя, чтобы чувствовать безопасность, уважение и любовь?", "Menurutmu, apa yang Naim butuhkan darimu agar merasa aman, dihargai, dan dicintai?", "برأيك، ماذا يحتاج نعيم منك كي يشعر بالأمان والاحترام والحب؟", "Sence Naim'in güvende, saygı görmüş ve sevilmiş hissetmesi için senden neye ihtiyacı olur?")
+    },
+    {
+        id: "answer_for_naim",
+        section: "honesty",
+        type: "single",
+        required: true,
+        dimension: "honesty",
+        prompt: L("Did you choose any answer because you thought Naim would prefer it?", "Выбирала ли ты какой-либо ответ потому, что думала, что Наиму он понравится?", "Apakah kamu memilih jawaban tertentu karena mengira Naim akan menyukainya?", "هل اخترتِ أي إجابة لأنك ظننتِ أن نعيم يفضلها؟", "Naim'in tercih edeceğini düşündüğün için seçtiğin bir cevap oldu mu?"),
+        options: [O("no", "No", "Нет", "Tidak", "لا", "Hayır"), O("little", "A little", "Немного", "Sedikit", "قليلًا", "Biraz"), O("yes", "Yes", "Да", "Ya", "نعم", "Evet"), O("unsure", "I am unsure", "Я не уверена", "Aku tidak yakin", "لست متأكدة", "Emin değilim")]
+    },
+    {
+        id: "honest_correction",
+        section: "honesty",
+        type: "text",
+        required: true,
+        minLength: 20,
+        dimension: "honesty",
+        prompt: L("Write the answer that feels more honest now.", "Напиши ответ, который сейчас кажется более честным.", "Tuliskan jawaban yang sekarang terasa lebih jujur.", "اكتبي الإجابة التي تبدو أكثر صدقًا الآن.", "Şimdi sana daha dürüst gelen cevabı yaz."),
+        showWhen: (answers) => oneOf(answers, "answer_for_naim", ["little", "yes", "unsure"])
+    },
+    {
+        id: "final_interest",
+        section: "honesty",
+        type: "single",
+        required: true,
+        dimension: "intent",
+        prompt: L("After reading and answering everything, do you still want to continue talking?", "После всего прочитанного и отвеченного ты всё ещё хочешь продолжить общение?", "Setelah membaca dan menjawab semuanya, apakah kamu masih ingin lanjut berbicara?", "بعد قراءة كل شيء والإجابة عنه، هل ما زلت ترغبين في مواصلة الحديث؟", "Her şeyi okuyup cevapladıktan sonra hâlâ konuşmaya devam etmek istiyor musun?"),
+        options: [
+            O("yes", "Yes", "Да", "Ya", "نعم", "Evet"),
+            O("slow", "Yes, but slowly", "Да, но медленно", "Ya, tetapi perlahan", "نعم، لكن ببطء", "Evet, ama yavaş"),
+            O("discuss", "Yes, but we need to discuss a few things", "Да, но нам нужно обсудить несколько вещей", "Ya, tetapi ada beberapa hal yang perlu dibicarakan", "نعم، لكننا نحتاج إلى مناقشة بعض الأمور", "Evet, ama birkaç şeyi konuşmamız gerekiyor"),
+            O("unsure", "I am unsure", "Я не уверена", "Aku belum yakin", "لست متأكدة", "Emin değilim"),
+            O("no", "No", "Нет", "Tidak", "لا", "Hayır")
+        ]
+    },
+    {
+        id: "questions_for_naim",
+        section: "honesty",
+        type: "text",
+        required: false,
+        minLength: 0,
+        dimension: "honesty",
+        prompt: L("What would you like to ask Naim before either of you decides anything?", "Что ты хотела бы спросить у Наима, прежде чем кто-либо из вас примет решение?", "Apa yang ingin kamu tanyakan kepada Naim sebelum kalian memutuskan sesuatu?", "ماذا تودين أن تسألي نعيم قبل أن يقرر أي منكما شيئًا؟", "İkinizden biri karar vermeden önce Naim'e ne sormak istersin?")
+    }
+];
+export const MAIN_SECTION_ORDER = ["intent", "affection", "conflict", "faith", "future", "honesty"];
+export function visibleQuestions(answers, includeGate = false) {
+    return questions.filter((question) => (includeGate || question.section !== "gate") && (!question.showWhen || question.showWhen(answers)));
+}
+export function questionById(id) {
+    return questions.find((question) => question.id === id);
+}
+export function labelForAnswer(question, value, locale) {
+    if (!question || value === null)
+        return "";
+    if (Array.isArray(value)) {
+        return value.map((id) => question.options?.find((option) => option.id === id)?.label[locale] ?? id).join(", ");
+    }
+    return question.options?.find((option) => option.id === value)?.label[locale] ?? value;
+}
+export function englishLabelForAnswer(question, value) {
+    return labelForAnswer(question, value, "en");
+}
+
+const weights = {
+    intent: 15,
+    affection: 20,
+    conflict: 20,
+    faith: 20,
+    future: 15,
+    honesty: 10
+};
+const dimensionQuestions = {
+    intent: ["serious_open", "intent_stage", "partner_timing", "pace_reaction", "commitment_definition", "final_interest"],
+    affection: ["contact_rhythm", "greetings", "call_frequency", "loved_not_controlled", "independence", "friends_evening"],
+    conflict: ["space_conflict", "repeated_reassurance", "unacceptable_conflict", "apology_trust", "privacy_secrecy"],
+    faith: ["faith_role", "opposite_friends", "old_friend_message", "same_standards", "social_media"],
+    future: ["marriage_life", "long_term_location", "relocation_safety", "children", "children_timing", "finances", "parents_influence", "family_opposition"],
+    honesty: ["recent_wrong", "easy_part", "difficult_part", "needs_from_naim", "naim_needs", "answer_for_naim", "honest_correction", "questions_for_naim"]
+};
+const singleScores = {
+    serious_open: { yes: 100, slow: 82, casual: 10, no: 0 },
+    intent_stage: { marriage: 100, slow_serious: 90, unsure: 48, casual: 10, friendship: 0 },
+    partner_timing: { days: 42, weeks: 68, months_1_3: 100, months_several: 92, depends: 96 },
+    pace_reaction: { relieved: 100, fine: 96, disappointed_respect: 80, rejected: 48, pressure: 18, leave: 12 },
+    final_interest: { yes: 100, slow: 88, discuss: 78, unsure: 45, no: 0 },
+    contact_rhythm: { checkins: 92, long_daily: 94, throughout: 100, few_weekly: 28, no_pattern: 48, constant: 58 },
+    greetings: { important: 100, sweet: 88, spontaneous: 70, obligation: 35, annoying: 10 },
+    call_frequency: { daily: 100, four_five: 96, two_three: 82, weekly: 55, rarely: 22, dislike: 5 },
+    independence: { plenty: 95, separate_updates: 100, most_shared: 72, always_know: 28, rarely_apart: 22 },
+    friends_evening: { have_fun: 100, say_insecure: 95, updates: 62, cold: 18, jealous_post: 0, forbid: 8 },
+    space_conflict: { time_return: 100, explain_then_space: 95, keep_arguing: 35, silent: 12, breakup_threat: 0, chase: 5 },
+    repeated_reassurance: { reassure_limit: 100, repair_action: 96, break_return: 88, passwords: 32, his_problem: 22, stop_reply: 5, insult: 0 },
+    faith_role: { guides: 100, growing: 92, exploring: 65, cultural: 36, not_central: 0 },
+    opposite_friends: { no_private: 100, necessary: 96, group_only: 82, not_thought: 48, separate_rules: 25, close_private: 5 },
+    old_friend_message: { agreed_boundary: 100, brief_relationship: 88, ask_first: 82, block_all: 68, normal_long: 18, hide: 0 },
+    same_standards: { same: 100, mostly: 88, depends: 58, different: 15 },
+    marriage_life: { home: 100, mix: 96, part_time: 82, business: 78, study: 76, career: 62, unsure: 48 },
+    long_term_location: { usa: 100, turkiye: 98, flexible: 100, other: 62, current: 48, no_relocate: 12 },
+    children: { yes: 100, unsure: 45, no: 0 },
+    finances: { provider: 100, income: 92, shared_personal: 80, equal: 62, not_thought: 45, separate: 28 },
+    parents_influence: { advice_couple: 100, depends: 78, approve_major: 55, spouse_first: 42, parents_first: 12 },
+    family_opposition: { listen: 95, mediator: 100, couple_decide: 100, family_final: 25, secret: 18, cutoff: 0 },
+    answer_for_naim: { no: 100, little: 74, unsure: 58, yes: 42 }
+};
+function stringAnswer(answers, id) {
+    const value = answers[id];
+    return typeof value === "string" ? value : "";
+}
+function scoreText(value, minimum = 25) {
+    if (typeof value !== "string" || value.trim().length === 0)
+        return null;
+    const length = value.trim().length;
+    if (length < minimum * 0.5)
+        return 35;
+    if (length < minimum)
+        return 65;
+    if (length >= minimum * 3)
+        return 100;
+    return 85;
+}
+function scoreMulti(id, value) {
+    if (!Array.isArray(value) || value.length === 0)
+        return null;
+    if (id === "unacceptable_conflict") {
+        const harmful = ["insults", "yelling", "breakup", "blocking", "silent", "public", "weakness", "physical"];
+        const protectiveCount = harmful.filter((item) => value.includes(item)).length;
+        let score = (protectiveCount / harmful.length) * 100;
+        if (value.includes("cooling"))
+            score -= 10;
+        if (value.includes("respectful_no"))
+            score -= 20;
+        return Math.max(0, Math.min(100, score));
+    }
+    if (id === "apology_trust") {
+        let score = 0;
+        if (value.includes("changed_behavior"))
+            score += 38;
+        if (value.includes("time"))
+            score += 32;
+        if (value.includes("explanation"))
+            score += 18;
+        if (value.includes("forgiveness"))
+            score += 12;
+        if (value.includes("words"))
+            score += 5;
+        if (value.includes("gift"))
+            score -= 8;
+        if (value.includes("access"))
+            score -= 22;
+        return Math.max(0, Math.min(100, score));
+    }
+    return 70;
+}
+function questionScore(id, value) {
+    if (value === null || value === undefined || value === "")
+        return null;
+    if (Array.isArray(value))
+        return scoreMulti(id, value);
+    const mapped = singleScores[id]?.[value];
+    if (mapped !== undefined)
+        return mapped;
+    const question = questionById(id);
+    if (question?.type === "text")
+        return scoreText(value, question.minLength ?? 25);
+    return null;
+}
+function labelFromScore(score, hasConcern, hasMismatch) {
+    if (hasConcern)
+        return "character_concern";
+    if (hasMismatch)
+        return "major_mismatch";
+    if (score === null)
+        return "not_enough_information";
+    if (score >= 85)
+        return "aligned";
+    if (score >= 68)
+        return "mostly_aligned";
+    if (score >= 45)
+        return "needs_discussion";
+    return "major_mismatch";
+}
+function pushUnique(list, value) {
+    if (!list.includes(value))
+        list.push(value);
+}
+export function scoreAnswers(answers) {
+    const hardMismatches = [];
+    const characterConcerns = [];
+    const contradictions = [];
+    const followUps = [];
+    if (["casual", "friendship"].includes(stringAnswer(answers, "intent_stage")))
+        pushUnique(hardMismatches, "She is not currently seeking a serious relationship leading toward marriage.");
+    if (["casual", "no"].includes(stringAnswer(answers, "serious_open")))
+        pushUnique(hardMismatches, "She does not currently see serious spouse potential.");
+    if (stringAnswer(answers, "faith_role") === "not_central")
+        pushUnique(hardMismatches, "Islam is not central to her desired life or marriage.");
+    if (stringAnswer(answers, "opposite_friends") === "close_private")
+        pushUnique(hardMismatches, "She wants close private friendships with men.");
+    if (stringAnswer(answers, "children") === "no")
+        pushUnique(hardMismatches, "She does not want children.");
+    if (stringAnswer(answers, "long_term_location") === "no_relocate")
+        pushUnique(hardMismatches, "She does not want any relocation path.");
+    if (["few_weekly", "no_pattern"].includes(stringAnswer(answers, "contact_rhythm")))
+        pushUnique(hardMismatches, "Her preferred communication rhythm is substantially lower than Naim's.");
+    if (stringAnswer(answers, "final_interest") === "no")
+        pushUnique(hardMismatches, "She does not want to continue talking after the experience.");
+    if (["cold", "jealous_post", "forbid"].includes(stringAnswer(answers, "friends_evening")))
+        pushUnique(characterConcerns, "She chose punishment, jealousy, or restriction when a partner spends a normal evening with trusted friends.");
+    if (["silent", "breakup_threat", "chase"].includes(stringAnswer(answers, "space_conflict")))
+        pushUnique(characterConcerns, "She chose silent punishment, a breakup threat, or expecting pursuit during conflict.");
+    if (["insult", "stop_reply"].includes(stringAnswer(answers, "repeated_reassurance")))
+        pushUnique(characterConcerns, "She chose insults or disappearing in response to repeated insecurity.");
+    if (stringAnswer(answers, "old_friend_message") === "hide")
+        pushUnique(characterConcerns, "She would hide a conversation to avoid conflict.");
+    if (stringAnswer(answers, "same_standards") === "different")
+        pushUnique(characterConcerns, "She expects substantially different freedom for each partner.");
+    if (["secret", "cutoff"].includes(stringAnswer(answers, "family_opposition")))
+        pushUnique(characterConcerns, "She chose secrecy or immediate family cutoff instead of mediation and transparent decision-making.");
+    const unacceptable = answers.unacceptable_conflict;
+    if (Array.isArray(unacceptable) && !unacceptable.includes("physical"))
+        pushUnique(characterConcerns, "Physical intimidation was not marked unacceptable.");
+    if (Array.isArray(unacceptable) && unacceptable.includes("silent") && stringAnswer(answers, "space_conflict") === "silent") {
+        pushUnique(contradictions, "She marked silent punishment unacceptable but also chose stopping replies when hurt.");
+    }
+    if (stringAnswer(answers, "same_standards") === "same" && stringAnswer(answers, "old_friend_message") === "normal_long") {
+        pushUnique(contradictions, "She supports equal standards but also chose an open-ended private conversation with an old male friend.");
+    }
+    if (stringAnswer(answers, "parents_influence") === "advice_couple" && stringAnswer(answers, "family_opposition") === "family_final") {
+        pushUnique(contradictions, "She says the couple decides, then gives the family the final marriage decision.");
+    }
+    if (["daily", "four_five"].includes(stringAnswer(answers, "call_frequency")) && stringAnswer(answers, "contact_rhythm") === "few_weekly") {
+        pushUnique(contradictions, "She prefers frequent calls but only a few conversations each week.");
+    }
+    if (["checkins", "throughout"].includes(stringAnswer(answers, "contact_rhythm")) && ["obligation", "annoying"].includes(stringAnswer(answers, "greetings"))) {
+        pushUnique(contradictions, "She likes frequent contact but sees simple morning and night messages as pressure.");
+    }
+    if (["marriage", "slow_serious"].includes(stringAnswer(answers, "intent_stage")) && stringAnswer(answers, "final_interest") === "no") {
+        pushUnique(contradictions, "Her general intent is serious, but she does not want to continue with Naim.");
+    }
+    if (stringAnswer(answers, "marriage_life") === "career")
+        pushUnique(followUps, "Discuss how a full-time career fits the household and childcare model both people want.");
+    if (["current", "other"].includes(stringAnswer(answers, "long_term_location")))
+        pushUnique(followUps, "Discuss location, immigration, family access, and a realistic relocation path.");
+    if (stringAnswer(answers, "children") === "unsure")
+        pushUnique(followUps, "Discuss whether uncertainty about children is temporary or a stable preference.");
+    if (["approve_major", "parents_first", "depends"].includes(stringAnswer(answers, "parents_influence")))
+        pushUnique(followUps, "Clarify which decisions parents influence and who has final authority after marriage.");
+    if (["not_thought", "separate_rules"].includes(stringAnswer(answers, "opposite_friends")))
+        pushUnique(followUps, "Define practical opposite-sex boundaries with examples before exclusivity.");
+    if (["little", "yes", "unsure"].includes(stringAnswer(answers, "answer_for_naim")))
+        pushUnique(followUps, "Compare her corrected answer with the earlier choices she thought Naim would prefer.");
+    const dimensions = Object.keys(weights).map((dimension) => {
+        const scores = [];
+        const evidence = [];
+        for (const id of dimensionQuestions[dimension]) {
+            const score = questionScore(id, answers[id]);
+            if (score !== null) {
+                scores.push(score);
+                evidence.push(`${id}: ${Math.round(score)}`);
+            }
+        }
+        const score = scores.length ? scores.reduce((total, item) => total + item, 0) / scores.length : null;
+        const hasConcern = characterConcerns.some((concern) => {
+            if (dimension === "conflict")
+                return /conflict|silent|insult|disappearing|intimidation|pursuit/i.test(concern);
+            if (dimension === "affection")
+                return /jealousy|restriction|friends/i.test(concern);
+            if (dimension === "faith")
+                return /standards|conversation/i.test(concern);
+            if (dimension === "future")
+                return /family cutoff|secrecy/i.test(concern);
+            return false;
+        });
+        const hasMismatch = hardMismatches.some((mismatch) => {
+            if (dimension === "intent")
+                return /serious|spouse|continue/i.test(mismatch);
+            if (dimension === "affection")
+                return /communication/i.test(mismatch);
+            if (dimension === "faith")
+                return /Islam|friendships/i.test(mismatch);
+            if (dimension === "future")
+                return /children|relocation/i.test(mismatch);
+            return false;
+        });
+        return { key: dimension, score, label: labelFromScore(score, hasConcern, hasMismatch), weight: weights[dimension], evidence };
+    });
+    const scoredDimensions = dimensions.filter((dimension) => dimension.score !== null);
+    const totalWeight = scoredDimensions.reduce((total, dimension) => total + dimension.weight, 0);
+    const weighted = scoredDimensions.reduce((total, dimension) => total + (dimension.score ?? 0) * dimension.weight, 0);
+    const overall = totalWeight ? weighted / totalWeight : null;
+    return { overall, dimensions, hardMismatches, characterConcerns, contradictions, followUps };
+}
+export const dimensionNames = {
+    intent: "Intent and pace",
+    affection: "Secure affection and presence",
+    conflict: "Conflict maturity and regulation",
+    faith: "Faith and relationship boundaries",
+    future: "Future structure",
+    honesty: "Honesty and self-awareness"
+};
+export const alignmentNames = {
+    aligned: "Aligned",
+    mostly_aligned: "Mostly aligned",
+    needs_discussion: "Needs discussion",
+    major_mismatch: "Major mismatch",
+    character_concern: "Character concern",
+    not_enough_information: "Not enough information"
+};
+const runtimeConfig = window.__US_MAYBE_CONFIG__ || {};
+const SUPABASE_URL = runtimeConfig.supabaseUrl;
+const SUPABASE_KEY = runtimeConfig.publishableKey;
+const PUBLIC_FUNCTION = "/api/public";
+const appRoot = document.getElementById("app");
+const toastRoot = document.getElementById("toast-root");
+let activeCleanup = null;
+
+const stageText = {
+  en: {
+    welcomeTitle: (name) => `Hi, ${name}.`,
+    welcomeBody: "Naim likes talking to you. He also takes relationships seriously. This small experience helps both of you see whether your values, communication style, and future plans fit before either person gets deeply attached.",
+    curious: "I’m curious",
+    notForMe: "Not for me",
+    privacyTitle: "One honest thing before we begin",
+    privacyBody: "Your answers, saved drafts, answer changes, question views, and navigation are saved after you continue. Naim can review them even if you leave before finishing. Individual keystrokes, cursor movement, empty taps, passwords, and activity outside this website are not recorded.",
+    understand: "I understand and want to continue",
+    leave: "Leave without starting",
+    meet: "Meet Naim",
+    shouldKnow: "What you should know",
+    profileIntro: "Serious about building a peaceful marriage, affectionate by nature, and trying to grow in faith and character.",
+    traits: ["Serious about relationships", "Affectionate and expressive", "Muslim and faith-centered", "Ambitious and future-focused", "Values loyalty and regular communication", "Wants marriage and family if compatibility grows"],
+    difficult: "Naim gives a lot when he cares. He likes regular contact, direct answers, affection, and clear loyalty. Silence and uncertainty sometimes make him overthink. In past relationships, he sometimes responded with too many messages or questions. He is working on pausing, respecting space, asking once, and trusting consistent behavior instead of requesting immediate proof. He wants someone warm enough to reassure him and strong enough to tell him calmly when he is being unfair.",
+    continue: "Continue",
+    back: "Back",
+    saveContinue: "Save and continue",
+    submit: "Send my answers",
+    saving: "Saving…",
+    saved: "Saved privately",
+    required: "Please answer before continuing.",
+    moreDetail: "A little more detail would help.",
+    completeTitle: "Thank you for being honest.",
+    completeBody: "There is no automatic result here. Naim will read your answers himself and speak with you directly. Nothing here creates a promise or relationship. It gives both of you a clearer place to start.",
+    takeCare: "Take care until then.",
+    exitTitle: "All good.",
+    exitBody: "Thank you for being clear. Take care of yourself.",
+    underage: "This experience is only available to adults.",
+    unavailable: "This invitation is unavailable.",
+    deleted: "Your answers and activity were deleted.",
+    deleteData: "Delete my answers",
+    deleteConfirm: "This permanently removes your answers and activity from Naim’s dashboard.",
+    deletePermanent: "Delete permanently",
+    cancel: "Cancel",
+    chooseLanguage: "Choose your language",
+    privateInvitation: "Private invitation",
+    honest: "Honest beats impressive.",
+    bigQuestion: "Big question alert",
+    noNaming: "No one is naming children today.",
+    part: "Part",
+    of: "of"
+  },
+  ru: {
+    welcomeTitle: (name) => `Привет, ${name}.`,
+    welcomeBody: "Наиму нравится общаться с тобой, и он серьёзно относится к отношениям. Этот небольшой опыт поможет понять, совпадают ли ваши ценности, стиль общения и планы на будущее, прежде чем возникнет сильная привязанность.",
+    curious: "Мне интересно",
+    notForMe: "Это не для меня",
+    privacyTitle: "Одна честная вещь перед началом",
+    privacyBody: "После продолжения сохраняются ответы, черновики, изменения ответов, просмотр вопросов и навигация. Наим сможет увидеть их, даже если ты уйдёшь до завершения. Отдельные нажатия клавиш, движение курсора, пустые нажатия, пароли и действия вне сайта не записываются.",
+    understand: "Я понимаю и хочу продолжить",
+    leave: "Уйти, не начиная",
+    meet: "Познакомься с Наимом",
+    shouldKnow: "Что стоит знать",
+    profileIntro: "Он серьёзно настроен на спокойный брак, открыто проявляет чувства и старается расти в вере и характере.",
+    traits: ["Серьёзно относится к отношениям", "Ласковый и открытый", "Мусульманин, вера важна", "Амбициозный и думает о будущем", "Ценит верность и регулярное общение", "Хочет брака и семьи при совместимости"],
+    difficult: "Когда Наиму кто-то дорог, он много вкладывает. Ему важны регулярный контакт, прямые ответы, нежность и ясная верность. Тишина и неопределённость иногда заставляют его слишком много думать. Раньше он порой отправлял слишком много сообщений или вопросов. Сейчас он учится делать паузу, уважать пространство, спрашивать один раз и доверять последовательному поведению вместо немедленных доказательств.",
+    continue: "Продолжить", back: "Назад", saveContinue: "Сохранить и продолжить", submit: "Отправить ответы", saving: "Сохраняем…", saved: "Сохранено приватно", required: "Пожалуйста, ответь перед продолжением.", moreDetail: "Немного больше подробностей будет полезно.",
+    completeTitle: "Спасибо за честность.", completeBody: "Здесь нет автоматического результата. Наим сам прочитает ответы и поговорит с тобой напрямую. Это не создаёт обещания или отношения, а даёт вам более ясную точку для начала.", takeCare: "Береги себя до тех пор.",
+    exitTitle: "Всё хорошо.", exitBody: "Спасибо за ясность. Береги себя.", underage: "Этот опыт доступен только совершеннолетним.", unavailable: "Это приглашение недоступно.", deleted: "Твои ответы и активность удалены.", deleteData: "Удалить мои ответы", deleteConfirm: "Это навсегда удалит ответы и активность из панели Наима.", deletePermanent: "Удалить навсегда", cancel: "Отмена", chooseLanguage: "Выбери язык", privateInvitation: "Личное приглашение", honest: "Честность важнее впечатления.", bigQuestion: "Важный вопрос", noNaming: "Сегодня никто не выбирает имена детям.", part: "Часть", of: "из"
+  },
+  id: {
+    welcomeTitle: (name) => `Hai, ${name}.`,
+    welcomeBody: "Naim senang berbicara denganmu dan ia serius tentang hubungan. Pengalaman singkat ini membantu kalian melihat apakah nilai, gaya komunikasi, dan rencana masa depan kalian cocok sebelum keterikatan menjadi terlalu dalam.",
+    curious: "Aku penasaran", notForMe: "Bukan untukku", privacyTitle: "Satu hal jujur sebelum mulai", privacyBody: "Setelah kamu melanjutkan, jawaban, draf, perubahan jawaban, pertanyaan yang dilihat, dan navigasi disimpan. Naim bisa melihatnya meski kamu pergi sebelum selesai. Setiap ketikan, gerakan kursor, ketukan kosong, kata sandi, dan aktivitas di luar situs tidak direkam.", understand: "Aku mengerti dan ingin lanjut", leave: "Keluar tanpa memulai", meet: "Kenali Naim", shouldKnow: "Hal yang perlu kamu tahu", profileIntro: "Serius membangun pernikahan yang tenang, penuh kasih, dan berusaha bertumbuh dalam iman serta karakter.", traits: ["Serius tentang hubungan", "Penyayang dan ekspresif", "Muslim dan berpusat pada iman", "Ambisius dan fokus pada masa depan", "Menghargai kesetiaan dan komunikasi rutin", "Menginginkan pernikahan dan keluarga jika cocok"], difficult: "Naim memberi banyak saat ia peduli. Ia menyukai komunikasi rutin, jawaban langsung, kasih sayang, dan kesetiaan yang jelas. Keheningan dan ketidakpastian terkadang membuatnya berpikir berlebihan. Dulu ia kadang mengirim terlalu banyak pesan atau pertanyaan. Ia sedang belajar berhenti sejenak, menghormati ruang, bertanya sekali, dan memercayai perilaku yang konsisten.", continue: "Lanjut", back: "Kembali", saveContinue: "Simpan dan lanjut", submit: "Kirim jawabanku", saving: "Menyimpan…", saved: "Tersimpan secara pribadi", required: "Mohon jawab sebelum lanjut.", moreDetail: "Sedikit lebih rinci akan membantu.", completeTitle: "Terima kasih sudah jujur.", completeBody: "Tidak ada hasil otomatis di sini. Naim akan membaca jawabanmu dan berbicara langsung denganmu. Ini tidak menciptakan janji atau hubungan. Ini memberi kalian titik awal yang lebih jelas.", takeCare: "Jaga dirimu sampai nanti.", exitTitle: "Tidak apa-apa.", exitBody: "Terima kasih sudah jelas. Jaga dirimu.", underage: "Pengalaman ini hanya tersedia untuk orang dewasa.", unavailable: "Undangan ini tidak tersedia.", deleted: "Jawaban dan aktivitasmu sudah dihapus.", deleteData: "Hapus jawabanku", deleteConfirm: "Ini akan menghapus jawaban dan aktivitasmu secara permanen dari dasbor Naim.", deletePermanent: "Hapus selamanya", cancel: "Batal", chooseLanguage: "Pilih bahasamu", privateInvitation: "Undangan pribadi", honest: "Jujur lebih baik daripada terlihat sempurna.", bigQuestion: "Pertanyaan besar", noNaming: "Belum ada yang memilih nama anak hari ini.", part: "Bagian", of: "dari"
+  },
+  ar: {
+    welcomeTitle: (name) => `مرحبًا، ${name}.`,
+    welcomeBody: "يستمتع نعيم بالحديث معك، وهو جاد بشأن العلاقات. تساعدكما هذه التجربة القصيرة على معرفة ما إذا كانت القيم وأسلوب التواصل وخطط المستقبل متوافقة قبل أن يصبح التعلق عميقًا.", curious: "أنا مهتمة", notForMe: "هذا ليس مناسبًا لي", privacyTitle: "أمر صادق قبل أن نبدأ", privacyBody: "بعد المتابعة، يتم حفظ الإجابات والمسودات وتغييرات الإجابة والأسئلة التي تمت مشاهدتها والتنقل. يستطيع نعيم مراجعتها حتى إن غادرتِ قبل الإكمال. لا يتم تسجيل ضغطات المفاتيح الفردية أو حركة المؤشر أو النقرات الفارغة أو كلمات المرور أو النشاط خارج الموقع.", understand: "أفهم وأريد المتابعة", leave: "المغادرة دون البدء", meet: "تعرّفي إلى نعيم", shouldKnow: "ما ينبغي معرفته", profileIntro: "جاد في بناء زواج هادئ، محب بطبيعته، ويسعى للنمو في الإيمان والشخصية.", traits: ["جاد بشأن العلاقات", "حنون ومعبّر", "مسلم والإيمان محوري", "طموح ويركز على المستقبل", "يقدر الوفاء والتواصل المنتظم", "يريد الزواج والأسرة عند وجود التوافق"], difficult: "يعطي نعيم الكثير عندما يهتم. يحب التواصل المنتظم والإجابات المباشرة والمودة والوفاء الواضح. قد يدفعه الصمت وعدم اليقين إلى الإفراط في التفكير. في علاقات سابقة، أرسل أحيانًا رسائل أو أسئلة كثيرة. وهو يعمل على التوقف قليلًا واحترام المساحة والسؤال مرة واحدة والثقة بالسلوك المتسق.", continue: "متابعة", back: "رجوع", saveContinue: "حفظ ومتابعة", submit: "إرسال إجاباتي", saving: "جارٍ الحفظ…", saved: "تم الحفظ بشكل خاص", required: "يرجى الإجابة قبل المتابعة.", moreDetail: "قليل من التفاصيل الإضافية سيكون مفيدًا.", completeTitle: "شكرًا لصدقك.", completeBody: "لا توجد نتيجة آلية هنا. سيقرأ نعيم إجاباتك بنفسه ويتحدث معك مباشرة. لا يصنع هذا وعدًا أو علاقة، بل يمنحكما نقطة بداية أوضح.", takeCare: "اعتني بنفسك حتى ذلك الحين.", exitTitle: "لا بأس.", exitBody: "شكرًا لوضوحك. اعتني بنفسك.", underage: "هذه التجربة متاحة للبالغين فقط.", unavailable: "هذه الدعوة غير متاحة.", deleted: "تم حذف إجاباتك ونشاطك.", deleteData: "حذف إجاباتي", deleteConfirm: "سيؤدي هذا إلى حذف إجاباتك ونشاطك نهائيًا من لوحة نعيم.", deletePermanent: "حذف نهائي", cancel: "إلغاء", chooseLanguage: "اختاري لغتك", privateInvitation: "دعوة خاصة", honest: "الصدق أهم من محاولة الإبهار.", bigQuestion: "سؤال مهم", noNaming: "لن نختار أسماء الأطفال اليوم.", part: "الجزء", of: "من"
+  },
+  tr: {
+    welcomeTitle: (name) => `Merhaba, ${name}.`,
+    welcomeBody: "Naim seninle konuşmaktan hoşlanıyor ve ilişkileri ciddiye alıyor. Bu kısa deneyim, bağlanma derinleşmeden önce değerlerinizin, iletişim şeklinizin ve gelecek planlarınızın uyup uymadığını anlamanıza yardımcı olur.", curious: "Merak ediyorum", notForMe: "Bana göre değil", privacyTitle: "Başlamadan önce dürüst bir konu", privacyBody: "Devam ettikten sonra cevapların, taslakların, cevap değişikliklerin, görüntülenen sorular ve gezinme hareketlerin kaydedilir. Tamamlamadan ayrılsan bile Naim bunları görebilir. Tek tek tuş vuruşları, imleç hareketleri, boş dokunuşlar, şifreler ve site dışındaki etkinlik kaydedilmez.", understand: "Anlıyorum ve devam etmek istiyorum", leave: "Başlamadan ayrıl", meet: "Naim'i tanı", shouldKnow: "Bilmen gerekenler", profileIntro: "Huzurlu bir evlilik kurma konusunda ciddi, sevgisini açıkça gösteren ve inanç ile karakterde gelişmeye çalışan biri.", traits: ["İlişkiler konusunda ciddi", "Sevgi dolu ve açık", "Müslüman ve inanç merkezli", "Hırslı ve geleceğe odaklı", "Sadakat ve düzenli iletişime önem verir", "Uyum varsa evlilik ve aile ister"], difficult: "Naim önemsediğinde çok emek verir. Düzenli iletişim, doğrudan cevaplar, sevgi ve açık sadakat ister. Sessizlik ve belirsizlik bazen fazla düşünmesine neden olur. Geçmişte bazen çok fazla mesaj veya soru gönderdi. Şimdi duraklamayı, alana saygı göstermeyi, bir kez sormayı ve anında kanıt istemek yerine tutarlı davranışa güvenmeyi öğreniyor.", continue: "Devam et", back: "Geri", saveContinue: "Kaydet ve devam et", submit: "Cevaplarımı gönder", saving: "Kaydediliyor…", saved: "Özel olarak kaydedildi", required: "Devam etmeden önce cevap ver.", moreDetail: "Biraz daha ayrıntı yardımcı olur.", completeTitle: "Dürüst olduğun için teşekkür ederim.", completeBody: "Burada otomatik bir sonuç yok. Naim cevaplarını kendisi okuyup seninle doğrudan konuşacak. Bu deneyim bir söz veya ilişki oluşturmaz. İkinize daha net bir başlangıç noktası verir.", takeCare: "O zamana kadar kendine iyi bak.", exitTitle: "Sorun değil.", exitBody: "Açık olduğun için teşekkür ederim. Kendine iyi bak.", underage: "Bu deneyim yalnızca yetişkinler içindir.", unavailable: "Bu davet kullanılamıyor.", deleted: "Cevapların ve etkinliğin silindi.", deleteData: "Cevaplarımı sil", deleteConfirm: "Bu işlem cevaplarını ve etkinliğini Naim'in panelinden kalıcı olarak siler.", deletePermanent: "Kalıcı olarak sil", cancel: "Vazgeç", chooseLanguage: "Dilini seç", privateInvitation: "Özel davet", honest: "Dürüstlük, etkileyici görünmekten değerlidir.", bigQuestion: "Önemli soru", noNaming: "Bugün çocuklara isim vermiyoruz.", part: "Bölüm", of: "içinden"
+  }
+};
+
+const languageDisplay = { en: "English", ru: "Русский", id: "Bahasa Indonesia", ar: "العربية", tr: "Türkçe" };
+const dimensionLabel = { intent: "Intent and pace", affection: "Affection and presence", conflict: "Conflict maturity", faith: "Faith and boundaries", future: "Future structure", honesty: "Honesty and self-awareness" };
+const alignmentLabel = { aligned: "Aligned", mostly_aligned: "Mostly aligned", needs_discussion: "Needs discussion", major_mismatch: "Major mismatch", character_concern: "Character concern", not_enough_information: "Not enough information" };
+const statusLabel = { invited: "Invited", opened: "Opened", in_progress: "In progress", submitted: "Submitted", withdrawn: "Withdrawn", expired: "Expired", revoked: "Revoked" };
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
+}
+
+function safeJson(value) {
+  try { return JSON.stringify(value); } catch { return "{}"; }
+}
+
+function formatDate(value) {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "—";
+  return new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }).format(date);
+}
+
+function relativeTime(value) {
+  if (!value) return "Never";
+  const seconds = Math.max(0, Math.round((Date.now() - new Date(value).getTime()) / 1000));
+  if (seconds < 10) return "Just now";
+  if (seconds < 60) return `${seconds}s ago`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  return `${Math.floor(hours / 24)}d ago`;
+}
+
+function toast(message, tone = "neutral") {
+  const item = document.createElement("div");
+  item.className = `toast toast-${tone}`;
+  item.textContent = message;
+  toastRoot.appendChild(item);
+  requestAnimationFrame(() => item.classList.add("toast-show"));
+  window.setTimeout(() => {
+    item.classList.remove("toast-show");
+    window.setTimeout(() => item.remove(), 240);
+  }, 3200);
+}
+
+function copyText(value) {
+  if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(value);
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  textarea.remove();
+  return Promise.resolve();
+}
+
+async function fetchJson(url, options = {}) {
+  const response = await fetch(url, options);
+  const text = await response.text();
+  let data = null;
+  try { data = text ? JSON.parse(text) : null; } catch { data = text; }
+  if (!response.ok) {
+    const message = data?.error_description || data?.msg || data?.message || data?.error || `Request failed with status ${response.status}.`;
+    throw new Error(message);
+  }
+  return data;
+}
+
+async function publicCall(body) {
+  const endpoint = body.action === "bootstrap" ? "bootstrap" : body.action === "save_answer" ? "answer" : body.action === "submit" ? "submit" : body.action === "withdraw" ? "delete" : "event";
+  return fetchJson(PUBLIC_FUNCTION + "/" + endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+}
+
+function baseUrl() {
+  return location.origin;
+}
+
+function route() {
+  const hash = location.hash.replace(/^#/, "");
+  if (hash.startsWith("i/")) return { type: "candidate", token: decodeURIComponent(hash.slice(2)) };
+  const path = location.pathname.replace(/\/+$/, "") || "/";
+  if (path.startsWith("/i/")) return { type: "candidate", token: decodeURIComponent(path.slice(3)) };
+  if (path === "/admin" || path === "/admin/login") return { type: "admin" };
+  if (hash.startsWith("admin/candidate/")) return { type: "admin-candidate", id: decodeURIComponent(hash.slice("admin/candidate/".length)) };
+  if (hash === "admin/profile") return { type: "admin-profile" };
+  if (hash === "admin/account") return { type: "admin-account" };
+  if (hash.startsWith("admin")) return { type: "admin" };
+  return { type: "home" };
+}
+
+function setRoute(value) {
+  if (location.hash === `#${value}`) boot();
+  else location.hash = value;
+}
+
+function heartMark(size = 22) {
+  return `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+function renderHome() {
+  document.documentElement.dir = "ltr";
+  document.documentElement.lang = "en";
+  appRoot.innerHTML = `
+    <main class="home-shell">
+      <nav class="home-nav">
+        <div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div>
+        <button class="button button-quiet" data-route="admin">Owner portal</button>
+      </nav>
+      <section class="home-hero">
+        <div class="hero-copy">
+          <p class="small-caps">A private invitation</p>
+          <h1>Before we keep talking, let’s be honest.</h1>
+          <p class="hero-body">A warm, private compatibility experience about communication, faith, conflict, and real life together. No public score. No automatic decision.</p>
+          <div class="hero-actions"><button class="button button-primary" data-route="admin">Open owner dashboard</button></div>
+          <p class="micro-copy">Candidate access requires a private invitation link.</p>
+        </div>
+        <div class="letter-stack" aria-hidden="true">
+          <div class="letter-card letter-back"></div>
+          <div class="letter-card letter-middle"></div>
+          <div class="letter-card letter-front">
+            <div class="letter-heart">${heartMark(28)}</div>
+            <p>Honest beats impressive.</p>
+            <span>A small check before attachment grows.</span>
+          </div>
+        </div>
+      </section>
+      <section class="home-strip">
+        <span>Private links</span><span>Five languages</span><span>Partial autosave</span><span>Owner-only review</span>
+      </section>
+    </main>`;
+  appRoot.querySelectorAll("[data-route]").forEach((button) => button.addEventListener("click", () => setRoute(button.dataset.route)));
+}
+
+class CandidateExperience {
+  constructor(token) {
+    this.token = token;
+    this.locale = "en";
+    this.invitation = null;
+    this.session = null;
+    this.profile = null;
+    this.answers = {};
+    this.stage = "loading";
+    this.index = 0;
+    this.saveState = "idle";
+    this.validation = "";
+    this.error = "";
+    this.deleted = false;
+    this.textTimer = null;
+    this.heartbeatTimer = null;
+    this.lastViewed = "";
+    this.startedText = new Set();
+    this.storageKey = `um_session_${token.slice(-16)}`;
+  }
+
+  text() { return stageText[this.locale] || stageText.en; }
+  questionText(question) { return question?.prompt?.[this.locale] || question?.prompt?.en || ""; }
+  optionText(option) { return option?.label?.[this.locale] || option?.label?.en || ""; }
+  mainQuestions() { return visibleQuestions(this.answers, false); }
+
+  async start() {
+    this.render();
+    try {
+      const storedSession = localStorage.getItem(this.storageKey);
+      const detected = navigator.language?.toLowerCase() || "";
+      const initialLocale = detected.startsWith("ru") ? "ru" : detected.startsWith("id") ? "id" : detected.startsWith("ar") ? "ar" : detected.startsWith("tr") ? "tr" : "en";
+      const payload = await publicCall({ action: "bootstrap", token: this.token, sessionId: storedSession, locale: initialLocale });
+      this.invitation = payload.invitation;
+      this.session = payload.session;
+      this.profile = payload.profile;
+      this.locale = payload.session.locale || initialLocale;
+      this.answers = Object.fromEntries((payload.answers || []).map((answer) => [answer.question_id, answer.value]));
+      localStorage.setItem(this.storageKey, payload.session.id);
+      if (payload.invitation.status === "submitted" || payload.session.status === "submitted") {
+        this.stage = "complete";
+      } else if (!payload.session.consented_at) {
+        this.stage = "language";
+      } else if (payload.session.current_screen === "profile") {
+        this.stage = "profile";
+      } else if (payload.session.current_question_id === "age_18") {
+        this.stage = "gate"; this.index = 0;
+      } else if (payload.session.current_question_id === "continue_interest") {
+        this.stage = "gate"; this.index = 1;
+      } else if (payload.session.current_question_id === "serious_open") {
+        this.stage = "serious";
+      } else if (payload.session.current_question_id) {
+        this.stage = "main";
+        const found = this.mainQuestions().findIndex((question) => question.id === payload.session.current_question_id);
+        this.index = found >= 0 ? found : 0;
+      } else {
+        this.stage = "profile";
+      }
+      this.startHeartbeat();
+      this.render();
+    } catch (error) {
+      this.error = error instanceof Error ? error.message : "Invitation unavailable.";
+      this.stage = "error";
+      this.render();
+    }
+  }
+
+  cleanup() {
+    if (this.textTimer) clearTimeout(this.textTimer);
+    if (this.heartbeatTimer) clearInterval(this.heartbeatTimer);
+  }
+
+  startHeartbeat() {
+    if (this.heartbeatTimer) clearInterval(this.heartbeatTimer);
+    this.heartbeatTimer = setInterval(() => this.heartbeat(), 15000);
+  }
+
+  currentQuestion() {
+    if (this.stage === "gate") return [questionById("age_18"), questionById("continue_interest")][this.index];
+    if (this.stage === "serious") return questionById("serious_open");
+    if (this.stage === "main") return this.mainQuestions()[this.index];
+    return null;
+  }
+
+  progress() {
+    const visible = visibleQuestions(this.answers, true);
+    const completed = visible.filter((question) => {
+      const value = this.answers[question.id];
+      return Array.isArray(value) ? value.length > 0 : typeof value === "string" && value.trim().length > 0;
+    }).length;
+    return Math.round(Math.min(100, completed / Math.max(1, visible.length) * 100));
+  }
+
+  async heartbeat() {
+    if (!this.session?.consented_at || ["complete", "exit", "error", "deleted"].includes(this.stage)) return;
+    try {
+      await publicCall({ action: "heartbeat", token: this.token, sessionId: this.session.id, screenId: this.stage, questionId: this.currentQuestion()?.id || null, progress: this.progress() });
+    } catch {}
+  }
+
+  async track(eventType, payload = {}) {
+    if (!this.session?.consented_at) return;
+    try {
+      await publicCall({ action: "track", token: this.token, sessionId: this.session.id, eventType, screenId: this.stage, questionId: this.currentQuestion()?.id || null, progress: this.progress(), payload });
+    } catch {}
+  }
+
+  async setLocale(locale) {
+    this.locale = locale;
+    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = locale;
+    this.render();
+    try {
+      const result = await publicCall({ action: "set_locale", token: this.token, sessionId: this.session.id, locale });
+      this.session = result.session;
+    } catch (error) { toast(error.message, "bad"); }
+  }
+
+  async acceptConsent() {
+    this.saveState = "saving"; this.render();
+    try {
+      const result = await publicCall({ action: "accept_consent", token: this.token, sessionId: this.session.id });
+      this.session = result.session;
+      this.stage = "profile";
+      this.saveState = "saved";
+      this.render();
+    } catch (error) {
+      this.saveState = "error";
+      toast(error.message, "bad");
+      this.render();
+    }
+  }
+
+  async saveAnswer(question, value, isDraft = true) {
+    if (!this.session) return;
+    this.saveState = "saving";
+    this.updateSaveLabel();
+    try {
+      await publicCall({ action: "save_answer", token: this.token, sessionId: this.session.id, questionId: question.id, value, locale: this.locale, isDraft, progress: this.progress() });
+      this.saveState = "saved";
+    } catch (error) {
+      this.saveState = "error";
+      toast(error.message, "bad");
+    }
+    this.updateSaveLabel();
+  }
+
+  updateSaveLabel() {
+    const node = appRoot.querySelector("[data-save-state]");
+    if (!node) return;
+    const t = this.text();
+    node.textContent = this.saveState === "saving" ? t.saving : this.saveState === "saved" ? t.saved : this.saveState === "error" ? "Save failed" : "";
+    node.dataset.state = this.saveState;
+  }
+
+  selectValue(question, optionId) {
+    this.validation = "";
+    let value;
+    if (question.type === "multi") {
+      const current = Array.isArray(this.answers[question.id]) ? [...this.answers[question.id]] : [];
+      const position = current.indexOf(optionId);
+      if (position >= 0) current.splice(position, 1); else current.push(optionId);
+      value = current;
+    } else value = optionId;
+    this.answers[question.id] = value;
+    this.render();
+    void this.saveAnswer(question, value, true);
+  }
+
+  typeValue(question, value) {
+    this.answers[question.id] = value;
+    this.validation = "";
+    if (!this.startedText.has(question.id)) {
+      this.startedText.add(question.id);
+      void this.track("text_started", { question: question.id });
+    }
+    if (this.textTimer) clearTimeout(this.textTimer);
+    this.textTimer = setTimeout(() => void this.saveAnswer(question, value, true), 850);
+    this.updateSaveLabel();
+  }
+
+  valid(question) {
+    const value = this.answers[question.id];
+    if (!question.required) return true;
+    if (Array.isArray(value)) return value.length > 0;
+    if (typeof value !== "string" || !value.trim()) return false;
+    if (question.type === "text" && value.trim().length < (question.minLength || 1)) return false;
+    return true;
+  }
+
+  async next() {
+    const question = this.currentQuestion();
+    if (!question) return;
+    if (!this.valid(question)) {
+      const value = this.answers[question.id];
+      this.validation = question.type === "text" && typeof value === "string" && value.trim() ? this.text().moreDetail : this.text().required;
+      this.render();
+      return;
+    }
+    if (this.textTimer) { clearTimeout(this.textTimer); this.textTimer = null; }
+    await this.saveAnswer(question, this.answers[question.id], true);
+    await this.track("next_pressed", { question: question.id });
+
+    if (question.id === "age_18") {
+      if (this.answers.age_18 === "no") {
+        try { await publicCall({ action: "withdraw", token: this.token, sessionId: this.session.id }); } catch {}
+        localStorage.removeItem(this.storageKey);
+        this.stage = "exit";
+        this.exitReason = "underage";
+      } else { this.index = 1; }
+    } else if (question.id === "continue_interest") {
+      if (["friendship", "casual", "no"].includes(this.answers.continue_interest)) {
+        await this.earlySubmit();
+        return;
+      }
+      this.stage = "serious";
+    } else if (question.id === "serious_open") {
+      if (["casual", "no"].includes(this.answers.serious_open)) {
+        await this.earlySubmit();
+        return;
+      }
+      this.stage = "main";
+      this.index = 0;
+    } else if (this.stage === "main") {
+      const list = this.mainQuestions();
+      if (this.index >= list.length - 1) {
+        await this.submit();
+        return;
+      }
+      this.index += 1;
+    }
+    this.render();
+  }
+
+  async earlySubmit() {
+    try {
+      await publicCall({ action: "submit", token: this.token, sessionId: this.session.id, finalInterest: "no" });
+    } catch {}
+    this.stage = "exit";
+    this.exitReason = "normal";
+    this.render();
+  }
+
+  async submit() {
+    const finalMap = { yes: "yes", slow: "yes_slowly", discuss: "yes_discuss", unsure: "unsure", no: "no" };
+    const finalInterest = finalMap[this.answers.final_interest] || "unsure";
+    this.saveState = "saving"; this.render();
+    try {
+      await publicCall({ action: "submit", token: this.token, sessionId: this.session.id, finalInterest });
+      this.stage = "complete";
+      this.saveState = "saved";
+      this.render();
+    } catch (error) {
+      this.saveState = "error";
+      toast(error.message, "bad");
+      this.render();
+    }
+  }
+
+  back() {
+    void this.track("back_pressed", {});
+    this.validation = "";
+    if (this.stage === "welcome") this.stage = "language";
+    else if (this.stage === "consent") this.stage = "welcome";
+    else if (this.stage === "profile") this.stage = "consent";
+    else if (this.stage === "gate" && this.index > 0) this.index -= 1;
+    else if (this.stage === "gate") this.stage = "profile";
+    else if (this.stage === "serious") { this.stage = "gate"; this.index = 1; }
+    else if (this.stage === "main" && this.index > 0) this.index -= 1;
+    else if (this.stage === "main") this.stage = "serious";
+    this.render();
+  }
+
+  async deleteData() {
+    if (!this.session) return;
+    const button = appRoot.querySelector("[data-delete-confirm]");
+    if (button) button.disabled = true;
+    try {
+      await publicCall({ action: "withdraw", token: this.token, sessionId: this.session.id });
+      localStorage.removeItem(this.storageKey);
+      this.stage = "deleted";
+      this.render();
+    } catch (error) { toast(error.message, "bad"); if (button) button.disabled = false; }
+  }
+
+  renderShell(content, options = {}) {
+    const t = this.text();
+    const dir = this.locale === "ar" ? "rtl" : "ltr";
+    document.documentElement.dir = dir;
+    document.documentElement.lang = this.locale;
+    const progress = options.progress ? `<div class="candidate-progress"><span style="width:${this.progress()}%"></span></div>` : "";
+    return `<main class="candidate-shell" dir="${dir}">
+      <header class="candidate-header">
+        <div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div>
+        <button class="language-chip" data-language-menu>${escapeHtml(languageDisplay[this.locale])}</button>
+      </header>
+      ${progress}
+      <section class="candidate-stage">${content}</section>
+      <footer class="candidate-footer">
+        <span data-save-state data-state="${this.saveState}">${this.saveState === "saving" ? t.saving : this.saveState === "saved" ? t.saved : ""}</span>
+        ${this.session?.consented_at && !["deleted", "exit", "error"].includes(this.stage) ? `<button class="text-button" data-delete-open>${escapeHtml(t.deleteData)}</button>` : ""}
+      </footer>
+      <div class="modal-layer" data-language-modal hidden>
+        <div class="modal-card compact-modal"><button class="modal-close" data-modal-close aria-label="Close">×</button><h3>${escapeHtml(t.chooseLanguage)}</h3><div class="language-list">${Object.entries(languageDisplay).map(([key, label]) => `<button class="language-option ${key === this.locale ? "selected" : ""}" data-locale="${key}">${escapeHtml(label)}</button>`).join("")}</div></div>
+      </div>
+      <div class="modal-layer" data-delete-modal hidden>
+        <div class="modal-card"><button class="modal-close" data-modal-close aria-label="Close">×</button><div class="modal-icon danger">!</div><h3>${escapeHtml(t.deleteData)}</h3><p>${escapeHtml(t.deleteConfirm)}</p><div class="modal-actions"><button class="button button-quiet" data-modal-close>${escapeHtml(t.cancel)}</button><button class="button button-danger" data-delete-confirm>${escapeHtml(t.deletePermanent)}</button></div></div>
+      </div>
+    </main>`;
+  }
+
+  render() {
+    const t = this.text();
+    let html = "";
+    if (this.stage === "loading") {
+      html = this.renderShell(`<div class="loading-stage"><div class="loader-ring"></div><p>Opening your invitation…</p></div>`);
+    } else if (this.stage === "error") {
+      html = this.renderShell(`<div class="state-card"><div class="state-symbol">${heartMark(30)}</div><h1>${escapeHtml(t.unavailable)}</h1><p>${escapeHtml(this.error)}</p><button class="button button-primary" data-retry>Try again</button></div>`);
+    } else if (this.stage === "language") {
+      html = this.renderShell(`<div class="intro-card"><p class="small-caps">${escapeHtml(t.privateInvitation)}</p><h1>${escapeHtml(t.chooseLanguage)}</h1><p>${escapeHtml(t.honest)}</p><div class="language-grid">${Object.entries(languageDisplay).map(([key, label]) => `<button class="language-tile ${key === this.locale ? "selected" : ""}" data-locale="${key}"><strong>${escapeHtml(label)}</strong><span>${key.toUpperCase()}</span></button>`).join("")}</div><button class="button button-primary button-wide" data-stage="welcome">${escapeHtml(t.continue)}</button></div>`);
+    } else if (this.stage === "welcome") {
+      html = this.renderShell(`<div class="intro-card"><p class="small-caps">${escapeHtml(t.privateInvitation)}</p><h1>${escapeHtml(t.welcomeTitle(this.invitation?.first_name || "there"))}</h1><p>${escapeHtml(t.welcomeBody)}</p><div class="choice-row"><button class="button button-primary" data-stage="consent">${escapeHtml(t.curious)}</button><button class="button button-quiet" data-exit>${escapeHtml(t.notForMe)}</button></div><button class="back-link" data-back>← ${escapeHtml(t.back)}</button></div>`);
+    } else if (this.stage === "consent") {
+      html = this.renderShell(`<div class="intro-card"><div class="privacy-seal">${heartMark(24)}</div><h1>${escapeHtml(t.privacyTitle)}</h1><p>${escapeHtml(t.privacyBody)}</p><div class="privacy-points"><span>Answers and drafts</span><span>Choices and changes</span><span>Question and navigation events</span></div><div class="choice-row"><button class="button button-primary" data-consent>${escapeHtml(t.understand)}</button><button class="button button-quiet" data-exit>${escapeHtml(t.leave)}</button></div><button class="back-link" data-back>← ${escapeHtml(t.back)}</button></div>`);
+    } else if (this.stage === "profile") {
+      const traits = t.traits.map((trait) => `<li><span>${heartMark(15)}</span>${escapeHtml(trait)}</li>`).join("");
+      html = this.renderShell(`<div class="profile-layout"><div class="portrait-card"><div class="portrait-monogram">N</div><div class="portrait-caption"><strong>Naim</strong><span>${escapeHtml(t.profileIntro)}</span></div></div><div class="profile-copy"><p class="small-caps">${escapeHtml(t.meet)}</p><h1>Hi. This is the honest version.</h1><ul class="trait-list">${traits}</ul><div class="honest-card"><h3>${escapeHtml(t.shouldKnow)}</h3><p>${escapeHtml(t.difficult)}</p></div><div class="profile-actions"><button class="button button-quiet" data-back>${escapeHtml(t.back)}</button><button class="button button-primary" data-begin>${escapeHtml(t.continue)}</button></div></div></div>`, { progress: true });
+    } else if (["gate", "serious", "main"].includes(this.stage)) {
+      html = this.renderQuestion();
+    } else if (this.stage === "complete") {
+      html = this.renderShell(`<div class="state-card success-state"><div class="state-symbol success">${heartMark(34)}</div><h1>${escapeHtml(t.completeTitle)}</h1><p>${escapeHtml(t.completeBody)}</p><span class="handwritten">${escapeHtml(t.takeCare)}</span></div>`);
+    } else if (this.stage === "exit") {
+      const body = this.exitReason === "underage" ? t.underage : t.exitBody;
+      html = this.renderShell(`<div class="state-card"><div class="state-symbol">${heartMark(30)}</div><h1>${escapeHtml(t.exitTitle)}</h1><p>${escapeHtml(body)}</p></div>`);
+    } else if (this.stage === "deleted") {
+      html = this.renderShell(`<div class="state-card"><div class="state-symbol success">✓</div><h1>${escapeHtml(t.deleted)}</h1><p>${escapeHtml(t.takeCare)}</p></div>`);
+    }
+    appRoot.innerHTML = html;
+    this.bind();
+  }
+
+  renderQuestion() {
+    const t = this.text();
+    const question = this.currentQuestion();
+    if (!question) return this.renderShell(`<div class="state-card"><h1>${escapeHtml(t.unavailable)}</h1></div>`);
+    const value = this.answers[question.id];
+    const main = this.stage === "main";
+    const sectionIndex = main ? MAIN_SECTION_ORDER.indexOf(question.section) + 1 : 0;
+    const eyebrow = this.stage === "serious" ? t.bigQuestion : main ? `${t.part} ${sectionIndex} ${t.of} 6` : sectionLabels.gate[this.locale];
+    let control = "";
+    if (question.type === "text") {
+      control = `<textarea class="answer-textarea" data-text-answer placeholder="${escapeHtml(this.locale === "en" ? "Write freely. Honest detail helps." : "…")}">${escapeHtml(typeof value === "string" ? value : "")}</textarea><div class="character-hint">${typeof value === "string" ? value.trim().length : 0}${question.minLength ? ` / ${question.minLength}+` : ""}</div>`;
+    } else {
+      control = `<div class="answer-list">${(question.options || []).map((option) => {
+        const selected = Array.isArray(value) ? value.includes(option.id) : value === option.id;
+        return `<button class="answer-option ${selected ? "selected" : ""}" data-option="${escapeHtml(option.id)}"><span class="answer-indicator">${question.type === "multi" ? (selected ? "✓" : "") : (selected ? "●" : "")}</span><span>${escapeHtml(this.optionText(option))}</span></button>`;
+      }).join("")}</div>`;
+    }
+    const helper = question.helper ? `<p class="question-helper">${escapeHtml(question.helper[this.locale] || question.helper.en)}</p>` : "";
+    const nextText = main && this.index >= this.mainQuestions().length - 1 ? t.submit : t.saveContinue;
+    const chapter = main ? `<div class="chapter-track">${MAIN_SECTION_ORDER.map((section, index) => `<span class="${index + 1 <= sectionIndex ? "active" : ""}"></span>`).join("")}</div>` : "";
+    const questionHtml = `<div class="question-card">${chapter}<p class="small-caps">${escapeHtml(eyebrow)}</p><h1>${escapeHtml(this.questionText(question))}</h1>${helper}${control}${this.validation ? `<div class="validation-message">${escapeHtml(this.validation)}</div>` : ""}<div class="question-actions"><button class="button button-quiet" data-back>${escapeHtml(t.back)}</button><button class="button button-primary" data-next>${escapeHtml(nextText)}</button></div></div>`;
+    if (this.lastViewed !== `${this.stage}:${question.id}`) {
+      this.lastViewed = `${this.stage}:${question.id}`;
+      queueMicrotask(() => void this.track("question_viewed", { question: question.id }));
+    }
+    return this.renderShell(questionHtml, { progress: true });
+  }
+
+  bind() {
+    appRoot.querySelectorAll("[data-locale]").forEach((button) => button.addEventListener("click", () => {
+      void this.setLocale(button.dataset.locale);
+      const modal = appRoot.querySelector("[data-language-modal]");
+      if (modal) modal.hidden = true;
+    }));
+    appRoot.querySelector("[data-language-menu]")?.addEventListener("click", () => { appRoot.querySelector("[data-language-modal]").hidden = false; });
+    appRoot.querySelectorAll("[data-modal-close]").forEach((button) => button.addEventListener("click", () => button.closest(".modal-layer").hidden = true));
+    appRoot.querySelector("[data-delete-open]")?.addEventListener("click", () => { void this.track("delete_dialog_opened", {}); appRoot.querySelector("[data-delete-modal]").hidden = false; });
+    appRoot.querySelector("[data-delete-confirm]")?.addEventListener("click", () => void this.deleteData());
+    appRoot.querySelector("[data-retry]")?.addEventListener("click", () => this.start());
+    appRoot.querySelectorAll("[data-stage]").forEach((button) => button.addEventListener("click", () => { this.stage = button.dataset.stage; this.render(); }));
+    appRoot.querySelector("[data-consent]")?.addEventListener("click", () => void this.acceptConsent());
+    appRoot.querySelector("[data-begin]")?.addEventListener("click", () => { this.stage = "gate"; this.index = 0; this.render(); });
+    appRoot.querySelectorAll("[data-back]").forEach((button) => button.addEventListener("click", () => this.back()));
+    appRoot.querySelectorAll("[data-exit]").forEach((button) => button.addEventListener("click", async () => {
+      if (this.session?.consented_at) await this.earlySubmit(); else { this.stage = "exit"; this.exitReason = "normal"; this.render(); }
+    }));
+    const question = this.currentQuestion();
+    if (question) {
+      appRoot.querySelectorAll("[data-option]").forEach((button) => button.addEventListener("click", () => this.selectValue(question, button.dataset.option)));
+      appRoot.querySelector("[data-text-answer]")?.addEventListener("input", (event) => {
+        this.typeValue(question, event.target.value);
+        const hint = appRoot.querySelector(".character-hint");
+        if (hint) hint.textContent = `${event.target.value.trim().length}${question.minLength ? ` / ${question.minLength}+` : ""}`;
+      });
+      appRoot.querySelector("[data-next]")?.addEventListener("click", () => void this.next());
+    }
+  }
+}
+
+const AUTH_KEY = "um_owner_auth_v2";
+
+function getStoredAuth() {
+  try { return JSON.parse(localStorage.getItem(AUTH_KEY) || "null"); } catch { return null; }
+}
+
+function saveAuth(value) {
+  if (value) localStorage.setItem(AUTH_KEY, JSON.stringify(value)); else localStorage.removeItem(AUTH_KEY);
+}
+
+async function passwordLogin(email, password) {
+  const data = await fetchJson(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+    method: "POST",
+    headers: { apikey: SUPABASE_KEY, "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  });
+  const expiresAt = data.expires_at || Math.floor(Date.now() / 1000) + (data.expires_in || 3600);
+  const session = { access_token: data.access_token, refresh_token: data.refresh_token, expires_at: expiresAt, user: data.user };
+  saveAuth(session);
+  return session;
+}
+
+async function refreshAuth(session) {
+  const data = await fetchJson(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+    method: "POST",
+    headers: { apikey: SUPABASE_KEY, "Content-Type": "application/json" },
+    body: JSON.stringify({ refresh_token: session.refresh_token })
+  });
+  const next = { access_token: data.access_token, refresh_token: data.refresh_token || session.refresh_token, expires_at: data.expires_at || Math.floor(Date.now() / 1000) + (data.expires_in || 3600), user: data.user || session.user };
+  saveAuth(next);
+  return next;
+}
+
+async function validAuth() {
+  let session = getStoredAuth();
+  if (!session?.access_token) return null;
+  if ((session.expires_at || 0) < Math.floor(Date.now() / 1000) + 60) {
+    try { session = await refreshAuth(session); } catch { saveAuth(null); return null; }
+  }
+  return session;
+}
+
+async function restRequest(path, options = {}, retry = true) {
+  let session = await validAuth();
+  if (!session) throw new Error("AUTH_REQUIRED");
+  const headers = { apikey: SUPABASE_KEY, Authorization: `Bearer ${session.access_token}`, Accept: "application/json", ...(options.headers || {}) };
+  if (options.body && !headers["Content-Type"]) headers["Content-Type"] = "application/json";
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, { ...options, headers });
+  if (response.status === 401 && retry) {
+    try { await refreshAuth(session); return restRequest(path, options, false); } catch { saveAuth(null); throw new Error("AUTH_REQUIRED"); }
+  }
+  const text = await response.text();
+  let data = null;
+  try { data = text ? JSON.parse(text) : null; } catch { data = text; }
+  if (!response.ok) throw new Error(data?.message || data?.error || `Database request failed with status ${response.status}.`);
+  return data;
+}
+
+async function dbGet(table, query = "") { return restRequest(`${table}${query ? `?${query}` : ""}`); }
+async function dbPatch(table, filter, body) { return restRequest(`${table}?${filter}`, { method: "PATCH", headers: { Prefer: "return=representation" }, body: JSON.stringify(body) }); }
+async function rpc(name, body) { return restRequest(`rpc/${name}`, { method: "POST", body: JSON.stringify(body) }); }
+
+function online(session) {
+  return Boolean(session && session.status === "active" && Date.now() - new Date(session.last_seen_at).getTime() < 35000);
+}
+
+function statusBadge(status) {
+  const tone = status === "submitted" ? "good" : ["opened", "in_progress"].includes(status) ? "rose" : ["withdrawn", "expired", "revoked"].includes(status) ? "bad" : "neutral";
+  return `<span class="status-badge status-${tone}">${escapeHtml(statusLabel[status] || status)}</span>`;
+}
+
+function renderAdminLogin(error = "") {
+  document.documentElement.dir = "ltr";
+  document.documentElement.lang = "en";
+  appRoot.innerHTML = `<main class="auth-shell"><section class="auth-card"><div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div><p class="small-caps">Private owner access</p><h1>Sign in to your dashboard.</h1><p>Review invitations, partial answers, activity, and compatibility evidence.</p><form data-login-form><label>Email<input class="input" name="email" type="email" autocomplete="email" value="naimozduman@gmail.com" required></label><label>Password<input class="input" name="password" type="password" autocomplete="current-password" required></label>${error ? `<div class="notice notice-bad">${escapeHtml(error)}</div>` : ""}<button class="button button-primary button-wide" type="submit">Sign in</button></form><button class="back-link" data-route="home">← Back</button></section></main>`;
+  appRoot.querySelector("[data-route]")?.addEventListener("click", () => setRoute("home"));
+  appRoot.querySelector("[data-login-form]")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const button = form.querySelector("button");
+    button.disabled = true; button.textContent = "Signing in…";
+    try {
+      await passwordLogin(form.email.value.trim(), form.password.value);
+      const admins = await dbGet("um_app_admins", "select=user_id,email&limit=1");
+      if (!admins?.length) throw new Error("This account does not have owner access.");
+      setRoute("admin");
+    } catch (error) {
+      if (String(error.message) === "AUTH_REQUIRED") saveAuth(null);
+      renderAdminLogin(error.message);
+    }
+  });
+}
+
+function adminShell(content, active = "candidates") {
+  return `<main class="admin-shell"><aside class="admin-sidebar"><div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div><nav><button class="nav-item ${active === "candidates" ? "active" : ""}" data-route="admin"><span>◌</span>Candidates</button><button class="nav-item ${active === "profile" ? "active" : ""}" data-route="admin/profile"><span>◇</span>My profile</button><button class="nav-item ${active === "account" ? "active" : ""}" data-route="admin/account"><span>⌁</span>Account</button></nav><div class="sidebar-bottom"><button class="nav-item" data-logout><span>↗</span>Sign out</button></div></aside><section class="admin-content">${content}</section></main>`;
+}
+
+function bindAdminShell() {
+  appRoot.querySelectorAll("[data-route]").forEach((button) => button.addEventListener("click", () => setRoute(button.dataset.route)));
+  appRoot.querySelector("[data-logout]")?.addEventListener("click", () => { saveAuth(null); setRoute("admin"); });
+}
+
+class AdminDashboard {
+  constructor() { this.interval = null; this.invitations = []; this.sessions = []; this.answers = []; }
+  cleanup() { if (this.interval) clearInterval(this.interval); }
+  async start() {
+    if (!(await validAuth())) { renderAdminLogin(); return; }
+    appRoot.innerHTML = adminShell(`<div class="admin-loading"><div class="loader-ring"></div></div>`);
+    bindAdminShell();
+    try {
+      await this.load();
+      this.interval = setInterval(() => this.load(true), 4000);
+    } catch (error) {
+      if (error.message === "AUTH_REQUIRED") { renderAdminLogin(); return; }
+      appRoot.innerHTML = adminShell(`<div class="state-card"><h1>Dashboard unavailable</h1><p>${escapeHtml(error.message)}</p><button class="button button-primary" data-retry>Retry</button></div>`);
+      bindAdminShell();
+      appRoot.querySelector("[data-retry]")?.addEventListener("click", () => this.start());
+    }
+  }
+  async load(silent = false) {
+    const [invitations, sessions, answers] = await Promise.all([
+      dbGet("um_invitations", "select=*&order=created_at.desc&limit=200"),
+      dbGet("um_sessions", "select=*&order=last_seen_at.desc&limit=1000"),
+      dbGet("um_answers", "select=invitation_id,question_id,updated_at&limit=5000")
+    ]);
+    this.invitations = invitations || []; this.sessions = sessions || []; this.answers = answers || [];
+    this.render(silent);
+  }
+  latestSession(id) { return this.sessions.find((session) => session.invitation_id === id) || null; }
+  answerCount(id) { return this.answers.filter((answer) => answer.invitation_id === id).length; }
+  render() {
+    const total = this.invitations.length;
+    const active = this.invitations.filter((invite) => ["opened", "in_progress"].includes(invite.status)).length;
+    const submitted = this.invitations.filter((invite) => invite.status === "submitted").length;
+    const review = this.invitations.filter((invite) => invite.status === "submitted" && invite.review_status === "unreviewed").length;
+    const rows = this.invitations.length ? this.invitations.map((invite) => {
+      const session = this.latestSession(invite.id);
+      const isOnline = online(session);
+      return `<button class="candidate-row" data-candidate="${invite.id}"><div class="candidate-avatar">${escapeHtml(invite.first_name.slice(0, 1).toUpperCase())}</div><div class="candidate-main"><div class="candidate-name-line"><strong>${escapeHtml(invite.first_name)}</strong>${isOnline ? `<span class="online-dot"></span><span class="online-copy">Online</span>` : ""}</div><span>${escapeHtml(invite.source || "Private invitation")} · ${escapeHtml(languageDisplay[invite.language_hint] || "Any language")}</span></div><div class="candidate-status">${statusBadge(invite.status)}</div><div class="candidate-progress-cell"><strong>${Math.round(Number(session?.progress || 0))}%</strong><span>${this.answerCount(invite.id)} answers</span></div><div class="candidate-last"><strong>${relativeTime(session?.last_seen_at || invite.updated_at)}</strong><span>${escapeHtml(session?.current_question_id || session?.current_screen || "Not opened")}</span></div><div class="row-arrow">›</div></button>`;
+    }).join("") : `<div class="empty-panel"><div class="empty-icon">${heartMark(28)}</div><h3>No invitations yet</h3><p>Create one private link when you are ready to continue talking with someone.</p></div>`;
+    appRoot.innerHTML = adminShell(`<div class="admin-page"><header class="admin-top"><div><p class="small-caps">Private compatibility dashboard</p><h1>Candidates</h1><p>See answers as they are saved, even before submission.</p></div><button class="button button-primary" data-new-invite>New invitation</button></header><div class="metric-grid"><div class="metric-card"><span>Total invitations</span><strong>${total}</strong></div><div class="metric-card"><span>Active now</span><strong>${active}</strong></div><div class="metric-card"><span>Submitted</span><strong>${submitted}</strong></div><div class="metric-card"><span>Need review</span><strong>${review}</strong></div></div><section class="candidate-panel"><div class="panel-header"><h2>All candidates</h2><span>Updates every 4 seconds</span></div><div class="candidate-table-head"><span>Candidate</span><span>Status</span><span>Progress</span><span>Last activity</span><span></span></div>${rows}</section></div><div class="drawer-layer" data-invite-drawer hidden><div class="drawer-card"><button class="modal-close" data-close-drawer>×</button><p class="small-caps">Unique private link</p><h2>Create an invitation</h2><p>The name stays inside your dashboard. The URL receives a random secret only.</p><form class="field-stack" data-invite-form><label>First name<input class="input" name="firstName" maxlength="80" required></label><label>Where you matched<input class="input" name="source" maxlength="120" placeholder="Hinge, Muzz, Instagram…"></label><label>Suggested language<select class="input" name="language"><option value="">Let her choose</option>${Object.entries(languageDisplay).map(([key, label]) => `<option value="${key}">${escapeHtml(label)}</option>`).join("")}</select></label><label>Link expiration<select class="input" name="days"><option value="7">7 days</option><option value="14" selected>14 days</option><option value="30">30 days</option><option value="60">60 days</option></select></label><button class="button button-primary button-wide" type="submit">Create private link</button></form><div data-created-link></div></div></div>`, "candidates");
+    bindAdminShell();
+    appRoot.querySelectorAll("[data-candidate]").forEach((button) => button.addEventListener("click", () => setRoute(`admin/candidate/${button.dataset.candidate}`)));
+    const drawer = appRoot.querySelector("[data-invite-drawer]");
+    appRoot.querySelector("[data-new-invite]")?.addEventListener("click", () => { drawer.hidden = false; drawer.querySelector("input")?.focus(); });
+    appRoot.querySelector("[data-close-drawer]")?.addEventListener("click", () => { drawer.hidden = true; });
+    appRoot.querySelector("[data-invite-form]")?.addEventListener("submit", (event) => void this.createInvite(event));
+  }
+  async createInvite(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const button = form.querySelector("button[type=submit]");
+    button.disabled = true; button.textContent = "Creating…";
+    try {
+      let result = await rpc("um_admin_create_invitation", { p_first_name: form.firstName.value.trim(), p_language_hint: form.language.value || null, p_source: form.source.value.trim() || null, p_expires_in_days: Number(form.days.value), p_experience_mode: "full" });
+      if (Array.isArray(result)) result = result[0];
+      const link = `${baseUrl()}#i/${result.token}`;
+      localStorage.setItem(`um_invite_link_${result.id}`, link);
+      const created = appRoot.querySelector("[data-created-link]");
+      created.innerHTML = `<div class="created-link"><div class="success-check">✓</div><h3>Invitation ready</h3><p>Copy it now. The readable token is only returned when the link is created or rotated.</p><div class="link-box"><input value="${escapeHtml(link)}" readonly><button class="button button-primary" data-copy-created>Copy</button></div><button class="button button-quiet button-wide" data-open-created>Open candidate record</button></div>`;
+      form.hidden = true;
+      created.querySelector("[data-copy-created]").addEventListener("click", async () => { await copyText(link); toast("Invitation link copied", "good"); });
+      created.querySelector("[data-open-created]").addEventListener("click", () => setRoute(`admin/candidate/${result.id}`));
+      await this.load(true);
+    } catch (error) {
+      toast(error.message, "bad");
+      button.disabled = false; button.textContent = "Create private link";
+    }
+  }
+}
+
+const eventNames = {
+  invitation_opened: "Opened invitation", session_returned: "Returned to invitation", consent_accepted: "Accepted saving disclosure", profile_viewed: "Viewed Naim’s profile", section_entered: "Entered a chapter", question_viewed: "Viewed a question", next_pressed: "Moved forward", back_pressed: "Moved back", option_selected: "Selected an option", option_changed: "Changed an option", text_started: "Started a written answer", text_saved: "Saved a written draft", answer_saved: "Saved an answer", answer_changed: "Changed an answer", session_left: "Left the page", questionnaire_submitted: "Submitted questionnaire", delete_dialog_opened: "Opened deletion control"
+};
+
+class CandidateDetail {
+  constructor(id) { this.id = id; this.interval = null; this.tab = "summary"; this.bundle = null; }
+  cleanup() { if (this.interval) clearInterval(this.interval); }
+  async start() {
+    if (!(await validAuth())) { renderAdminLogin(); return; }
+    appRoot.innerHTML = adminShell(`<div class="admin-loading"><div class="loader-ring"></div></div>`);
+    bindAdminShell();
+    try { await this.load(); this.interval = setInterval(() => this.load(true), 3000); }
+    catch (error) { if (error.message === "AUTH_REQUIRED") return renderAdminLogin(); appRoot.innerHTML = adminShell(`<div class="state-card"><h1>Candidate unavailable</h1><p>${escapeHtml(error.message)}</p><button class="button button-primary" data-back-admin>Back</button></div>`); bindAdminShell(); appRoot.querySelector("[data-back-admin]")?.addEventListener("click", () => setRoute("admin")); }
+  }
+  async load() {
+    const filter = `invitation_id=eq.${encodeURIComponent(this.id)}`;
+    const [invites, sessions, answers, revisions, events] = await Promise.all([
+      dbGet("um_invitations", `select=*&id=eq.${encodeURIComponent(this.id)}&limit=1`),
+      dbGet("um_sessions", `select=*&${filter}&order=started_at.desc`),
+      dbGet("um_answers", `select=*&${filter}&order=created_at.asc`),
+      dbGet("um_answer_revisions", `select=*&${filter}&order=created_at.desc&limit=300`),
+      dbGet("um_activity_events", `select=*&${filter}&order=created_at.desc&limit=400`)
+    ]);
+    if (!invites?.length) throw new Error("Candidate not found.");
+    const answerMap = Object.fromEntries((answers || []).map((answer) => [answer.question_id, answer.value]));
+    this.bundle = { invitation: invites[0], sessions: sessions || [], answers: answers || [], revisions: revisions || [], events: events || [], answerMap, score: scoreAnswers(answerMap) };
+    this.render();
+  }
+  latestSession() { return this.bundle.sessions[0] || null; }
+  render() {
+    const { invitation, answers, revisions, events, score } = this.bundle;
+    const session = this.latestSession();
+    const isOnline = online(session);
+    const tabButtons = ["summary", "answers", "activity", "revisions"].map((tab) => `<button class="detail-tab ${this.tab === tab ? "active" : ""}" data-tab="${tab}">${tab[0].toUpperCase() + tab.slice(1)}${tab === "answers" ? ` <span>${answers.length}</span>` : tab === "activity" ? ` <span>${events.length}</span>` : tab === "revisions" ? ` <span>${revisions.length}</span>` : ""}</button>`).join("");
+    let body = this.tab === "summary" ? this.renderSummary() : this.tab === "answers" ? this.renderAnswers() : this.tab === "activity" ? this.renderActivity() : this.renderRevisions();
+    const storedLink = localStorage.getItem(`um_invite_link_${invitation.id}`);
+    appRoot.innerHTML = adminShell(`<div class="admin-page detail-page"><header class="detail-header"><button class="back-circle" data-back-admin>‹</button><div class="candidate-avatar large">${escapeHtml(invitation.first_name.slice(0, 1).toUpperCase())}</div><div class="detail-identity"><div class="candidate-name-line"><h1>${escapeHtml(invitation.first_name)}</h1>${isOnline ? `<span class="online-dot"></span><span class="online-copy">Online now</span>` : ""}</div><p>${escapeHtml(invitation.source || "Private invitation")} · ${escapeHtml(languageDisplay[invitation.language_hint] || session?.locale || "Any language")}</p><div class="detail-meta">${statusBadge(invitation.status)}<span>${Math.round(Number(session?.progress || 0))}% complete</span><span>Last active ${relativeTime(session?.last_seen_at || invitation.updated_at)}</span></div></div><div class="detail-actions">${storedLink ? `<button class="button button-quiet" data-copy-link>Copy link</button>` : ""}<button class="button button-primary" data-rotate>${storedLink ? "Replace link" : "Generate link"}</button></div></header><div class="live-strip"><div><span class="live-label">Current screen</span><strong>${escapeHtml(session?.current_question_id ? questionById(session.current_question_id)?.prompt?.en || session.current_question_id : session?.current_screen || "Not opened")}</strong></div><div><span class="live-label">Saved answers</span><strong>${answers.length}</strong></div><div><span class="live-label">Session</span><strong>${isOnline ? "Live" : session?.status || "Not started"}</strong></div><div><span class="live-label">Invitation expires</span><strong>${formatDate(invitation.expires_at)}</strong></div></div><div class="detail-tabs">${tabButtons}</div>${body}</div>`, "candidates");
+    bindAdminShell();
+    appRoot.querySelector("[data-back-admin]")?.addEventListener("click", () => setRoute("admin"));
+    appRoot.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => { this.tab = button.dataset.tab; this.render(); }));
+    appRoot.querySelector("[data-copy-link]")?.addEventListener("click", async () => { await copyText(storedLink); toast("Invitation link copied", "good"); });
+    appRoot.querySelector("[data-rotate]")?.addEventListener("click", () => void this.rotateLink());
+    appRoot.querySelectorAll("[data-review]").forEach((button) => button.addEventListener("click", () => void this.saveReview(button.dataset.review)));
+    appRoot.querySelector("[data-save-notes]")?.addEventListener("click", () => void this.saveNotes());
+    appRoot.querySelector("[data-revoke]")?.addEventListener("click", () => void this.revoke());
+    appRoot.querySelector("[data-restore]")?.addEventListener("click", () => void this.restore());
+  }
+  renderSummary() {
+    const { invitation, score } = this.bundle;
+    const dimensions = score.dimensions.map((dimension) => `<div class="dimension-card"><div class="dimension-top"><span>${escapeHtml(dimensionLabel[dimension.key])}</span><strong>${dimension.score === null ? "—" : Math.round(dimension.score)}</strong></div><div class="dimension-bar"><span style="width:${dimension.score || 0}%"></span></div><div class="dimension-bottom"><span class="alignment alignment-${dimension.label}">${escapeHtml(alignmentLabel[dimension.label])}</span><span>Weight ${dimension.weight}%</span></div></div>`).join("");
+    const flags = [
+      ["Hard mismatches", score.hardMismatches, "bad"],
+      ["Character concerns", score.characterConcerns, "danger"],
+      ["Contradictions", score.contradictions, "warn"],
+      ["Questions to discuss", score.followUps, "neutral"]
+    ].map(([title, list, tone]) => `<section class="flag-panel flag-${tone}"><div class="panel-header"><h3>${title}</h3><span>${list.length}</span></div>${list.length ? `<ul>${list.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : `<p class="quiet-copy">Nothing detected from the answers saved so far.</p>`}</section>`).join("");
+    return `<section class="summary-grid"><div class="summary-main"><div class="score-head"><div><p class="small-caps">Private compatibility view</p><h2>${score.overall === null ? "Not enough information" : `${Math.round(score.overall)}% weighted alignment`}</h2><p>The dimensional evidence matters more than the average.</p></div><div class="score-ring" style="--score:${score.overall || 0}"><span>${score.overall === null ? "—" : Math.round(score.overall)}</span></div></div><div class="dimension-grid">${dimensions}</div><div class="flag-grid">${flags}</div></div><aside class="review-panel"><p class="small-caps">Your decision</p><h3>What happens next?</h3><div class="review-options">${["unreviewed", "continue", "discuss", "close", "archived"].map((status) => `<button class="review-option ${invitation.review_status === status ? "selected" : ""}" data-review="${status}">${status.replaceAll("_", " ")}</button>`).join("")}</div><label class="notes-label">Private notes<textarea class="input notes-area" data-private-notes>${escapeHtml(invitation.private_notes || "")}</textarea></label><button class="button button-primary button-wide" data-save-notes>Save notes</button><hr><h4>Invitation control</h4>${invitation.status === "revoked" ? `<button class="button button-quiet button-wide" data-restore>Restore with a new link</button>` : `<button class="button button-danger-soft button-wide" data-revoke>Revoke current link</button>`}</aside></section>`;
+  }
+  renderAnswers() {
+    if (!this.bundle.answers.length) return `<div class="empty-panel"><h3>No answers saved yet</h3><p>Partial responses appear here as soon as the candidate selects or types them.</p></div>`;
+    return `<section class="answer-review-list">${this.bundle.answers.map((answer, index) => {
+      const question = questionById(answer.question_id);
+      const displayed = labelForAnswer(question, answer.value, answer.locale || "en");
+      const isText = question?.type === "text";
+      return `<article class="answer-review-card"><div class="answer-number">${index + 1}</div><div><p class="answer-question">${escapeHtml(question?.prompt?.en || answer.question_id)}</p><div class="answer-value ${isText ? "long-answer" : ""}">${escapeHtml(displayed || "No answer")}</div><div class="answer-meta"><span>${escapeHtml(languageDisplay[answer.locale] || answer.locale)}</span><span>${answer.is_draft ? "Draft" : "Submitted"}</span><span>Updated ${relativeTime(answer.updated_at)}</span></div></div></article>`;
+    }).join("")}</section>`;
+  }
+  renderActivity() {
+    if (!this.bundle.events.length) return `<div class="empty-panel"><h3>No activity yet</h3><p>Meaningful events appear after the invitation is opened.</p></div>`;
+    return `<section class="timeline">${this.bundle.events.map((event) => `<article class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card"><div class="timeline-top"><strong>${escapeHtml(eventNames[event.event_type] || event.event_type.replaceAll("_", " "))}</strong><span>${relativeTime(event.created_at)}</span></div><p>${escapeHtml(event.question_id ? questionById(event.question_id)?.prompt?.en || event.question_id : event.screen_id || "")}</p>${event.payload && Object.keys(event.payload).length ? `<details><summary>Event details</summary><pre>${escapeHtml(JSON.stringify(event.payload, null, 2))}</pre></details>` : ""}</div></article>`).join("")}</section>`;
+  }
+  renderRevisions() {
+    if (!this.bundle.revisions.length) return `<div class="empty-panel"><h3>No answer changes yet</h3><p>Earlier saved versions appear after a response changes.</p></div>`;
+    return `<section class="revision-list">${this.bundle.revisions.map((revision) => { const question = questionById(revision.question_id); return `<article class="revision-card"><div class="revision-head"><strong>${escapeHtml(question?.prompt?.en || revision.question_id)}</strong><span>${formatDate(revision.created_at)}</span></div><div class="revision-comparison"><div><span>Before</span><p>${escapeHtml(labelForAnswer(question, revision.previous_value, revision.locale) || "Empty")}</p></div><div class="revision-arrow">→</div><div><span>After</span><p>${escapeHtml(labelForAnswer(question, revision.new_value, revision.locale) || "Empty")}</p></div></div></article>`; }).join("")}</section>`;
+  }
+  async rotateLink() {
+    const button = appRoot.querySelector("[data-rotate]");
+    button.disabled = true; button.textContent = "Generating…";
+    try {
+      let result = await rpc("um_admin_rotate_invitation", { p_invitation_id: this.id, p_expires_in_days: 14 });
+      if (Array.isArray(result)) result = result[0];
+      const link = `${baseUrl()}#i/${result.token}`;
+      localStorage.setItem(`um_invite_link_${this.id}`, link);
+      await copyText(link);
+      toast("New invitation link copied. The old link no longer works.", "good");
+      await this.load(true);
+    } catch (error) { toast(error.message, "bad"); }
+  }
+  async saveReview(review) {
+    try { await dbPatch("um_invitations", `id=eq.${encodeURIComponent(this.id)}`, { review_status: review }); this.bundle.invitation.review_status = review; this.render(); toast("Decision saved", "good"); }
+    catch (error) { toast(error.message, "bad"); }
+  }
+  async saveNotes() {
+    const notes = appRoot.querySelector("[data-private-notes]").value;
+    try { await dbPatch("um_invitations", `id=eq.${encodeURIComponent(this.id)}`, { private_notes: notes }); this.bundle.invitation.private_notes = notes; toast("Private notes saved", "good"); }
+    catch (error) { toast(error.message, "bad"); }
+  }
+  async revoke() {
+    try { await dbPatch("um_invitations", `id=eq.${encodeURIComponent(this.id)}`, { status: "revoked" }); localStorage.removeItem(`um_invite_link_${this.id}`); toast("Invitation revoked", "good"); await this.load(true); }
+    catch (error) { toast(error.message, "bad"); }
+  }
+  async restore() { await this.rotateLink(); }
+}
+
+class AdminProfile {
+  async start() {
+    if (!(await validAuth())) return renderAdminLogin();
+    appRoot.innerHTML = adminShell(`<div class="admin-loading"><div class="loader-ring"></div></div>`, "profile"); bindAdminShell();
+    try { const rows = await dbGet("um_owner_profile", "select=*&id=eq.1&limit=1"); this.profile = rows[0]; this.render(); }
+    catch (error) { if (error.message === "AUTH_REQUIRED") return renderAdminLogin(); toast(error.message, "bad"); }
+  }
+  cleanup() {}
+  render() {
+    const data = this.profile.profile_data || {};
+    appRoot.innerHTML = adminShell(`<div class="admin-page settings-page"><header class="admin-top"><div><p class="small-caps">Candidate-facing information</p><h1>My profile</h1><p>New invitations capture the current profile and standards.</p></div></header><section class="settings-grid"><form class="settings-form" data-profile-form><label>Display name<input class="input" name="displayName" value="${escapeHtml(this.profile.display_name || "Naim")}" required></label><label>Photo URL, optional<input class="input" name="photoUrl" type="url" value="${escapeHtml(this.profile.photo_url || "")}" placeholder="https://…"></label><label>Short introduction<textarea class="input notes-area" name="intro">${escapeHtml(data.intro || "")}</textarea></label><label>What she should know<textarea class="input notes-area tall" name="whatToKnow">${escapeHtml(data.what_to_know || "")}</textarea></label><label>Traits, one per line<textarea class="input notes-area tall" name="traits">${escapeHtml((data.traits || []).join("\n"))}</textarea></label><button class="button button-primary" type="submit">Save profile</button></form><aside class="settings-preview"><p class="small-caps">Preview</p><div class="portrait-card mini"><div class="portrait-monogram">N</div><div class="portrait-caption"><strong>${escapeHtml(this.profile.display_name || "Naim")}</strong><span>${escapeHtml(data.intro || "Your honest introduction appears here.")}</span></div></div><div class="honest-card"><h3>What you should know</h3><p>${escapeHtml(data.what_to_know || "Your honest disclosure appears here.")}</p></div></aside></section></div>`, "profile");
+    bindAdminShell();
+    appRoot.querySelector("[data-profile-form]")?.addEventListener("submit", (event) => void this.save(event));
+  }
+  async save(event) {
+    event.preventDefault(); const form = event.currentTarget; const button = form.querySelector("button"); button.disabled = true; button.textContent = "Saving…";
+    const profileData = { ...(this.profile.profile_data || {}), intro: form.intro.value.trim(), what_to_know: form.whatToKnow.value.trim(), traits: form.traits.value.split("\n").map((item) => item.trim()).filter(Boolean) };
+    try { const rows = await dbPatch("um_owner_profile", "id=eq.1", { display_name: form.displayName.value.trim(), photo_url: form.photoUrl.value.trim() || null, profile_data: profileData }); this.profile = rows[0] || { ...this.profile, display_name: form.displayName.value.trim(), photo_url: form.photoUrl.value.trim() || null, profile_data: profileData }; toast("Profile saved", "good"); this.render(); }
+    catch (error) { toast(error.message, "bad"); button.disabled = false; button.textContent = "Save profile"; }
+  }
+}
+
+class AdminAccount {
+  cleanup() {}
+  async start() {
+    const session = await validAuth(); if (!session) return renderAdminLogin();
+    appRoot.innerHTML = adminShell(`<div class="admin-page settings-page"><header class="admin-top"><div><p class="small-caps">Owner security</p><h1>Account</h1><p>Signed in as ${escapeHtml(session.user?.email || "owner")}</p></div></header><section class="account-card"><h2>Change password</h2><p>Use at least 12 characters. This updates your Supabase owner login immediately.</p><form class="field-stack" data-password-form><label>New password<input class="input" name="password" type="password" minlength="12" autocomplete="new-password" required></label><label>Confirm password<input class="input" name="confirm" type="password" minlength="12" autocomplete="new-password" required></label><button class="button button-primary" type="submit">Update password</button></form></section></div>`, "account");
+    bindAdminShell(); appRoot.querySelector("[data-password-form]")?.addEventListener("submit", (event) => void this.save(event));
+  }
+  async save(event) {
+    event.preventDefault(); const form = event.currentTarget; if (form.password.value !== form.confirm.value) return toast("Passwords do not match", "bad");
+    const session = await validAuth(); const button = form.querySelector("button"); button.disabled = true; button.textContent = "Updating…";
+    try { await fetchJson(`${SUPABASE_URL}/auth/v1/user`, { method: "PUT", headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${session.access_token}`, "Content-Type": "application/json" }, body: JSON.stringify({ password: form.password.value }) }); form.reset(); toast("Password updated", "good"); }
+    catch (error) { toast(error.message, "bad"); }
+    button.disabled = false; button.textContent = "Update password";
+  }
+}
+
+async function boot() {
+  if (activeCleanup) { try { activeCleanup(); } catch {} activeCleanup = null; }
+  const current = route();
+  if (current.type === "home") return renderHome();
+  if (current.type === "candidate") { const app = new CandidateExperience(current.token); activeCleanup = () => app.cleanup(); return app.start(); }
+  if (current.type === "admin-candidate") { const app = new CandidateDetail(current.id); activeCleanup = () => app.cleanup(); return app.start(); }
+  if (current.type === "admin-profile") { const app = new AdminProfile(); activeCleanup = () => app.cleanup(); return app.start(); }
+  if (current.type === "admin-account") { const app = new AdminAccount(); activeCleanup = () => app.cleanup(); return app.start(); }
+  const app = new AdminDashboard(); activeCleanup = () => app.cleanup(); return app.start();
+}
+
+window.addEventListener("hashchange", boot);
+window.addEventListener("visibilitychange", () => {
+  const current = route();
+  if (current.type === "candidate" && document.visibilityState === "hidden") {
+    // CandidateExperience records this through its own session heartbeat and interaction methods.
+  }
+});
+boot();
+</script>
+</body>
+</html>
