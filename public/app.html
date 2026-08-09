@@ -1438,16 +1438,18 @@ function baseUrl() {
 function route() {
   const hash = location.hash.replace(/^#/, "");
   if (hash.startsWith("i/")) return { type: "candidate", token: decodeURIComponent(hash.slice(2)) };
+  // Owner navigation is stored in the hash so it still works after a sign-in at /admin/login.
+  // Resolve it before the path-based login route, otherwise every candidate detail link falls back to the dashboard.
+  if (hash.startsWith("admin/candidate/")) return { type: "admin-candidate", id: decodeURIComponent(hash.slice("admin/candidate/".length)) };
+  if (hash === "admin/profile") return { type: "admin-profile" };
+  if (hash === "admin/account") return { type: "admin-account" };
+  if (hash.startsWith("admin")) return { type: "admin" };
   const path = location.pathname.replace(/\/+$/, "") || "/";
   if (path.startsWith("/i/")) return { type: "candidate", token: decodeURIComponent(path.slice(3)) };
   if (path === "/admin/forgot") return { type: "admin-forgot" };
   if (path === "/admin/reset") return { type: "admin-reset" };
   if (path === "/admin/secure-reset") return { type: "admin-secure-reset" };
   if (path === "/admin" || path === "/admin/login") return { type: "admin" };
-  if (hash.startsWith("admin/candidate/")) return { type: "admin-candidate", id: decodeURIComponent(hash.slice("admin/candidate/".length)) };
-  if (hash === "admin/profile") return { type: "admin-profile" };
-  if (hash === "admin/account") return { type: "admin-account" };
-  if (hash.startsWith("admin")) return { type: "admin" };
   return { type: "home" };
 }
 
