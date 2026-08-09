@@ -1435,6 +1435,8 @@ function route() {
   if (hash.startsWith("i/")) return { type: "candidate", token: decodeURIComponent(hash.slice(2)) };
   const path = location.pathname.replace(/\/+$/, "") || "/";
   if (path.startsWith("/i/")) return { type: "candidate", token: decodeURIComponent(path.slice(3)) };
+  if (path === "/admin/forgot") return { type: "admin-forgot" };
+  if (path === "/admin/reset") return { type: "admin-reset" };
   if (path === "/admin" || path === "/admin/login") return { type: "admin" };
   if (hash.startsWith("admin/candidate/")) return { type: "admin-candidate", id: decodeURIComponent(hash.slice("admin/candidate/".length)) };
   if (hash === "admin/profile") return { type: "admin-profile" };
@@ -1446,6 +1448,11 @@ function route() {
 function setRoute(value) {
   if (location.hash === `#${value}`) boot();
   else location.hash = value;
+}
+
+function setPath(path) {
+  history.pushState({}, "", path);
+  boot();
 }
 
 function heartMark(size = 22) {
@@ -1908,6 +1915,21 @@ async function passwordLogin(email, password) {
   return session;
 }
 
+async function requestPasswordReset(email) {
+  return fetchJson(`${SUPABASE_URL}/auth/v1/recover`, {
+    method: "POST",
+    headers: { apikey: SUPABASE_KEY, "Content-Type": "application/json" },
+    body: JSON.stringify({ email, redirect_to: `${baseUrl()}/admin/reset` })
+  });
+}
+
+function recoverySession() {
+  const values = new URLSearchParams(location.hash.replace(/^#/, ""));
+  const accessToken = values.get("access_token");
+  if (!accessToken || values.get("type") !== "recovery") return null;
+  return { access_token: accessToken, refresh_token: values.get("refresh_token"), expires_at: Math.floor(Date.now() / 1000) + Number(values.get("expires_in") || 3600) };
+}
+
 async function refreshAuth(session) {
   const data = await fetchJson(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
     method: "POST",
@@ -1960,8 +1982,9 @@ function statusBadge(status) {
 function renderAdminLogin(error = "") {
   document.documentElement.dir = "ltr";
   document.documentElement.lang = "en";
-  appRoot.innerHTML = `<main class="auth-shell"><section class="auth-card"><div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div><p class="small-caps">Private owner access</p><h1>Sign in to your dashboard.</h1><p>Review invitations, partial answers, activity, and compatibility evidence.</p><form data-login-form><label>Email<input class="input" name="email" type="email" autocomplete="email" value="naimozduman@gmail.com" required></label><label>Password<input class="input" name="password" type="password" autocomplete="current-password" required></label>${error ? `<div class="notice notice-bad">${escapeHtml(error)}</div>` : ""}<button class="button button-primary button-wide" type="submit">Sign in</button></form><button class="back-link" data-route="home">← Back</button></section></main>`;
+  appRoot.innerHTML = `<main class="auth-shell"><section class="auth-card"><div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div><p class="small-caps">Private owner access</p><h1>Sign in to your dashboard.</h1><p>Review invitations, partial answers, activity, and compatibility evidence.</p><form data-login-form><label>Email<input class="input" name="email" type="email" autocomplete="email" value="naimozduman@gmail.com" required></label><label>Password<input class="input" name="password" type="password" autocomplete="current-password" required></label>${error ? `<div class="notice notice-bad">${escapeHtml(error)}</div>` : ""}<button class="button button-primary button-wide" type="submit">Sign in</button></form><button class="text-button" data-forgot-password>Forgot password?</button><button class="back-link" data-route="home">← Back</button></section></main>`;
   appRoot.querySelector("[data-route]")?.addEventListener("click", () => setRoute("home"));
+  appRoot.querySelector("[data-forgot-password]")?.addEventListener("click", () => setPath("/admin/forgot"));
   appRoot.querySelector("[data-login-form]")?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -1976,6 +1999,48 @@ function renderAdminLogin(error = "") {
       if (String(error.message) === "AUTH_REQUIRED") saveAuth(null);
       renderAdminLogin(error.message);
     }
+  });
+}
+
+function renderPasswordResetRequest(error = "", sent = false) {
+  document.documentElement.dir = "ltr";
+  document.documentElement.lang = "en";
+  const body = sent
+    ? `<p>Check your inbox for the reset link. It returns here so you can choose a new password privately.</p><button class="button button-primary button-wide" data-back-login>Back to sign in</button>`
+    : `<p>We will email a secure password reset link to the owner address.</p><form data-reset-request-form><label>Email<input class="input" name="email" type="email" autocomplete="email" value="naimozduman@gmail.com" required></label>${error ? `<div class="notice notice-bad">${escapeHtml(error)}</div>` : ""}<button class="button button-primary button-wide" type="submit">Send reset link</button></form><button class="back-link" data-back-login>← Back to sign in</button>`;
+  appRoot.innerHTML = `<main class="auth-shell"><section class="auth-card"><div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div><p class="small-caps">Owner password reset</p><h1>Reset your password.</h1>${body}</section></main>`;
+  appRoot.querySelectorAll("[data-back-login]").forEach((button) => button.addEventListener("click", () => setPath("/admin/login")));
+  appRoot.querySelector("[data-reset-request-form]")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const button = form.querySelector("button");
+    button.disabled = true; button.textContent = "Sending…";
+    try { await requestPasswordReset(form.email.value.trim()); renderPasswordResetRequest("", true); }
+    catch (resetError) { renderPasswordResetRequest(resetError.message); }
+  });
+}
+
+function renderPasswordReset(error = "") {
+  document.documentElement.dir = "ltr";
+  document.documentElement.lang = "en";
+  const session = recoverySession();
+  const body = session
+    ? `<p>Choose a new password. This form submits directly to Supabase Auth.</p><form data-new-password-form><label>New password<input class="input" name="password" type="password" minlength="12" autocomplete="new-password" required></label><label>Confirm password<input class="input" name="confirm" type="password" minlength="12" autocomplete="new-password" required></label>${error ? `<div class="notice notice-bad">${escapeHtml(error)}</div>` : ""}<button class="button button-primary button-wide" type="submit">Update password</button></form>`
+    : `<p>Open the reset link from your email to continue. The link is single use.</p><button class="button button-primary button-wide" data-request-another>Send another reset link</button>`;
+  appRoot.innerHTML = `<main class="auth-shell"><section class="auth-card"><div class="brand"><span class="brand-mark">${heartMark(18)}</span><span>Us, Maybe?</span></div><p class="small-caps">Owner password reset</p><h1>Choose a new password.</h1>${body}<button class="back-link" data-back-login>← Back to sign in</button></section></main>`;
+  appRoot.querySelector("[data-back-login]")?.addEventListener("click", () => setPath("/admin/login"));
+  appRoot.querySelector("[data-request-another]")?.addEventListener("click", () => setPath("/admin/forgot"));
+  appRoot.querySelector("[data-new-password-form]")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.password.value !== form.confirm.value) return renderPasswordReset("Passwords do not match.");
+    const button = form.querySelector("button");
+    button.disabled = true; button.textContent = "Updating…";
+    try {
+      await fetchJson(`${SUPABASE_URL}/auth/v1/user`, { method: "PUT", headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${session.access_token}`, "Content-Type": "application/json" }, body: JSON.stringify({ password: form.password.value }) });
+      history.replaceState({}, "", "/admin/login");
+      renderAdminLogin("Password updated. Sign in with your new password.");
+    } catch (resetError) { renderPasswordReset(resetError.message); }
   });
 }
 
@@ -2203,6 +2268,8 @@ async function boot() {
   if (activeCleanup) { try { activeCleanup(); } catch {} activeCleanup = null; }
   const current = route();
   if (current.type === "home") return renderHome();
+  if (current.type === "admin-forgot") return renderPasswordResetRequest();
+  if (current.type === "admin-reset") return renderPasswordReset();
   if (current.type === "candidate") { const app = new CandidateExperience(current.token); activeCleanup = () => app.cleanup(); return app.start(); }
   if (current.type === "admin-candidate") { const app = new CandidateDetail(current.id); activeCleanup = () => app.cleanup(); return app.start(); }
   if (current.type === "admin-profile") { const app = new AdminProfile(); activeCleanup = () => app.cleanup(); return app.start(); }
@@ -2211,6 +2278,7 @@ async function boot() {
 }
 
 window.addEventListener("hashchange", boot);
+window.addEventListener("popstate", boot);
 window.addEventListener("visibilitychange", () => {
   const current = route();
   if (current.type === "candidate" && document.visibilityState === "hidden") {
