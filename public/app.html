@@ -2090,8 +2090,17 @@ function bindAdminShell() {
 }
 
 class AdminDashboard {
-  constructor() { this.interval = null; this.invitations = []; this.sessions = []; this.answers = []; }
-  cleanup() { if (this.interval) clearInterval(this.interval); }
+  constructor() {
+    this.interval = null;
+    this.invitations = [];
+    this.sessions = [];
+    this.answers = [];
+    this.snapshot = "";
+    this.refreshing = false;
+    this.drawerOpen = false;
+    this.pendingRender = false;
+  }
+  cleanup() { if (this.interval) clearInterval(this.interval); this.interval = null; }
   async start() {
     if (!(await validAuth())) { renderAdminLogin(); return; }
     appRoot.innerHTML = adminShell(`<div class="admin-loading"><div class="loader-ring"></div></div>`);
@@ -2107,17 +2116,32 @@ class AdminDashboard {
     }
   }
   async load(silent = false) {
-    const [invitations, sessions, answers] = await Promise.all([
-      dbGet("um_invitations", "select=*&order=created_at.desc&limit=200"),
-      dbGet("um_sessions", "select=*&order=last_seen_at.desc&limit=1000"),
-      dbGet("um_answers", "select=invitation_id,question_id,updated_at&limit=5000")
-    ]);
-    this.invitations = invitations || []; this.sessions = sessions || []; this.answers = answers || [];
-    this.render(silent);
+    if (silent && this.refreshing) return;
+    this.refreshing = true;
+    try {
+      const [invitations, sessions, answers] = await Promise.all([
+        dbGet("um_invitations", "select=*&order=created_at.desc&limit=200"),
+        dbGet("um_sessions", "select=*&order=last_seen_at.desc&limit=1000"),
+        dbGet("um_answers", "select=invitation_id,question_id,updated_at&order=updated_at.desc&limit=5000")
+      ]);
+      const next = { invitations: invitations || [], sessions: sessions || [], answers: answers || [] };
+      const snapshot = JSON.stringify(next);
+      const changed = snapshot !== this.snapshot;
+      this.invitations = next.invitations; this.sessions = next.sessions; this.answers = next.answers;
+      this.snapshot = snapshot;
+      if (!silent || changed || this.pendingRender) {
+        if (silent && this.drawerOpen) { this.pendingRender = true; return; }
+        this.pendingRender = false;
+        this.render();
+      }
+    } finally {
+      this.refreshing = false;
+    }
   }
   latestSession(id) { return this.sessions.find((session) => session.invitation_id === id) || null; }
   answerCount(id) { return this.answers.filter((answer) => answer.invitation_id === id).length; }
   render() {
+    this.pendingRender = false;
     const total = this.invitations.length;
     const active = this.invitations.filter((invite) => ["opened", "in_progress"].includes(invite.status)).length;
     const submitted = this.invitations.filter((invite) => invite.status === "submitted").length;
@@ -2127,16 +2151,17 @@ class AdminDashboard {
       const isOnline = online(session);
       return `<button class="candidate-row" data-candidate="${invite.id}"><div class="candidate-avatar">${escapeHtml(invite.first_name.slice(0, 1).toUpperCase())}</div><div class="candidate-main"><div class="candidate-name-line"><strong>${escapeHtml(invite.first_name)}</strong>${isOnline ? `<span class="online-dot"></span><span class="online-copy">Online</span>` : ""}</div><span>${escapeHtml(invite.source || "Private invitation")} · ${escapeHtml(languageDisplay[invite.language_hint] || "Any language")}</span></div><div class="candidate-status">${statusBadge(invite.status)}</div><div class="candidate-progress-cell"><strong>${Math.round(Number(session?.progress || 0))}%</strong><span>${this.answerCount(invite.id)} answers</span></div><div class="candidate-last"><strong>${relativeTime(session?.last_seen_at || invite.updated_at)}</strong><span>${escapeHtml(session?.current_question_id || session?.current_screen || "Not opened")}</span></div><div class="row-arrow">›</div></button>`;
     }).join("") : `<div class="empty-panel"><div class="empty-icon">${heartMark(28)}</div><h3>No invitations yet</h3><p>Create one private link when you are ready to continue talking with someone.</p></div>`;
-    appRoot.innerHTML = adminShell(`<div class="admin-page"><header class="admin-top"><div><p class="small-caps">Private compatibility dashboard</p><h1>Candidates</h1><p>See answers as they are saved, even before submission.</p></div><button class="button button-primary" data-new-invite>New invitation</button></header><div class="metric-grid"><div class="metric-card"><span>Total invitations</span><strong>${total}</strong></div><div class="metric-card"><span>Active now</span><strong>${active}</strong></div><div class="metric-card"><span>Submitted</span><strong>${submitted}</strong></div><div class="metric-card"><span>Need review</span><strong>${review}</strong></div></div><section class="candidate-panel"><div class="panel-header"><h2>All candidates</h2><span>Updates every 4 seconds</span></div><div class="candidate-table-head"><span>Candidate</span><span>Status</span><span>Progress</span><span>Last activity</span><span></span></div>${rows}</section></div><div class="drawer-layer" data-invite-drawer hidden><div class="drawer-card"><button class="modal-close" data-close-drawer>×</button><p class="small-caps">Unique private link</p><h2>Create an invitation</h2><p>The name stays inside your dashboard. The URL receives a random secret only.</p><form class="field-stack" data-invite-form><label>First name<input class="input" name="firstName" maxlength="80" required></label><label>Where you matched<input class="input" name="source" maxlength="120" placeholder="Hinge, Muzz, Instagram…"></label><label>Suggested language<select class="input" name="language"><option value="">Let her choose</option>${Object.entries(languageDisplay).map(([key, label]) => `<option value="${key}">${escapeHtml(label)}</option>`).join("")}</select></label><label>Link expiration<select class="input" name="days"><option value="7">7 days</option><option value="14" selected>14 days</option><option value="30">30 days</option><option value="60">60 days</option></select></label><button class="button button-primary button-wide" type="submit">Create private link</button></form><div data-created-link></div></div></div>`, "candidates");
+    appRoot.innerHTML = adminShell(`<div class="admin-page"><header class="admin-top"><div><p class="small-caps">Private compatibility dashboard</p><h1>Candidates</h1><p>See answers as they are saved, even before submission.</p></div><button class="button button-primary" data-new-invite>New invitation</button></header><div class="metric-grid"><div class="metric-card"><span>Total invitations</span><strong>${total}</strong></div><div class="metric-card"><span>Active now</span><strong>${active}</strong></div><div class="metric-card"><span>Submitted</span><strong>${submitted}</strong></div><div class="metric-card"><span>Need review</span><strong>${review}</strong></div></div><section class="candidate-panel"><div class="panel-header"><h2>All candidates</h2><span>Checks for updates every 4 seconds</span></div><div class="candidate-table-head"><span>Candidate</span><span>Status</span><span>Progress</span><span>Last activity</span><span></span></div>${rows}</section></div><div class="drawer-layer" data-invite-drawer hidden><div class="drawer-card"><button class="modal-close" data-close-drawer>×</button><p class="small-caps">Unique private link</p><h2>Create an invitation</h2><p>The name stays inside your dashboard. The URL receives a random secret only.</p><form class="field-stack" data-invite-form><label>First name<input class="input" name="firstName" maxlength="80" required></label><label>Where you matched<input class="input" name="source" maxlength="120" placeholder="Hinge, Muzz, Instagram…"></label><label>Suggested language<select class="input" name="language"><option value="">Let her choose</option>${Object.entries(languageDisplay).map(([key, label]) => `<option value="${key}">${escapeHtml(label)}</option>`).join("")}</select></label><label>Link expiration<select class="input" name="days"><option value="7">7 days</option><option value="14" selected>14 days</option><option value="30">30 days</option><option value="60">60 days</option></select></label><button class="button button-primary button-wide" type="submit">Create private link</button></form><div data-created-link></div></div></div>`, "candidates");
     bindAdminShell();
     appRoot.querySelectorAll("[data-candidate]").forEach((button) => button.addEventListener("click", () => setRoute(`admin/candidate/${button.dataset.candidate}`)));
     const drawer = appRoot.querySelector("[data-invite-drawer]");
-    appRoot.querySelector("[data-new-invite]")?.addEventListener("click", () => { drawer.hidden = false; drawer.querySelector("input")?.focus(); });
-    appRoot.querySelector("[data-close-drawer]")?.addEventListener("click", () => { drawer.hidden = true; });
+    appRoot.querySelector("[data-new-invite]")?.addEventListener("click", () => { this.drawerOpen = true; drawer.hidden = false; drawer.querySelector("input")?.focus(); });
+    appRoot.querySelector("[data-close-drawer]")?.addEventListener("click", () => { this.drawerOpen = false; this.render(); });
     appRoot.querySelector("[data-invite-form]")?.addEventListener("submit", (event) => void this.createInvite(event));
   }
   async createInvite(event) {
     event.preventDefault();
+    this.drawerOpen = true;
     const form = event.currentTarget;
     const button = form.querySelector("button[type=submit]");
     button.disabled = true; button.textContent = "Creating…";
@@ -2163,8 +2188,8 @@ const eventNames = {
 };
 
 class CandidateDetail {
-  constructor(id) { this.id = id; this.interval = null; this.tab = "summary"; this.bundle = null; }
-  cleanup() { if (this.interval) clearInterval(this.interval); }
+  constructor(id) { this.id = id; this.interval = null; this.tab = "summary"; this.bundle = null; this.snapshot = ""; this.refreshing = false; this.pendingRender = false; }
+  cleanup() { if (this.interval) clearInterval(this.interval); this.interval = null; }
   async start() {
     if (!(await validAuth())) { renderAdminLogin(); return; }
     appRoot.innerHTML = adminShell(`<div class="admin-loading"><div class="loader-ring"></div></div>`);
@@ -2172,22 +2197,39 @@ class CandidateDetail {
     try { await this.load(); this.interval = setInterval(() => this.load(true), 3000); }
     catch (error) { if (error.message === "AUTH_REQUIRED") return renderAdminLogin(); appRoot.innerHTML = adminShell(`<div class="state-card"><h1>Candidate unavailable</h1><p>${escapeHtml(error.message)}</p><button class="button button-primary" data-back-admin>Back</button></div>`); bindAdminShell(); appRoot.querySelector("[data-back-admin]")?.addEventListener("click", () => setRoute("admin")); }
   }
-  async load() {
-    const filter = `invitation_id=eq.${encodeURIComponent(this.id)}`;
-    const [invites, sessions, answers, revisions, events] = await Promise.all([
-      dbGet("um_invitations", `select=*&id=eq.${encodeURIComponent(this.id)}&limit=1`),
-      dbGet("um_sessions", `select=*&${filter}&order=started_at.desc`),
-      dbGet("um_answers", `select=*&${filter}&order=created_at.asc`),
-      dbGet("um_answer_revisions", `select=*&${filter}&order=created_at.desc&limit=300`),
-      dbGet("um_activity_events", `select=*&${filter}&order=created_at.desc&limit=400`)
-    ]);
-    if (!invites?.length) throw new Error("Candidate not found.");
-    const answerMap = Object.fromEntries((answers || []).map((answer) => [answer.question_id, answer.value]));
-    this.bundle = { invitation: invites[0], sessions: sessions || [], answers: answers || [], revisions: revisions || [], events: events || [], answerMap, score: scoreAnswers(answerMap) };
-    this.render();
+  async load(silent = false) {
+    if (silent && this.refreshing) return;
+    this.refreshing = true;
+    try {
+      const filter = `invitation_id=eq.${encodeURIComponent(this.id)}`;
+      const [invites, sessions, answers, revisions, events] = await Promise.all([
+        dbGet("um_invitations", `select=*&id=eq.${encodeURIComponent(this.id)}&limit=1`),
+        dbGet("um_sessions", `select=*&${filter}&order=started_at.desc`),
+        dbGet("um_answers", `select=*&${filter}&order=created_at.asc`),
+        dbGet("um_answer_revisions", `select=*&${filter}&order=created_at.desc&limit=300`),
+        dbGet("um_activity_events", `select=*&${filter}&order=created_at.desc&limit=400`)
+      ]);
+      if (!invites?.length) throw new Error("Candidate not found.");
+      const answerMap = Object.fromEntries((answers || []).map((answer) => [answer.question_id, answer.value]));
+      const next = { invitation: invites[0], sessions: sessions || [], answers: answers || [], revisions: revisions || [], events: events || [], answerMap, score: scoreAnswers(answerMap) };
+      const snapshot = JSON.stringify(next);
+      const changed = snapshot !== this.snapshot;
+      this.bundle = next;
+      this.snapshot = snapshot;
+      const focused = document.activeElement;
+      const editing = focused && appRoot.contains(focused) && ["INPUT", "TEXTAREA", "SELECT"].includes(focused.tagName);
+      if (!silent || changed || this.pendingRender) {
+        if (silent && editing) { this.pendingRender = true; return; }
+        this.pendingRender = false;
+        this.render();
+      }
+    } finally {
+      this.refreshing = false;
+    }
   }
   latestSession() { return this.bundle.sessions[0] || null; }
   render() {
+    this.pendingRender = false;
     const { invitation, answers, revisions, events, score } = this.bundle;
     const session = this.latestSession();
     const isOnline = online(session);
